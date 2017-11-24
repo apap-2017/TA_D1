@@ -25,9 +25,7 @@ CREATE TABLE kurikulum (
     jumlah_sks_pilihan INTEGER NOT NULL,
     id_prodi INTEGER NOT NULL,
     id_fakultas INTEGER NOT NULL,
-    PRIMARY KEY(id),
-    FOREIGN KEY(id_prodi) REFERENCES prodi(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(id_fakultas) REFERENCES fakultas(id) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE mata_kuliah (
@@ -39,7 +37,6 @@ CREATE TABLE mata_kuliah (
     id_prodi INTEGER NOT NULL,
     id_kurikulum INTEGER NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(id_prodi) REFERENCES prodi(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(id_kurikulum) REFERENCES kurikulum(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
