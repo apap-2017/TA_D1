@@ -13,6 +13,7 @@ CREATE TABLE users (
     password VARCHAR(50) NOT NULL,
     nama VARCHAR(150) NOT NULL,
     id_role INTEGER NOT NULL,
+    id_universitas INTEGER NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id_role) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -65,12 +66,12 @@ INSERT INTO roles (id, nama_role) VALUES (2,'ROLE_SEKRE');
 INSERT INTO roles (id, nama_role) VALUES (3,'ROLE_DOSEN');
 INSERT INTO roles (id, nama_role) VALUES (4,'ROLE_MAHASISWA');
 
-INSERT INTO users (id, username, password, nama, id_role) values (1, 'kaprodi1', 'kaprodi', 'Faisal Rizky', 1, 1);
-INSERT INTO users (id, username, password, nama, id_role) values (2, 'kaprodi2', 'kaprodi', 'Radhitya Rahman', 1, 2);
-INSERT INTO users (id, username, password, nama, id_role) values (3, 'kaprodi3', 'kaprodi', 'Aditya Putra', 1, 3);
-INSERT INTO users (id, username, password, nama, id_role) values (4, 'sekre', 'sekre', 'Kurniawan Bahari', 2, 1);
-INSERT INTO users (id, username, password, nama, id_role) values (5, 'dosen', 'dosen', 'Muhammad Panji', 3, 1);
-INSERT INTO users (id, username, password, nama, id_role) values (6, 'mahasiswa', 'mahasiswa', 'Junior Aji', 4, 1);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (1, 'kaprodi1', 'kaprodi', 'Faisal Rizky', 1, 1);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (2, 'kaprodi2', 'kaprodi', 'Radhitya Rahman', 1, 2);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (3, 'kaprodi3', 'kaprodi', 'Aditya Putra', 1, 3);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (4, 'sekre', 'sekre', 'Kurniawan Bahari', 2, 1);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas, id_universitas) values (5, 'dosen', 'dosen', 'Muhammad Panji', 3, 1);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (6, 'mahasiswa', 'mahasiswa', 'Junior Aji', 4, 1);
 
 INSERT INTO KURIKULUM(id,kode_kurikulum,nama_kurikulum,jumlah_sks_wajib,jumlah_sks_pilihan,id_prodi,id_fakultas) VALUES (1,'KRK001','Kurikulum S1 Program Studi A1X',118,26,1,1);
 INSERT INTO KURIKULUM(id,kode_kurikulum,nama_kurikulum,jumlah_sks_wajib,jumlah_sks_pilihan,id_prodi,id_fakultas) VALUES (2,'KRK002','Kurikulum S1 Program Studi A1Y',120,24,2,1);
