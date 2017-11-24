@@ -1,5 +1,4 @@
 CREATE SCHEMA IF NOT EXISTS kurikulum;
-SET search_path to kurikulum;
 
 CREATE TABLE roles (
     id INTEGER NOT NULL,
@@ -70,7 +69,7 @@ INSERT INTO users (id, username, password, nama, id_role, id_universitas) values
 INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (2, 'kaprodi2', 'kaprodi', 'Radhitya Rahman', 1, 2);
 INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (3, 'kaprodi3', 'kaprodi', 'Aditya Putra', 1, 3);
 INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (4, 'sekre', 'sekre', 'Kurniawan Bahari', 2, 1);
-INSERT INTO users (id, username, password, nama, id_role, id_universitas, id_universitas) values (5, 'dosen', 'dosen', 'Muhammad Panji', 3, 1);
+INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (5, 'dosen', 'dosen', 'Muhammad Panji', 3, 1);
 INSERT INTO users (id, username, password, nama, id_role, id_universitas) values (6, 'mahasiswa', 'mahasiswa', 'Junior Aji', 4, 1);
 
 INSERT INTO KURIKULUM(id,kode_kurikulum,nama_kurikulum,jumlah_sks_wajib,jumlah_sks_pilihan,id_prodi,id_fakultas) VALUES (1,'KRK001','Kurikulum S1 Program Studi A1X',118,26,1,1);
