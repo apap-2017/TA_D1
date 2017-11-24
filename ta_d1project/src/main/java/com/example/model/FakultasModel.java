@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class FakultasModel
 {
     private int id;
-    private String kode_fakultas;
+    private int id_fakultas;
     private String nama_fakultas;
     private List<ProdiModel> prodis;
 }
