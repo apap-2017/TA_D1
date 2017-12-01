@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AngkatanModel
 {
-    private int id_angkatan;
+    private int id;
     private String nama;
     private int id_prodi;
     private int id_kurikulum;
