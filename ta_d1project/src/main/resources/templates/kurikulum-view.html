@@ -97,7 +97,7 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-10">
 				<!--<ul class="nav nav-pills nav-stacked">
 				    <li><a href="#">Kurikulum XXXX</a></li>
 				    <li><a href="#">Term 1</a></li>
@@ -106,47 +106,14 @@
 			  	</ul>-->
 			  	
 			  	<div class="tab">
-				  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
-				  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-				  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+			  		<h3 style="margin-left: 10px">Term</h3>
+					<button class="tablinks" onclick="openCity(event, 'term_1')" id="defaultOpen">Term 1</button>
+					<button class="tablinks" onclick="openCity(event, 'term_2')">Term 2</button>
+					<button class="tablinks" onclick="openCity(event, 'term_3')">Term 3</button>
 				</div>
 				
-				<div id="London" class="tabcontent">
-				  <h3>London</h3>
-				  <p>London is the capital city of England.</p>
-				</div>
-				
-				<div id="Paris" class="tabcontent">
-				  <h3>Paris</h3>
-				  <p>Paris is the capital of France.</p> 
-				</div>
-				
-				<div id="Tokyo" class="tabcontent">
-				  <h3>Tokyo</h3>
-				  <p>Tokyo is the capital of Japan.</p>
-				</div>
-				
-				<script>
-				function openCity(evt, cityName) {
-				    var i, tabcontent, tablinks;
-				    tabcontent = document.getElementsByClassName("tabcontent");
-				    for (i = 0; i < tabcontent.length; i++) {
-				        tabcontent[i].style.display = "none";
-				    }
-				    tablinks = document.getElementsByClassName("tablinks");
-				    for (i = 0; i < tablinks.length; i++) {
-				        tablinks[i].className = tablinks[i].className.replace(" active", "");
-				    }
-				    document.getElementById(cityName).style.display = "block";
-				    evt.currentTarget.className += " active";
-				}
-				
-				// Get the element with id="defaultOpen" and click on it
-				document.getElementById("defaultOpen").click();
-				</script>
-			</div>
-			<div class="col-md-9">
-				<h1 th:text="'Kurikulum ' + ${kurikulum.nama_kurikulum} + ' - ' + ${kurikulum.term}">Kurikulum XXXX - Term X</h1>
+				<div id="term_1" class="tabcontent">
+				  <h1 th:text="'Kurikulum ' + ${kurikulum.nama_kurikulum} + ' - ' + ${kurikulum.term}">Kurikulum XXXX - Term X</h1>
 				<div class="pull-right" style="margin-bottom: 20px">
 					<a th:href="'/kurikulum/update/'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					<a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -171,8 +138,43 @@
 						</tr>
 					</tbody>
 				</table>
+				</div>
+				
+				<div id="term_2" class="tabcontent">
+				  <h3>Term 2</h3>
+				  <p>Term 2 is the capital of France.</p> 
+				</div>
+				
+				<div id="term_3" class="tabcontent">
+				  <h3>Term 3</h3>
+				  <p>Term 3 is the capital of Japan.</p>
+				</div>
+				
+				<script>
+				function openCity(evt, cityName) {
+				    var i, tabcontent, tablinks;
+				    tabcontent = document.getElementsByClassName("tabcontent");
+				    for (i = 0; i < tabcontent.length; i++) {
+				        tabcontent[i].style.display = "none";
+				    }
+				    tablinks = document.getElementsByClassName("tablinks");
+				    for (i = 0; i < tablinks.length; i++) {
+				        tablinks[i].className = tablinks[i].className.replace(" active", "");
+				    }
+				    document.getElementById(cityName).style.display = "block";
+				    evt.currentTarget.className += " active";
+				}
+				
+				// Get the element with id="defaultOpen" and click on it
+				document.getElementById("defaultOpen").click();
+				</script>
 			</div>
 		</div>
+	</div>
+	<div class="navbar navbar-default navbar-fixed-bottom">
+    	<div class="container">
+     		<p class="navbar-text text-center">Sistem Informasi Kurikulum - Universitas Indonesia created by D-Kurikulum &copy; 2017</p>
+     	</div>
 	</div>
 </body>
 </html>
