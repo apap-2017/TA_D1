@@ -72,7 +72,7 @@ public class SIKurikulumController {
 			return "kurikulum-update";
 		} else {
 			model.addAttribute("id", id);
-			return "not-found";
+			return "kurikulum-not-found";
 		}
 	}
 
@@ -83,11 +83,15 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
-
-	// halaman konfirmasi hapus kurikulum
-	@RequestMapping("/kurikulum/delete")
-	public String deleteKurikulumConfirmation(Model model, @RequestParam(value = "id", required = true) int id) {
+	
+	//halaman konfirmasi hapus kurikulum
+	@RequestMapping(value = "/kurikulum/delete", method = RequestMethod.POST)
+	public String deleteKurikulumConfirmation(Model model, KurikulumModel kurikulum) {
+		int id = kurikulum.getId();
+		String nama_kurikulum = kurikulum.getNama_kurikulum();
+		
 		model.addAttribute("id", id);
+		model.addAttribute("nama_kurikulum", nama_kurikulum);
 		return "kurikulum-delete-confirmation";
 	}
 
@@ -98,10 +102,10 @@ public class SIKurikulumController {
 
 		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
-			return "kurikulum-delete";
+			return "redirect:/kurikulum/result";
 		} else {
 			model.addAttribute("id", id);
-			return "not-found";
+			return "kurikulum-not-found";
 		}
 	}
 
