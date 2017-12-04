@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class SIKurikulumController {
 	@Autowired
-	//ProductService productDAO;
 
 	@RequestMapping("/")
 	public String index() {
