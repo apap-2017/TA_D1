@@ -104,9 +104,17 @@ div.tab button.active {
 						XXXX - Term X</h1>
 					<div class="pull-right" style="margin-bottom: 20px">
 						<a th:href="'/kurikulum/update/'"><i
-							class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a th:href="'/kurikulum/delete'"><i
-							class="fa fa-trash-o" aria-hidden="true"></i></a>
-							<input type="hidden" name="id" th:value="${kurikulum.id}" />
+							class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+						<form th:object="${kurikulum}" action="/kurikulum/delete" method="post">
+							<div class="form-group">
+								<input type="hidden" name="id" th:value="${kurikulum.id}" />
+								<input type="hidden" name="kode_kurikulum" th:value="${kurikulum.kode_kurikulum}" />
+								<input type="hidden" name="nama_kurikulum" th:value="${kurikulum.nama_kurikulum}" />
+								
+								<a type="submit"><i
+								class="fa fa-trash-o" aria-hidden="true"></i></a>			
+							</div>
+						</form>							
 					</div>
 					<table class="table table-bordered"
 						style="text-align: center; width: 100%">

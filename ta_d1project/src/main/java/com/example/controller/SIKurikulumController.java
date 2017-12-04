@@ -49,6 +49,7 @@ public class SIKurikulumController {
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view/{id}")
 	public String viewPathKurikulum() {
+		
 		return "kurikulum-view";
 	}
 	
