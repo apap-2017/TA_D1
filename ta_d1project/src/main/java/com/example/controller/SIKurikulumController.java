@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
 import com.example.service.KurikulumService;
 
@@ -22,49 +23,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SIKurikulumController {
 	@Autowired
 	KurikulumService kurikulumDAO;
+//	@Autowired
+//	UniversitasService universitasDAO;
 
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
-	
+
 	// akses halaman cari kurikulum
 	@RequestMapping("/kurikulum")
 	public String kurikulum() {
 		return "kurikulum";
 	}
-	
+
 	// akses halaman hasil cari kurikulum
 	@RequestMapping("/kurikulum/result")
 	public String resultKurikulum() {
 		return "kurikulum-result";
 	}
-	
+
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view")
 	public String viewKurikulum() {
 		return "kurikulum-view";
 	}
-	
+
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view/{id}")
 	public String viewPathKurikulum() {
-		
+
 		return "kurikulum-view";
 	}
-	
+
 	// halaman tambah kurikulum
 	@RequestMapping("/kurikulum/add")
 	public String addKurikulum() {
 		return "kurikulum-add";
 	}
-	
+
 	// halaman ubah kurikulum
 	@RequestMapping("/kurikulum/update/{id}")
 	public String updateKurikulum(Model model, @PathVariable(value = "id") int id) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
-		
-		if(kurikulum != null) {
+
+		if (kurikulum != null) {
 			model.addAttribute("kurikulum", kurikulum);
 			return "kurikulum-update";
 		} else {
@@ -72,28 +75,28 @@ public class SIKurikulumController {
 			return "not-found";
 		}
 	}
-	
+
 	// akses halaman submit ubah kurikulum
 	@RequestMapping(value = "/kurikulum/update/submit", method = RequestMethod.POST)
 	public String updateSubmitKurikulum(KurikulumModel kurikulum) {
 		kurikulumDAO.updateKurikulum(kurikulum, kurikulum.getId());
-		
+
 		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
-	
-	//halaman konfirmasi hapus kurikulum
+
+	// halaman konfirmasi hapus kurikulum
 	@RequestMapping("/kurikulum/delete")
 	public String deleteKurikulumConfirmation(Model model, @RequestParam(value = "id", required = true) int id) {
 		model.addAttribute("id", id);
 		return "kurikulum-delete-confirmation";
 	}
-	
+
 	// halaman hapus kurikulum
 	@RequestMapping("/kurikulum/delete/{id}")
-	public String deleteKurikulum(Model model, @PathVariable (value = "id") int id) {
+	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
-		
-		if(kurikulum != null) {
+
+		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
 			return "kurikulum-delete";
 		} else {
@@ -101,4 +104,22 @@ public class SIKurikulumController {
 			return "not-found";
 		}
 	}
+
+//	// akses halaman lihat kurikulum angkatan
+//	@RequestMapping("/kurikulum/angkatan")
+//	public String viewKurikulumAngkatan(Model model) {
+//		List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(1);
+//		
+//		model.addAttribute("fakultases", fakultases);
+//		return "angkatan-pilihProdi";
+//	}
+	
+	// // akses halaman lihat kurikulum angkatan
+	// @RequestMapping("/kurikulum/angkatan")
+	// public String viewKurikulumAngkatanGet(Model model, @RequestParam(value =
+	// "nik", required = true) String nik) {
+	// List<FakultasModel> fakultas = universitasDAO.selectAllFakultas(id_univ);
+	//
+	// return "angkatan-pilihProdi";
+	// }
 }
