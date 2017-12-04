@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.model.KurikulumModel;
+import com.example.service.KurikulumService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class SIKurikulumController {
 	@Autowired
+	KurikulumService kurikulumDAO;
 
 	@RequestMapping("/")
 	public String index() {
@@ -56,19 +60,37 @@ public class SIKurikulumController {
 	
 	// halaman ubah kurikulum
 	@RequestMapping("/kurikulum/update/{id}")
-	public String updateKurikulum() {
-		return "kurikulum-update";
+	public String updateKurikulum(Model model, @PathVariable(value = "id") int id) {
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+		
+		if(kurikulum != null) {
+			model.addAttribute("kurikulum", kurikulum);
+			return "kurikulum-update";
+		} else {
+			model.addAttribute("id", id);
+			return "not-found";
+		}
 	}
 	
 	// akses halaman submit ubah kurikulum
-	@RequestMapping("/kurikulum/update/submit")
-	public String updateSubmitKurikulum() {
-		return "redirect:/kurikulum/view/"; //+ kurikulum.getId();
+	@RequestMapping(value = "/kurikulum/update/submit", method = RequestMethod.POST)
+	public String updateSubmitKurikulum(KurikulumModel kurikulum) {
+		kurikulumDAO.updateKurikulum(kurikulum, kurikulum.getId());
+		
+		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
 	
 	// halaman hapus kurikulum
 	@RequestMapping("/kurikulum/delete/{id}")
-	public String deleteKurikulum() {
-		return "kurikulum-delete";
+	public String deleteKurikulum(Model model, @PathVariable (value = "id") int id) {
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+		
+		if(kurikulum != null) {
+			kurikulumDAO.deleteKurikulum(id);
+			return "kurikulum-delete";
+		} else {
+			model.addAttribute("id", id);
+			return "not-found";
+		}
 	}
 }

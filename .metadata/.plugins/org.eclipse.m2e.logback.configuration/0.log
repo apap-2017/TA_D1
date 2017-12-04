@@ -1,0 +1,44 @@
+2017-12-04 14:16:04,518 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:demo:0.0.1-SNAPSHOT @ /Users/emmasharahwati/TA_D1/ta_d1project/pom.xml.
+2017-12-04 14:16:08,150 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ta_d1project/src/main/java
+2017-12-04 14:16:08,151 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ta_d1project/src/main/resources
+2017-12-04 14:16:08,159 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ta_d1project/src/main/resources
+2017-12-04 14:16:08,171 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ta_d1project/src/test/java
+2017-12-04 14:16:09,156 [Worker-6] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 7 sec
+2017-12-04 14:16:09,160 [Worker-6] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-12-04 14:16:09,716 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:demo:0.0.1-SNAPSHOT @ /Users/emmasharahwati/TA_D1/ta_d1project/pom.xml.
+2017-12-04 14:16:10,580 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ta_d1project/src/main/java
+2017-12-04 14:16:10,582 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ta_d1project/src/main/resources
+2017-12-04 14:16:10,582 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ta_d1project/src/main/resources
+2017-12-04 14:16:10,584 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ta_d1project/src/test/java
+2017-12-04 14:16:10,870 [Worker-6] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 1 sec
+2017-12-04 14:16:12,131 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:12,169 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-12-04 14:16:12,196 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-12-04 14:16:12,202 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:12,203 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
+2017-12-04 14:16:13,892 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:13,897 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-12-04 14:16:13,897 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-12-04 14:16:13,901 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:13,902 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
+2017-12-04 14:16:46,170 [Worker-8] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:SIKurikulum:0.0.1-SNAPSHOT @ /Users/emmasharahwati/TA_D1/ta_d1project/pom.xml.
+2017-12-04 14:16:47,006 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:47,037 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-12-04 14:16:47,069 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 26 resources
+2017-12-04 14:16:47,100 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:47,100 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
+2017-12-04 14:16:50,407 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:50,413 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-12-04 14:16:50,415 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 26 resources
+2017-12-04 14:16:50,438 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:16:50,438 [Worker-12] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
+2017-12-04 14:17:57,636 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:17:57,639 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-12-04 14:17:57,641 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 26 resources
+2017-12-04 14:17:57,644 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:17:57,645 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
+2017-12-04 14:18:05,199 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:18:05,207 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-12-04 14:18:05,211 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 26 resources
+2017-12-04 14:18:05,217 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-12-04 14:18:05,217 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/emmasharahwati/TA_D1/ta_d1project/src/test/resources
