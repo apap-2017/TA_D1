@@ -39,8 +39,9 @@ public class KurikulumServiceDatabase implements KurikulumService{
 	@Override
 	public String updateKurikulum(KurikulumModel kurikulum, int id) {
 		log.info ("update kurikulum with id {}", id);
-        //return kurikulumMapper.updateKurikulum(kurikulum, id);
-        return null;
+		kurikulumMapper.updateKurikulum(kurikulum);
+		
+        return kurikulum.getNama_kurikulum();
 	}
 
 	@Override

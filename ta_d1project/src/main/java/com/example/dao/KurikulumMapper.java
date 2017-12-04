@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.model.KurikulumModel;
 import com.example.model.MataKuliahKurikulumModel;
@@ -34,6 +35,11 @@ public interface KurikulumMapper {
 					many=@Many (select="selectMataKuliahKurikulum"))			
 	})
 	KurikulumModel selectKurikulum(@Param (value = "id") int id);	
+	
+	@Update("UPDATE kurikulum SET kode_kurikulum = #{kode_kurikulum}, nama_kurikulum = #{nama_kurikulum}, "
+			+ "jumlah_sks_wajib = #{jumlah_sks_wajib}, jumlah_sks_pilihan = #{jumlah_sks_pilihan} "
+			+ "where kurikulum.id = #{id}")
+	void updateKurikulum(KurikulumModel kurikulum);
 	
 	@Delete("DELETE FROM kurikulum where id = #{id}")
 	void deleteKurikulum(@Param("id") int id);
