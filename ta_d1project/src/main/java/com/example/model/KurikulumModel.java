@@ -15,4 +15,5 @@ public class KurikulumModel {
 	private int jumlah_sks_pilihan;
 	private int id_prodi;
 	private int id_fakultas;
+	//tes
 }
