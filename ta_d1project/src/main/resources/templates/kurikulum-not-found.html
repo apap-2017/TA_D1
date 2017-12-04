@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Beranda</title>
+<title>NOT FOUND</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
@@ -20,13 +20,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8 text-center">
 				<image src="images/logo.png" />
-				<h5 th:text="'Apakah anda yakin ingin menghapus ' + ${nama_kurikulum} + '?'">Apakah anda yakin ingin menghapus {nama kurikulum}?</h5>
-				<a th:href="'/kurikulum/result/'" class="btn btn-default">Tidak</a>
-				
-				<form th:action="@{/kurikulum/delete/} + ${id}">
-					<a type="submit" class="btn btn-default">Ya</a>
-				</form>
-				<hr />
+				<h3 th:text="'Kurikulum dengan id ' + ${id} + ' tidak ditemukan.'">Kurikulum dengan id {id} tidak ditemukan</h3>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
