@@ -80,6 +80,13 @@ public class SIKurikulumController {
 		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
 	
+	//halaman konfirmasi hapus kurikulum
+	@RequestMapping("/kurikulum/delete")
+	public String deleteKurikulumConfirmation(Model model, @RequestParam(value = "id", required = true) int id) {
+		model.addAttribute("id", id);
+		return "kurikulum-delete-confirmation";
+	}
+	
 	// halaman hapus kurikulum
 	@RequestMapping("/kurikulum/delete/{id}")
 	public String deleteKurikulum(Model model, @PathVariable (value = "id") int id) {
