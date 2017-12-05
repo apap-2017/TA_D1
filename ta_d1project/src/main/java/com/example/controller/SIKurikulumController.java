@@ -87,17 +87,30 @@ public class SIKurikulumController {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
 
 		if (kurikulum != null) {
-			String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
-			String prodi = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
+			//String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
+			//String prodiBefore = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
+			List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(kurikulum.getId_univ()).getResult().getFakultasList();
 			
-			model.addAttribute("fakultas", fakultas);
-			model.addAttribute("prodi", prodi);
+			//model.addAttribute("fakultas", fakultas);
+			model.addAttribute("fakultases", fakultases);
 			model.addAttribute("kurikulum", kurikulum);
 			return "kurikulum-update";
 		} else {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";
 		}
+	}
+	
+	// akses halaman submit ubah kurikulum part 2
+	@RequestMapping(value = "/kurikulum/update/prodi", method = RequestMethod.POST)
+	public String updateKurikulumPart2(Model model, KurikulumModel kurikulum) {
+		String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
+		List<ProdiModel> prodis = universitasDAO.selectAllProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getProdiList();
+		
+		model.addAttribute("prodis", prodis);
+		model.addAttribute("fakultas", fakultas);
+		model.addAttribute("kurikulum", kurikulum);
+		return "kurikulum-update-final";
 	}
 
 	// akses halaman submit ubah kurikulum

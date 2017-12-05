@@ -32,7 +32,7 @@
 				<center>
 					<h3>Ubah Kurikulum</h3>
 				</center>
-				<form action="/kurikulum/update/submit" method="post"
+				<form action="/kurikulum/update/prodi" method="post"
 					th:object="${kurikulum}">
 					<table>
 						<tbody>
@@ -65,19 +65,15 @@
 							<tr>
 								<td class="col-sm-2"><label for="fakultas">Fakultas</label></td>
 								<td class="col-sm-4">
-									<input type="text" name="fakultas" readonly="true" th:value="${fakultas}" />
+									<select th:field="${kurikulum.id_fakultas}" class="form-control" id="fakultas" name="fakultas">
+										<option th:each="eachFakultas,iterationStatus: ${fakultases}" th:value="${eachFakultas.id_fakultas}" th:text="${eachFakultas.nama_fakultas}">Fakultas</option>
+									</select>
 								</td>
 							</tr>
-							<tr>
-								<td class="col-sm-2"><label for="prodi">Prodi</label></td>
-								<td class="col-sm-4">
-									<input type="text" name="prodi" readonly="true" th:value="${prodi}" />
-								</td>
-							</tr>
-							<input type="hidden" name="id_univ" th:value="${kurikulum.id_univ}" />
-							<input type="hidden" name="id" th:value="${kurikulum.id}" />
 						</tbody>
 					</table>
+					<input type="hidden" name="id_univ" th:value="${kurikulum.id_univ}" />
+					<input type="hidden" name="id" th:value="${kurikulum.id}" />
 					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
 						<a th:href="'/kurikulum/add/'" class="btn btn-danger">Batal</a>
 						<button type="submit" class="btn btn-success">Selanjutnya</button>
