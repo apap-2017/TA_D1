@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
+import com.example.model.ProdiModel;
+import com.example.model.ResultModel;
 import com.example.service.KurikulumService;
 import com.example.service.UniversitasService;
 
@@ -112,10 +115,28 @@ public class SIKurikulumController {
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model) {
-		List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(1);
+	public String viewKurikulumAngkatan(Model model, @RequestParam(value = "fakultas", required = false) String fakultas) {
+		String halaman= "angkatan-pilihFakultas";
 		
-		model.addAttribute("fakultases", fakultases);
-		return "angkatan-pilihProdi";
+		if (fakultas !=null) {
+			int id_fakultas = Integer.parseInt(fakultas);
+			ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
+			ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
+			List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
+			FakultasModel fkl = apiDua.getResult().getFakultas();
+			
+			model.addAttribute("fakultas", fkl);
+			model.addAttribute("listProdi", listProdi);
+			
+			halaman = "angkatan-pilihProdi";
+		} else {
+			ApiModel api = universitasDAO.selectAllFakultas(1);
+			ResultModel result = api.getResult();
+			List<FakultasModel> listFakultas = result.getFakultasList();
+			
+			model.addAttribute("listFakultas", listFakultas);
+			
+		}
+		return halaman;
 	}
 }
