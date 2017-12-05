@@ -31,7 +31,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SIKurikulumController {
 	@Autowired
 	MataKuliahService matkulDAO;
+	@Autowired
 	KurikulumService kurikulumDAO;
+	@Autowired
 	UniversitasService universitasDAO;
 	
 	@RequestMapping("/")
@@ -167,7 +169,6 @@ public class SIKurikulumController {
 			List<FakultasModel> listFakultas = result.getFakultasList();
 
 			model.addAttribute("listFakultas", listFakultas);
-
 		}
 		return halaman;
 	}

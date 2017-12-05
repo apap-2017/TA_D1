@@ -12,10 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UniversitasServiceRest implements UniversitasService {
 	@Autowired
-	UniversitasDAO universitasDAO;
+	private UniversitasDAO universitasDAO;
 
 	@Override
 	public ApiModel selectAllFakultas(int id_univ) {
+		log.info("masuk");
 		log.info(universitasDAO.selectAllFakultas(id_univ).getMsg());
 		return universitasDAO.selectAllFakultas(id_univ);
 	}

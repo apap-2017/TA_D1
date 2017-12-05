@@ -2,44 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Beranda</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">SI Kurikulum</a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/">Beranda</a></li>
-				<li><a href="/kurikulum">Kurikulum</a></li>
-				<li><a href="/mata-kuliah">Mata Kuliah</a></li>
-				<li><a href="/angkatan">Angkatan</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-		      <li><a href="#">Admin 1  <i class="fa fa-user-circle"></i></a></li>
-		      <li>
-				<form class="navbar-form" role="search">
-			      	<div class="input-group">
-			          	<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term"></input>
-				      	<div class="input-group-btn">
-							<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-	            		</div>
-		      		</div>
-		      	</form>
-		     </li>
-			</ul>
-			<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out"/>
-	</form>
-		</div>
-	</nav>
-	
 <body>
 	<div th:replace="fragments/fragment :: header"></div>
 	<div class="container" style="margin-top: 50px">
@@ -50,16 +25,14 @@
 				<image src="images/logo.png" />
 				<h6>Selamat datang di Sistem Informasi Kurikulum Universitas</h6>
 				<hr />
-				<h4>Lihat Kurikulum Berdasarkan Kode Kurikulum</h4>
-				<h6>Masukkan Kode Kurikulum</h6>
 				<div class="row">
 					<div class="col-md-6">
 						<h5>Lihat Kurikulum</h5>
 						<form class="form-group" action="/kurikulum/view" method="GET">
-							<div style="margin-left: 25px; margin-right: 25px; margin-bottom: 15px;">
-								<input class="form-control" type="text"
-									name="kode_kurikulum" placeholder="Masukkan kode kurikulum"
-									required="true" />
+							<div
+								style="margin-left: 25px; margin-right: 25px; margin-bottom: 15px;">
+								<input class="form-control" type="text" name="kode_kurikulum"
+									placeholder="Masukkan kode kurikulum" required="true" />
 							</div>
 							<div>
 								<button class="btn btn-primary"
@@ -72,9 +45,8 @@
 						<form class="form-group" action="/mata-kuliah/view" method="GET">
 							<div
 								style="margin-left: 25px; margin-right: 25px; margin-bottom: 15px;">
-								<input class="form-control" type="text"
-									name="kode_matkul" placeholder="Masukkan kode mata kuliah"
-									required="true" />
+								<input class="form-control" type="text" name="kode_matkul"
+									placeholder="Masukkan kode mata kuliah" required="true" />
 							</div>
 							<div>
 								<button class="btn btn-primary"

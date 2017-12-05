@@ -25,13 +25,12 @@ public interface MatkulMapper {
     		@Result(property="jumlah_sks", column="jumlah_sks"),
     		@Result(property="prasyarat_sks", column="prasyarat_sks"),
     		@Result(property="id_prodi", column="id_prodi"),
-    		@Result(property="listPrasyarat", column="id",
+    		@Result(property="listPrasyarat", column="kode_matkul",
     		javaType = List.class,
     		many=@Many(select="selectPrasyarat"))
     })
 	MataKuliahModel selectMataKuliah(@Param("id") int id);
 
-	@Select("select * from mata_kuliah where id IN (select id_prasyarat_matkul from prasyarat_mata_kuliah where id_matkul = #{id})")
-	List<MataKuliahModel> selectPrasyarat (@Param("id") int id);
-
+	@Select("select * from mata_kuliah where kode_matkul IN (select kode_prasyarat_matkul from prasyarat_mata_kuliah where kode_matkul = #{id})")
+	List<MataKuliahModel> selectPrasyarat (@Param("kode_matkul") String kode_matkul);
 }
