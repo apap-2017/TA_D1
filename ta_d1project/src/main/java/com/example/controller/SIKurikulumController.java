@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
 import com.example.service.KurikulumService;
+import com.example.service.UniversitasService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,8 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SIKurikulumController {
 	@Autowired
 	KurikulumService kurikulumDAO;
-//	@Autowired
-//	UniversitasService universitasDAO;
+	@Autowired
+	UniversitasService universitasDAO;
 
 	@RequestMapping("/")
 	public String index() {
@@ -109,21 +110,12 @@ public class SIKurikulumController {
 		}
 	}
 
-//	// akses halaman lihat kurikulum angkatan
-//	@RequestMapping("/kurikulum/angkatan")
-//	public String viewKurikulumAngkatan(Model model) {
-//		List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(1);
-//		
-//		model.addAttribute("fakultases", fakultases);
-//		return "angkatan-pilihProdi";
-//	}
-	
-	// // akses halaman lihat kurikulum angkatan
-	// @RequestMapping("/kurikulum/angkatan")
-	// public String viewKurikulumAngkatanGet(Model model, @RequestParam(value =
-	// "nik", required = true) String nik) {
-	// List<FakultasModel> fakultas = universitasDAO.selectAllFakultas(id_univ);
-	//
-	// return "angkatan-pilihProdi";
-	// }
+	// akses halaman lihat kurikulum angkatan
+	@RequestMapping("/kurikulum/angkatan")
+	public String viewKurikulumAngkatan(Model model) {
+		List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(1);
+		
+		model.addAttribute("fakultases", fakultases);
+		return "angkatan-pilihProdi";
+	}
 }

@@ -10,15 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.model.FakultasModel;
 
-@Configuration
-class MyConfiguration {
-
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-}
-
 @Service
 public class UnivesitasDAOImpl implements UniversitasDAO {
 	@Autowired
