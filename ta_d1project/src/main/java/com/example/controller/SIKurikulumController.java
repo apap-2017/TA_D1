@@ -21,12 +21,16 @@ import com.example.model.KurikulumModel;
 import com.example.model.ProdiModel;
 import com.example.model.ResultModel;
 import com.example.service.KurikulumService;
+import com.example.service.KurikulumServiceDatabase;
 import com.example.service.UniversitasService;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@Slf4j
 @Controller
 public class SIKurikulumController {
 	@Autowired
