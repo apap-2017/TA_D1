@@ -18,10 +18,12 @@ import com.example.service.MataKuliahService;
 import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
+import com.example.model.MataKuliahKurikulumModel;
 import com.example.model.ProdiModel;
 import com.example.model.ResultModel;
 import com.example.service.KurikulumService;
 import com.example.service.KurikulumServiceDatabase;
+import com.example.service.MataKuliahKurikulumService;
 import com.example.service.UniversitasService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,8 @@ public class SIKurikulumController {
 	MataKuliahService matkulDAO;
 	@Autowired
 	KurikulumService kurikulumDAO;
+	@Autowired
+	MataKuliahKurikulumService mataKuliahKurikulumDAO;
 	@Autowired
 	UniversitasService universitasDAO;
 	
@@ -144,6 +148,13 @@ public class SIKurikulumController {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";
 		}
+	}
+
+	// halaman hapus mata kuliah kurikulum
+	@RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
+	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
+		mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
+		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
 	// akses halaman lihat kurikulum angkatan

@@ -16,7 +16,7 @@ import com.example.model.MataKuliahKurikulumModel;
 import com.example.model.MataKuliahModel;
 
 @Mapper
-public interface KurikulumMapper {
+public interface KurikulumMapper {	
 	@Select("select id, id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan "
 			+ "from kurikulum where id = #{id}")
 	@Results(value= {
