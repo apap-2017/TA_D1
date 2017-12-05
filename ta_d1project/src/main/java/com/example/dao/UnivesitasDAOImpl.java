@@ -31,8 +31,8 @@ public class UnivesitasDAOImpl implements UniversitasDAO {
 
 	@Override
 	public ApiModel selectProdi(int id_univ, int id_fakultas, int id_prodi) {
-		// TODO Auto-generated method stub
-		return null;
+		ApiModel prodi = restTemplate.getForObject("https://apap2017-univ-apps.herokuapp.com/getProdi/1/" + id_fakultas + "/" + id_prodi, ApiModel.class);
+		return prodi;
 	}
 
 }

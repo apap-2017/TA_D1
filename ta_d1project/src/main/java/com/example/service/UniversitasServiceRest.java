@@ -33,8 +33,7 @@ public class UniversitasServiceRest implements UniversitasService {
 
 	@Override
 	public ApiModel selectProdi(int id_univ, int id_fakultas, int id_prodi) {
-		// TODO Auto-generated method stub
-		return null;
+		return universitasDAO.selectProdi(id_univ, id_fakultas, id_prodi);
 	}
 	
 

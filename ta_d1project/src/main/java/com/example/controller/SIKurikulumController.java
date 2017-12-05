@@ -87,13 +87,13 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
-	
-	//halaman konfirmasi hapus kurikulum
+
+	// halaman konfirmasi hapus kurikulum
 	@RequestMapping(value = "/kurikulum/delete", method = RequestMethod.POST)
 	public String deleteKurikulumConfirmation(Model model, KurikulumModel kurikulum) {
 		int id = kurikulum.getId();
 		String nama_kurikulum = kurikulum.getNama_kurikulum();
-		
+
 		model.addAttribute("id", id);
 		model.addAttribute("nama_kurikulum", nama_kurikulum);
 		return "kurikulum-delete-confirmation";
@@ -115,27 +115,45 @@ public class SIKurikulumController {
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model, @RequestParam(value = "fakultas", required = false) String fakultas) {
-		String halaman= "angkatan-pilihFakultas";
-		
-		if (fakultas !=null) {
+	public String viewKurikulumAngkatan(Model model,
+			@RequestParam(value = "fakultas", required = false) String fakultas,
+			@RequestParam(value = "prodi", required = false) String prodi) {
+		String halaman = "angkatan-pilihFakultas";
+
+		if (fakultas != null) {
 			int id_fakultas = Integer.parseInt(fakultas);
-			ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
-			ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
-			List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
-			FakultasModel fkl = apiDua.getResult().getFakultas();
+			if (prodi != null) {
+				int id_prodi = Integer.parseInt(prodi);
+				ApiModel apiSatu = universitasDAO.selectProdi(1, id_fakultas, id_prodi);
+				ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
+				
+				FakultasModel fkl = apiDua.getResult().getFakultas();
+				ProdiModel prd = apiSatu.getResult().getProdi();
+				
+				model.addAttribute("fakultas", fkl);
+				model.addAttribute("prodi", prd);
+				
+				halaman="angkatan-view";
+			} else {
+				ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
+				ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
+				List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
+				FakultasModel fkl = apiDua.getResult().getFakultas();
+
+				model.addAttribute("fakultas", fkl);
+				model.addAttribute("listProdi", listProdi);
+
+				halaman = "angkatan-pilihProdi";
+			}
 			
-			model.addAttribute("fakultas", fkl);
-			model.addAttribute("listProdi", listProdi);
-			
-			halaman = "angkatan-pilihProdi";
-		} else {
+		}
+		else {
 			ApiModel api = universitasDAO.selectAllFakultas(1);
 			ResultModel result = api.getResult();
 			List<FakultasModel> listFakultas = result.getFakultasList();
-			
+
 			model.addAttribute("listFakultas", listFakultas);
-			
+
 		}
 		return halaman;
 	}
