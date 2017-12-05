@@ -16,6 +16,5 @@ public class MataKuliahModel {
 	private Integer jumlah_sks;
 	private Integer prasyarat_sks;
 	private Integer id_prodi;
-	private Integer id_kurikulum;
 	private List<MataKuliahModel> listPrasyarat;
 }

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.model.MataKuliahModel;
+import com.example.service.MataKuliahService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +21,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class SIKurikulumController {
 	@Autowired
+	MataKuliahService matkulDAO;
 	//ProductService productDAO;
 
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
 	
 	// akses halaman cari kurikulum
 	@RequestMapping("/kurikulum")
@@ -71,5 +81,30 @@ public class SIKurikulumController {
 	@RequestMapping("/kurikulum/delete/{id}")
 	public String deleteKurikulum() {
 		return "kurikulum-delete";
+	}
+	
+	@RequestMapping("/matkul/edit/{id}")
+	public String editMatkul(Model model, @PathVariable(value="id") String id) {
+		int id2 = Integer.parseInt(id);
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		if(matkul != null) {
+			model.addAttribute("matkul",matkul);
+			return "form-edit-matkul";
+		} else {
+			return "matkul-not-found";
+		}
+	}
+	
+	@RequestMapping("/matkul/add-prasyarat/{id}")
+	public String addPrasyarat(Model model, @PathVariable(value="id") String id) {
+		int id2 = Integer.parseInt(id);
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		if(matkul != null) {
+			model.addAttribute("matkul",matkul);
+			
+			return "form-add-prasyarat";
+		} else {
+			return "matkul-not-found";
+		}
 	}
 }
