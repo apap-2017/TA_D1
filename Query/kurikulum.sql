@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2017 at 12:25 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Generation Time: 05 Des 2017 pada 14.58
+-- Versi Server: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,452 +23,443 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kurikulum`
+-- Struktur dari tabel `fakultas`
+--
+
+CREATE TABLE `fakultas` (
+  `id_univ` int(11) NOT NULL,
+  `id_fakultas` int(11) NOT NULL,
+  `nama_fakultas` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `fakultas`
+--
+
+INSERT INTO `fakultas` (`id_univ`, `id_fakultas`, `nama_fakultas`) VALUES
+(1, 1, 'Fakultas A1'),
+(1, 2, 'Fakultas A2'),
+(1, 3, 'Fakultas A3'),
+(2, 1, 'Fakultas B1'),
+(2, 2, 'Fakultas B2'),
+(2, 3, 'Fakultas B3'),
+(3, 1, 'Fakultas C1'),
+(3, 2, 'Fakultas C2'),
+(3, 3, 'Fakultas C3');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kurikulum`
 --
 
 CREATE TABLE `kurikulum` (
   `id` int(11) NOT NULL,
+  `id_univ` int(11) NOT NULL,
+  `id_fakultas` int(11) NOT NULL,
+  `id_prodi` int(11) NOT NULL,
   `kode_kurikulum` varchar(30) NOT NULL,
   `nama_kurikulum` varchar(150) NOT NULL,
   `jumlah_sks_wajib` int(11) NOT NULL,
-  `jumlah_sks_pilihan` int(11) NOT NULL,
-  `id_prodi` int(11) NOT NULL,
-  `id_fakultas` int(11) NOT NULL
+  `jumlah_sks_pilihan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kurikulum`
+-- Dumping data untuk tabel `kurikulum`
 --
 
-INSERT INTO `kurikulum` (`id`, `kode_kurikulum`, `nama_kurikulum`, `jumlah_sks_wajib`, `jumlah_sks_pilihan`, `id_prodi`, `id_fakultas`) VALUES
-(1, 'KRK001', 'Kurikulum S1 Program Studi A1X', 118, 26, 1, 1),
-(2, 'KRK002', 'Kurikulum S1 Program Studi A1Y', 120, 24, 2, 1),
-(3, 'KRK003', 'Kurikulum S1 Program Studi A1Z', 124, 20, 3, 1);
+INSERT INTO `kurikulum` (`id`, `id_univ`, `id_fakultas`, `id_prodi`, `kode_kurikulum`, `nama_kurikulum`, `jumlah_sks_wajib`, `jumlah_sks_pilihan`) VALUES
+(1, 1, 1, 1, 'KR1101', 'Kurikulum 2010 Program Studi A1X', 120, 24),
+(2, 1, 1, 2, 'KR1102', 'Kurikulum 2010 Program Studi A1Y', 120, 24),
+(3, 1, 1, 3, 'KR1103', 'Kurikulum 2010 Program Studi A1Z', 120, 24);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mata_kuliah`
+-- Struktur dari tabel `mata_kuliah`
 --
 
 CREATE TABLE `mata_kuliah` (
   `id` int(11) NOT NULL,
+  `id_univ` int(11) NOT NULL,
+  `id_fakultas` int(11) NOT NULL,
+  `id_prodi` int(11) NOT NULL,
   `kode_matkul` varchar(50) NOT NULL,
   `nama_matkul` varchar(150) NOT NULL,
   `jumlah_sks` int(11) NOT NULL,
-  `prasyarat_sks` int(11) DEFAULT NULL,
-  `id_prodi` int(11) NOT NULL
+  `prasyarat_sks` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mata_kuliah`
+-- Dumping data untuk tabel `mata_kuliah`
 --
 
-INSERT INTO `mata_kuliah` (`id`, `kode_matkul`, `nama_matkul`, `jumlah_sks`, `prasyarat_sks`, `id_prodi`) VALUES
-(1, 'MTK10001', 'MPKT A', 6, 0, 1),
-(2, 'MTK10002', 'MPKT B', 6, 0, 1),
-(3, 'MTK10003', 'MPK Bahasa Inggris', 3, 0, 1),
-(4, 'MTK10004', 'MPK Agama Islam', 3, 0, 1),
-(5, 'MTK10005', 'MPK Agama Kristen Katolik', 3, 0, 1),
-(6, 'MTK10006', 'MPK Agama Kristen Protestan', 3, 0, 1),
-(7, 'MTK10007', 'MPK Agama Hindu', 3, 0, 1),
-(8, 'MTK10008', 'MPK Agama Budha', 3, 0, 1),
-(9, 'MTK10009', 'MPK Agama Kong Hu Cu', 3, 0, 1),
-(10, 'MTK10010', 'MPK Seni Apresiasi Film', 1, 0, 1),
-(11, 'MTK10011', 'MPK Seni Batik', 1, 0, 1),
-(12, 'MTK10012', 'MPK Seni Fotografi', 1, 0, 1),
-(13, 'MTK10013', 'MPK Seni Kaligrafi', 1, 0, 1),
-(14, 'MTK10014', 'MPK Seni Karawitan Jawa', 1, 0, 1),
-(15, 'MTK10015', 'MPK Seni Karawitan dan Tari Bali', 1, 0, 1),
-(16, 'MTK10016', 'MPK Seni Komik', 1, 0, 1),
-(17, 'MTK10017', 'MPK Seni Lukis', 1, 0, 1),
-(18, 'MTK10018', 'MPK Seni Apresiasi Musik', 1, 0, 1),
-(19, 'MTK10019', 'MPK Seni Teater', 1, 0, 1),
-(20, 'MTK10020', 'MPK Seni Wayang', 1, 0, 1),
-(21, 'MTK10021', 'MPK Olahraga Bola Basket', 1, 0, 1),
-(22, 'MTK10022', 'MPK Olahraga Bola Voli', 1, 0, 1),
-(23, 'MTK10023', 'MPK Olahraga Bulutangkis', 1, 0, 1),
-(24, 'MTK10024', 'MPK Olahraga Futsal', 1, 0, 1),
-(25, 'MTK10025', 'MPK Olahraga Sepakbola', 1, 0, 1),
-(26, 'MTK10026', 'MPK Olahraga Tenis', 1, 0, 1),
-(27, 'MTK10027', 'MPK Olahraga Tenis Meja', 1, 0, 1),
-(28, 'MTK10028', 'Matematika Dasar 1', 3, 0, 1),
-(29, 'MTK10029', 'Fisika Dasar 1', 3, 0, 1),
-(30, 'MTK10030', 'Matematika Diskret 1', 3, 0, 1),
-(31, 'MTK10031', 'Dasar-Dasar Pemrograman 1', 4, 0, 1),
-(32, 'MTK10032', 'Matematika Diskret 2', 3, 0, 1),
-(33, 'MTK10033', 'Dasar-Dasar Pemrograman 2', 4, 0, 1),
-(34, 'MTK10034', 'Aljabar Linier', 3, 0, 1),
-(35, 'MTK10035', 'Perancangan & Pemrograman Web', 3, 0, 1),
-(36, 'MTK10036', 'Struktur Data & Algoritma', 4, 0, 1),
-(37, 'MTK10037', 'Statistika & Probabilitas', 3, 0, 1),
-(38, 'MTK10038', 'Sistem Operasi', 4, 0, 1),
-(39, 'MTK10039', 'Basis Data', 4, 0, 1),
-(40, 'MTK10040', 'Metodologi Penelitian & Penulisan Ilmiah', 3, 0, 1),
-(41, 'MTK10041', 'Kerja Praktik', 3, 100, 1),
-(42, 'MTK10042', 'Komputer & Masyarakat', 3, 100, 1),
-(43, 'MTK10043', 'Prinsip-Prinsip Sistem Informasi', 3, 0, 1),
-(44, 'MTK10044', 'Dasar-Dasar Arsitektur Komputer', 4, 0, 1),
-(45, 'MTK10045', 'Administrasi Bisnis', 3, 0, 1),
-(46, 'MTK10046', 'Prinsip-Prinsip Manajemen', 3, 0, 1),
-(47, 'MTK10047', 'Sistem-Sistem Perusahaan', 3, 0, 1),
-(48, 'MTK10048', 'Sistem Informasi Akuntansi Keuangan', 3, 0, 1),
-(49, 'MTK10049', 'Sistem Interaksi', 3, 0, 1),
-(50, 'MTK10050', 'Analisis dan Perancangan Sistem Informasi', 3, 0, 1),
-(51, 'MTK10051', 'Arsitektur & Pemrograman Aplikasi Perusahaan', 4, 0, 1),
-(52, 'MTK10052', 'Manajemen Proyek TI', 3, 0, 1),
-(53, 'MTK10053', 'Jaringan Komunikasi Data', 3, 0, 1),
-(54, 'MTK10054', 'Proyek Pengembangan Sistem Informasi', 6, 0, 1),
-(55, 'MTK10055', 'Komunikasi Bisnis dan Teknis', 3, 48, 1),
-(56, 'MTK10056', 'Statistika Terapan', 3, 0, 1),
-(57, 'MTK10057', 'Manajemen Sistem Informasi', 3, 100, 1),
-(58, 'MTK10058', 'Pengantar Sistem Dijital', 4, 0, 1),
-(59, 'MTK10059', 'Pengantar Organisasi Komputer', 3, 0, 1),
-(60, 'MTK10060', 'Matematika Dasar 2', 3, 0, 1),
-(61, 'MTK10061', 'Pemrograman Lanjut', 4, 0, 1),
-(62, 'MTK10062', 'Teori Bahasa & Automata', 4, 0, 1),
-(63, 'MTK10063', 'Rekayasa Perangkat Lunak', 3, 0, 1),
-(64, 'MTK10064', 'Pemrograman Sistem', 3, 0, 1),
-(65, 'MTK10065', 'Sistem Cerdas', 4, 0, 1),
-(66, 'MTK10066', 'Jaringan Komputer', 4, 0, 1),
-(67, 'MTK10067', 'Proyek Perangkat Lunak', 6, 0, 1),
-(68, 'MTK10068', 'Data Science & Analytics', 3, 0, 1),
-(69, 'MTK10069', 'Analisis Numerik', 3, 0, 1),
-(70, 'MTK10070', 'Desain & Analisis Algoritma', 4, 0, 1),
-(71, 'MTK10071', 'Manajemen Layanan TI', 3, 0, 1),
-(72, 'MTK10072', 'Administrasi Sistem', 3, 0, 1),
-(73, 'MTK10073', 'Manajemen Infrastruktur TI', 3, 0, 1),
-(74, 'MTK10074', 'Technopreneurship', 3, 0, 1),
-(75, 'MTK10075', 'Teknologi Mobile', 3, 0, 1),
-(76, 'MTK10076', 'Pengantar Keamanan Informasi', 3, 0, 1),
-(77, 'MTK10077', 'Pengembangan Perangkat Lunak Open Source', 3, 0, 1),
-(78, 'MTK10078', 'Integrasi Aplikasi Perusahaan', 3, 0, 1),
-(79, 'MTK10079', 'Dasar-Dasar Audit SI', 3, 0, 1),
-(80, 'MTK10080', 'Topik Khusus Bidang Minat Manajemen SI/TI', 3, 0, 1),
-(81, 'MTK10081', 'E-Dagang', 3, 0, 1),
-(82, 'MTK10082', 'Sistem Informasi Kesehatan', 3, 0, 1),
-(83, 'MTK10083', 'Konfigurasi ERP', 3, 0, 1),
-(84, 'MTK10084', 'Manajemen Pengetahuan', 3, 0, 1),
-(85, 'MTK10085', 'Analitika Media Sosial', 3, 0, 1),
-(86, 'MTK10086', 'Penambangan Data & Inteligensia Bisnis', 3, 0, 1),
-(87, 'MTK10087', 'Pengelolaan Data Besar', 3, 0, 1),
-(88, 'MTK10088', 'Sistem Informasi Sumber Daya Manusia', 3, 0, 1),
-(89, 'MTK10089', 'Manajemen Hubungan Pelanggan', 3, 0, 1),
-(90, 'MTK10090', 'Manajemen Rantai Suplai', 3, 0, 1),
-(91, 'MTK10091', 'Topik Khusus Bidang Minat Solusi Perusahaan', 3, 0, 1),
-(92, 'MTK10092', 'Tugas Akhir', 6, 0, 1),
-(93, 'MTK10093', 'Basis Data Lanjut', 3, 0, 1),
-(94, 'MTK10094', 'Teknik Kompilator', 4, 0, 1),
-(95, 'MTK10095', 'Grafika Komputer', 3, 0, 1),
-(96, 'MTK10096', 'Kriptografi & Keamanan Informasi', 4, 0, 1),
-(97, 'MTK10097', 'Layanan & Aplikasi Web', 3, 0, 1),
-(98, 'MTK10098', 'Game Development', 3, 0, 1),
-(99, 'MTK10099', 'Pemrograman Paralel', 4, 0, 1),
-(100, 'MTK10100', 'Pemrograman Logika', 4, 0, 1),
-(101, 'MTK10101', 'Penjaminan Mutu Perangkat Lunak', 4, 0, 1),
-(102, 'MTK10102', 'Jejaring Semantik', 3, 0, 1),
-(103, 'MTK10103', 'Metode Formal', 4, 0, 1),
-(104, 'MTK10104', 'Penambangan Data', 3, 0, 1),
-(105, 'MTK10105', 'Pemrograman Fungsional', 4, 0, 1),
-(106, 'MTK10106', 'Pengajaran Berbantuan Komputer', 3, 0, 1),
-(107, 'MTK10107', 'Topik Khusus Bidang Minat Teknologi Perangkat Lunak', 3, 0, 1),
-(108, 'MTK10108', 'Pengolahan Citra', 3, 0, 1),
-(109, 'MTK10109', 'Teori Informasi', 3, 0, 1),
-(110, 'MTK10110', 'Pemelajaran Mesin', 3, 0, 1),
-(111, 'MTK10111', 'Pengolahan Bahasa Manusia', 3, 0, 1),
-(112, 'MTK10112', 'Perolehan Informasi', 3, 0, 1),
-(113, 'MTK10113', 'Pengolahan Sinyal Dijital', 3, 0, 1),
-(114, 'MTK10114', 'Sistem Informasi Geografis', 3, 0, 1),
-(115, 'MTK10115', 'Pengolahan Multimedia', 3, 0, 1),
-(116, 'MTK10116', 'Geometri Komputasional', 4, 0, 1),
-(117, 'MTK10117', 'Pemodelan Geometris', 4, 0, 1),
-(118, 'MTK10118', 'Topik Khusus Bidang Minat Pengolahan Informasi Multimedia', 3, 0, 1),
-(119, 'MTK10119', 'Sistem Tertanam', 3, 0, 1),
-(120, 'MTK10120', 'Organisasi Sistem Komputer', 3, 0, 1),
-(121, 'MTK10121', 'Simulasi & Pemodelan', 3, 0, 1),
-(122, 'MTK10122', 'Sistem Terdistribusi', 3, 0, 1),
-(123, 'MTK10123', 'Ubiquitous & Net-Centric Computing', 3, 0, 1),
-(124, 'MTK10124', 'Robotika', 3, 0, 1),
-(125, 'MTK10125', 'Rancangan Sistem Dijital', 3, 0, 1),
-(126, 'MTK10126', 'Topik Khusus Bidang Minat Arsitektur & Infrastruktur', 3, 0, 1),
-(127, 'MTK10127', 'Bioinformatika', 3, 0, 1),
-(128, 'MTK10128', 'Persamaan Diferensial', 3, 0, 1),
-(129, 'MTK10129', 'Aproksimasi Sistem Nonlinier', 3, 0, 1),
-(130, 'MTK10130', 'Komputasi Lunak', 3, 0, 1),
-(131, 'MTK10131', 'Logika Komputasional', 3, 0, 1),
-(132, 'MTK10132', 'Aljabar Linier Numerik', 3, 0, 1),
-(133, 'MTK10133', 'Topik Khusus Bidang Minat Kecerdasan Komputasional', 3, 0, 1),
-(134, 'MTK20001', 'MPKT A', 6, 0, 2),
-(135, 'MTK20002', 'MPKT B', 6, 0, 2),
-(136, 'MTK20003', 'MPK Bahasa Inggris', 3, 0, 2),
-(137, 'MTK20004', 'MPK Agama Islam', 3, 0, 2),
-(138, 'MTK20005', 'MPK Agama Kristen Katolik', 3, 0, 2),
-(139, 'MTK20006', 'MPK Agama Kristen Protestan', 3, 0, 2),
-(140, 'MTK20007', 'MPK Agama Hindu', 3, 0, 2),
-(141, 'MTK20008', 'MPK Agama Budha', 3, 0, 2),
-(142, 'MTK20009', 'MPK Agama Kong Hu Cu', 3, 0, 2),
-(143, 'MTK20010', 'MPK Seni Apresiasi Film', 1, 0, 2),
-(144, 'MTK20011', 'MPK Seni Batik', 1, 0, 2),
-(145, 'MTK20012', 'MPK Seni Fotografi', 1, 0, 2),
-(146, 'MTK20013', 'MPK Seni Kaligrafi', 1, 0, 2),
-(147, 'MTK20014', 'MPK Seni Karawitan Jawa', 1, 0, 2),
-(148, 'MTK20015', 'MPK Seni Karawitan dan Tari Bali', 1, 0, 2),
-(149, 'MTK20016', 'MPK Seni Komik', 1, 0, 2),
-(150, 'MTK20017', 'MPK Seni Lukis', 1, 0, 2),
-(151, 'MTK20018', 'MPK Seni Apresiasi Musik', 1, 0, 2),
-(152, 'MTK20019', 'MPK Seni Teater', 1, 0, 2),
-(153, 'MTK20020', 'MPK Seni Wayang', 1, 0, 2),
-(154, 'MTK20021', 'MPK Olahraga Bola Basket', 1, 0, 2),
-(155, 'MTK20022', 'MPK Olahraga Bola Voli', 1, 0, 2),
-(156, 'MTK20023', 'MPK Olahraga Bulutangkis', 1, 0, 2),
-(157, 'MTK20024', 'MPK Olahraga Futsal', 1, 0, 2),
-(158, 'MTK20025', 'MPK Olahraga Sepakbola', 1, 0, 2),
-(159, 'MTK20026', 'MPK Olahraga Tenis', 1, 0, 2),
-(160, 'MTK20027', 'MPK Olahraga Tenis Meja', 1, 0, 2),
-(161, 'MTK20028', 'Matematika Dasar 1', 3, 0, 2),
-(162, 'MTK20029', 'Fisika Dasar 1', 3, 0, 2),
-(163, 'MTK20030', 'Matematika Diskret 1', 3, 0, 2),
-(164, 'MTK20031', 'Dasar-Dasar Pemrograman 1', 4, 0, 2),
-(165, 'MTK20032', 'Matematika Diskret 2', 3, 0, 2),
-(166, 'MTK20033', 'Dasar-Dasar Pemrograman 2', 4, 0, 2),
-(167, 'MTK20034', 'Aljabar Linier', 3, 0, 2),
-(168, 'MTK20035', 'Perancangan & Pemrograman Web', 3, 0, 2),
-(169, 'MTK20036', 'Struktur Data & Algoritma', 4, 0, 2),
-(170, 'MTK20037', 'Statistika & Probabilitas', 3, 0, 2),
-(171, 'MTK20038', 'Sistem Operasi', 4, 0, 2),
-(172, 'MTK20039', 'Basis Data', 4, 0, 2),
-(173, 'MTK20040', 'Metodologi Penelitian & Penulisan Ilmiah', 3, 0, 2),
-(174, 'MTK20041', 'Kerja Praktik', 3, 100, 2),
-(175, 'MTK20042', 'Komputer & Masyarakat', 3, 100, 2),
-(176, 'MTK20043', 'Prinsip-Prinsip Sistem Informasi', 3, 0, 2),
-(177, 'MTK20044', 'Dasar-Dasar Arsitektur Komputer', 4, 0, 2),
-(178, 'MTK20045', 'Administrasi Bisnis', 3, 0, 2),
-(179, 'MTK20046', 'Prinsip-Prinsip Manajemen', 3, 0, 2),
-(180, 'MTK20047', 'Sistem-Sistem Perusahaan', 3, 0, 2),
-(181, 'MTK20048', 'Sistem Informasi Akuntansi Keuangan', 3, 0, 2),
-(182, 'MTK20049', 'Sistem Interaksi', 3, 0, 2),
-(183, 'MTK20050', 'Analisis dan Perancangan Sistem Informasi', 3, 0, 2),
-(184, 'MTK20051', 'Arsitektur & Pemrograman Aplikasi Perusahaan', 4, 0, 2),
-(185, 'MTK20052', 'Manajemen Proyek TI', 3, 0, 2),
-(186, 'MTK20053', 'Jaringan Komunikasi Data', 3, 0, 2),
-(187, 'MTK20054', 'Proyek Pengembangan Sistem Informasi', 6, 0, 2),
-(188, 'MTK20055', 'Komunikasi Bisnis dan Teknis', 3, 48, 2),
-(189, 'MTK20056', 'Statistika Terapan', 3, 0, 2),
-(190, 'MTK20057', 'Manajemen Sistem Informasi', 3, 100, 2),
-(191, 'MTK20058', 'Pengantar Sistem Dijital', 4, 0, 2),
-(192, 'MTK20059', 'Pengantar Organisasi Komputer', 3, 0, 2),
-(193, 'MTK20060', 'Matematika Dasar 2', 3, 0, 2),
-(194, 'MTK20061', 'Pemrograman Lanjut', 4, 0, 2),
-(195, 'MTK20062', 'Teori Bahasa & Automata', 4, 0, 2),
-(196, 'MTK20063', 'Rekayasa Perangkat Lunak', 3, 0, 2),
-(197, 'MTK20064', 'Pemrograman Sistem', 3, 0, 2),
-(198, 'MTK20065', 'Sistem Cerdas', 4, 0, 2),
-(199, 'MTK20066', 'Jaringan Komputer', 4, 0, 2),
-(200, 'MTK20067', 'Proyek Perangkat Lunak', 6, 0, 2),
-(201, 'MTK20068', 'Data Science & Analytics', 3, 0, 2),
-(202, 'MTK20069', 'Analisis Numerik', 3, 0, 2),
-(203, 'MTK20070', 'Desain & Analisis Algoritma', 4, 0, 2),
-(204, 'MTK20071', 'Manajemen Layanan TI', 3, 0, 2),
-(205, 'MTK20072', 'Administrasi Sistem', 3, 0, 2),
-(206, 'MTK20073', 'Manajemen Infrastruktur TI', 3, 0, 2),
-(207, 'MTK20074', 'Technopreneurship', 3, 0, 2),
-(208, 'MTK20075', 'Teknologi Mobile', 3, 0, 2),
-(209, 'MTK20076', 'Pengantar Keamanan Informasi', 3, 0, 2),
-(210, 'MTK20077', 'Pengembangan Perangkat Lunak Open Source', 3, 0, 2),
-(211, 'MTK20078', 'Integrasi Aplikasi Perusahaan', 3, 0, 2),
-(212, 'MTK20079', 'Dasar-Dasar Audit SI', 3, 0, 2),
-(213, 'MTK20080', 'Topik Khusus Bidang Minat Manajemen SI/TI', 3, 0, 2),
-(214, 'MTK20081', 'E-Dagang', 3, 0, 2),
-(215, 'MTK20082', 'Sistem Informasi Kesehatan', 3, 0, 2),
-(216, 'MTK20083', 'Konfigurasi ERP', 3, 0, 2),
-(217, 'MTK20084', 'Manajemen Pengetahuan', 3, 0, 2),
-(218, 'MTK20085', 'Analitika Media Sosial', 3, 0, 2),
-(219, 'MTK20086', 'Penambangan Data & Inteligensia Bisnis', 3, 0, 2),
-(220, 'MTK20087', 'Pengelolaan Data Besar', 3, 0, 2),
-(221, 'MTK20088', 'Sistem Informasi Sumber Daya Manusia', 3, 0, 2),
-(222, 'MTK20089', 'Manajemen Hubungan Pelanggan', 3, 0, 2),
-(223, 'MTK20090', 'Manajemen Rantai Suplai', 3, 0, 2),
-(224, 'MTK20091', 'Topik Khusus Bidang Minat Solusi Perusahaan', 3, 0, 2),
-(225, 'MTK20092', 'Tugas Akhir', 6, 0, 2),
-(226, 'MTK20093', 'Basis Data Lanjut', 3, 0, 2),
-(227, 'MTK20094', 'Teknik Kompilator', 4, 0, 2),
-(228, 'MTK20095', 'Grafika Komputer', 3, 0, 2),
-(229, 'MTK20096', 'Kriptografi & Keamanan Informasi', 4, 0, 2),
-(230, 'MTK20097', 'Layanan & Aplikasi Web', 3, 0, 2),
-(231, 'MTK20098', 'Game Development', 3, 0, 2),
-(232, 'MTK20099', 'Pemrograman Paralel', 4, 0, 2),
-(233, 'MTK20100', 'Pemrograman Logika', 4, 0, 2),
-(234, 'MTK20101', 'Penjaminan Mutu Perangkat Lunak', 4, 0, 2),
-(235, 'MTK20102', 'Jejaring Semantik', 3, 0, 2),
-(236, 'MTK20103', 'Metode Formal', 4, 0, 2),
-(237, 'MTK20104', 'Penambangan Data', 3, 0, 2),
-(238, 'MTK20105', 'Pemrograman Fungsional', 4, 0, 2),
-(239, 'MTK20106', 'Pengajaran Berbantuan Komputer', 3, 0, 2),
-(240, 'MTK20107', 'Topik Khusus Bidang Minat Teknologi Perangkat Lunak', 3, 0, 2),
-(241, 'MTK20108', 'Pengolahan Citra', 3, 0, 2),
-(242, 'MTK20109', 'Teori Informasi', 3, 0, 2),
-(243, 'MTK20110', 'Pemelajaran Mesin', 2, 0, 2),
-(244, 'MTK20111', 'Pengolahan Bahasa Manusia', 2, 0, 2),
-(245, 'MTK20112', 'Perolehan Informasi', 3, 0, 2),
-(246, 'MTK20113', 'Pengolahan Sinyal Dijital', 3, 0, 2),
-(247, 'MTK20114', 'Sistem Informasi Geografis', 3, 0, 2),
-(248, 'MTK20115', 'Pengolahan Multimedia', 3, 0, 2),
-(249, 'MTK20116', 'Geometri Komputasional', 4, 0, 2),
-(250, 'MTK20117', 'Pemodelan Geometris', 4, 0, 2),
-(251, 'MTK20118', 'Topik Khusus Bidang Minat Pengolahan Informasi Multimedia', 3, 0, 2),
-(252, 'MTK20119', 'Sistem Tertanam', 3, 0, 2),
-(253, 'MTK20120', 'Organisasi Sistem Komputer', 3, 0, 2),
-(254, 'MTK20121', 'Simulasi & Pemodelan', 3, 0, 2),
-(255, 'MTK20122', 'Sistem Terdistribusi', 3, 0, 2),
-(256, 'MTK20123', 'Ubiquitous & Net-Centric Computing', 3, 0, 2),
-(257, 'MTK20124', 'Robotika', 3, 0, 2),
-(258, 'MTK20125', 'Rancangan Sistem Dijital', 3, 0, 2),
-(259, 'MTK20126', 'Topik Khusus Bidang Minat Arsitektur & Infrastruktur', 3, 0, 2),
-(260, 'MTK20127', 'Bioinformatika', 3, 0, 2),
-(261, 'MTK20128', 'Persamaan Diferensial', 2, 0, 2),
-(262, 'MTK20129', 'Aproksimasi Sistem Nonlinier', 2, 0, 2),
-(263, 'MTK20130', 'Komputasi Lunak', 3, 0, 2),
-(264, 'MTK20131', 'Logika Komputasional', 3, 0, 2),
-(265, 'MTK20132', 'Aljabar Linier Numerik', 3, 0, 2),
-(266, 'MTK20133', 'Topik Khusus Bidang Minat Kecerdasan Komputasional', 3, 0, 2),
-(267, 'MTK30001', 'MPKT A', 6, 0, 3),
-(268, 'MTK30002', 'MPKT B', 6, 0, 3),
-(269, 'MTK30003', 'MPK Bahasa Inggris', 3, 0, 3),
-(270, 'MTK30004', 'MPK Agama Islam', 2, 0, 3),
-(271, 'MTK30005', 'MPK Agama Kristen Katolik', 3, 0, 3),
-(272, 'MTK30006', 'MPK Agama Kristen Protestan', 3, 0, 3),
-(273, 'MTK30007', 'MPK Agama Hindu', 2, 0, 3),
-(274, 'MTK30008', 'MPK Agama Budha', 3, 0, 3),
-(275, 'MTK30009', 'MPK Agama Kong Hu Cu', 3, 0, 3),
-(276, 'MTK30010', 'MPK Seni Apresiasi Film', 1, 0, 3),
-(277, 'MTK30011', 'MPK Seni Batik', 1, 0, 3),
-(278, 'MTK30012', 'MPK Seni Fotografi', 1, 0, 3),
-(279, 'MTK30013', 'MPK Seni Kaligrafi', 1, 0, 3),
-(280, 'MTK30014', 'MPK Seni Karawitan Jawa', 1, 0, 3),
-(281, 'MTK30015', 'MPK Seni Karawitan dan Tari Bali', 1, 0, 3),
-(282, 'MTK30016', 'MPK Seni Komik', 1, 0, 3),
-(283, 'MTK30017', 'MPK Seni Lukis', 1, 0, 3),
-(284, 'MTK30018', 'MPK Seni Apresiasi Musik', 1, 0, 3),
-(285, 'MTK30019', 'MPK Seni Teater', 1, 0, 3),
-(286, 'MTK30020', 'MPK Seni Wayang', 1, 0, 3),
-(287, 'MTK30021', 'MPK Olahraga Bola Basket', 1, 0, 3),
-(288, 'MTK30022', 'MPK Olahraga Bola Voli', 1, 0, 3),
-(289, 'MTK30023', 'MPK Olahraga Bulutangkis', 1, 0, 3),
-(290, 'MTK30024', 'MPK Olahraga Futsal', 1, 0, 3),
-(291, 'MTK30025', 'MPK Olahraga Sepakbola', 1, 0, 3),
-(292, 'MTK30026', 'MPK Olahraga Tenis', 1, 0, 3),
-(293, 'MTK30027', 'MPK Olahraga Tenis Meja', 1, 0, 3),
-(294, 'MTK30028', 'Matematika Dasar 1', 3, 0, 3),
-(295, 'MTK30029', 'Fisika Dasar 1', 3, 0, 3),
-(296, 'MTK30030', 'Matematika Diskret 1', 3, 0, 3),
-(297, 'MTK30031', 'Dasar-Dasar Pemrograman 1', 4, 0, 3),
-(298, 'MTK30032', 'Matematika Diskret 2', 3, 0, 3),
-(299, 'MTK30033', 'Dasar-Dasar Pemrograman 2', 4, 0, 3),
-(300, 'MTK30034', 'Aljabar Linier', 4, 0, 3),
-(301, 'MTK30035', 'Perancangan & Pemrograman Web', 3, 0, 3),
-(302, 'MTK30036', 'Struktur Data & Algoritma', 4, 0, 3),
-(303, 'MTK30037', 'Statistika & Probabilitas', 2, 0, 3),
-(304, 'MTK30038', 'Sistem Operasi', 4, 0, 3),
-(305, 'MTK30039', 'Basis Data', 4, 0, 3),
-(306, 'MTK30040', 'Metodologi Penelitian & Penulisan Ilmiah', 3, 0, 3),
-(307, 'MTK30041', 'Kerja Praktik', 3, 100, 3),
-(308, 'MTK30042', 'Komputer & Masyarakat', 3, 100, 3),
-(309, 'MTK30043', 'Prinsip-Prinsip Sistem Informasi', 3, 0, 3),
-(310, 'MTK30044', 'Dasar-Dasar Arsitektur Komputer', 4, 0, 3),
-(311, 'MTK30045', 'Administrasi Bisnis', 3, 0, 3),
-(312, 'MTK30046', 'Prinsip-Prinsip Manajemen', 3, 0, 3),
-(313, 'MTK30047', 'Sistem-Sistem Perusahaan', 3, 0, 3),
-(314, 'MTK30048', 'Sistem Informasi Akuntansi Keuangan', 3, 0, 3),
-(315, 'MTK30049', 'Sistem Interaksi', 3, 0, 3),
-(316, 'MTK30050', 'Analisis dan Perancangan Sistem Informasi', 3, 0, 3),
-(317, 'MTK30051', 'Arsitektur & Pemrograman Aplikasi Perusahaan', 4, 0, 3),
-(318, 'MTK30052', 'Manajemen Proyek TI', 3, 0, 3),
-(319, 'MTK30053', 'Jaringan Komunikasi Data', 3, 0, 3),
-(320, 'MTK30054', 'Proyek Pengembangan Sistem Informasi', 6, 0, 3),
-(321, 'MTK30055', 'Komunikasi Bisnis dan Teknis', 3, 48, 3),
-(322, 'MTK30056', 'Statistika Terapan', 3, 0, 3),
-(323, 'MTK30057', 'Manajemen Sistem Informasi', 3, 100, 3),
-(324, 'MTK30058', 'Pengantar Sistem Dijital', 4, 0, 3),
-(325, 'MTK30059', 'Pengantar Organisasi Komputer', 3, 0, 3),
-(326, 'MTK30060', 'Matematika Dasar 2', 3, 0, 3),
-(327, 'MTK30061', 'Pemrograman Lanjut', 4, 0, 3),
-(328, 'MTK30062', 'Teori Bahasa & Automata', 4, 0, 3),
-(329, 'MTK30063', 'Rekayasa Perangkat Lunak', 3, 0, 3),
-(330, 'MTK30064', 'Pemrograman Sistem', 3, 0, 3),
-(331, 'MTK30065', 'Sistem Cerdas', 4, 0, 3),
-(332, 'MTK30066', 'Jaringan Komputer', 4, 0, 3),
-(333, 'MTK30067', 'Proyek Perangkat Lunak', 6, 0, 3),
-(334, 'MTK30068', 'Data Science & Analytics', 3, 0, 3),
-(335, 'MTK30069', 'Analisis Numerik', 3, 0, 3),
-(336, 'MTK30070', 'Desain & Analisis Algoritma', 4, 0, 3),
-(337, 'MTK30071', 'Manajemen Layanan TI', 3, 0, 3),
-(338, 'MTK30072', 'Administrasi Sistem', 3, 0, 3),
-(339, 'MTK30073', 'Manajemen Infrastruktur TI', 3, 0, 3),
-(340, 'MTK30074', 'Technopreneurship', 3, 0, 3),
-(341, 'MTK30075', 'Teknologi Mobile', 3, 0, 3),
-(342, 'MTK30076', 'Pengantar Keamanan Informasi', 3, 0, 3),
-(343, 'MTK30077', 'Pengembangan Perangkat Lunak Open Source', 3, 0, 3),
-(344, 'MTK30078', 'Integrasi Aplikasi Perusahaan', 3, 0, 3),
-(345, 'MTK30079', 'Dasar-Dasar Audit SI', 3, 0, 3),
-(346, 'MTK30080', 'Topik Khusus Bidang Minat Manajemen SI/TI', 3, 0, 3),
-(347, 'MTK30081', 'E-Dagang', 3, 0, 3),
-(348, 'MTK30082', 'Sistem Informasi Kesehatan', 3, 0, 3),
-(349, 'MTK30083', 'Konfigurasi ERP', 3, 0, 3),
-(350, 'MTK30084', 'Manajemen Pengetahuan', 3, 0, 3),
-(351, 'MTK30085', 'Analitika Media Sosial', 3, 0, 3),
-(352, 'MTK30086', 'Penambangan Data & Inteligensia Bisnis', 3, 0, 3),
-(353, 'MTK30087', 'Pengelolaan Data Besar', 3, 0, 3),
-(354, 'MTK30088', 'Sistem Informasi Sumber Daya Manusia', 3, 0, 3),
-(355, 'MTK30089', 'Manajemen Hubungan Pelanggan', 3, 0, 3),
-(356, 'MTK30090', 'Manajemen Rantai Suplai', 3, 0, 3),
-(357, 'MTK30091', 'Topik Khusus Bidang Minat Solusi Perusahaan', 3, 0, 3),
-(358, 'MTK30092', 'Tugas Akhir', 6, 0, 3),
-(359, 'MTK30093', 'Basis Data Lanjut', 3, 0, 3),
-(360, 'MTK30094', 'Teknik Kompilator', 4, 0, 3),
-(361, 'MTK30095', 'Grafika Komputer', 3, 0, 3),
-(362, 'MTK30096', 'Kriptografi & Keamanan Informasi', 4, 0, 3),
-(363, 'MTK30097', 'Layanan & Aplikasi Web', 3, 0, 3),
-(364, 'MTK30098', 'Game Development', 3, 0, 3),
-(365, 'MTK30099', 'Pemrograman Paralel', 4, 0, 3),
-(366, 'MTK30100', 'Pemrograman Logika', 4, 0, 3),
-(367, 'MTK30101', 'Penjaminan Mutu Perangkat Lunak', 4, 0, 3),
-(368, 'MTK30102', 'Jejaring Semantik', 3, 0, 3),
-(369, 'MTK30103', 'Metode Formal', 4, 0, 3),
-(370, 'MTK30104', 'Penambangan Data', 3, 0, 3),
-(371, 'MTK30105', 'Pemrograman Fungsional', 4, 0, 3),
-(372, 'MTK30106', 'Pengajaran Berbantuan Komputer', 3, 0, 3),
-(373, 'MTK30107', 'Topik Khusus Bidang Minat Teknologi Perangkat Lunak', 3, 0, 3),
-(374, 'MTK30108', 'Pengolahan Citra', 3, 0, 3),
-(375, 'MTK30109', 'Teori Informasi', 3, 0, 3),
-(376, 'MTK30110', 'Pemelajaran Mesin', 3, 0, 3),
-(377, 'MTK30111', 'Pengolahan Bahasa Manusia', 3, 0, 3),
-(378, 'MTK30112', 'Perolehan Informasi', 3, 0, 3),
-(379, 'MTK30113', 'Pengolahan Sinyal Dijital', 3, 0, 3),
-(380, 'MTK30114', 'Sistem Informasi Geografis', 3, 0, 3),
-(381, 'MTK30115', 'Pengolahan Multimedia', 3, 0, 3),
-(382, 'MTK30116', 'Geometri Komputasional', 4, 0, 3),
-(383, 'MTK30117', 'Pemodelan Geometris', 4, 0, 3),
-(384, 'MTK30118', 'Topik Khusus Bidang Minat Pengolahan Informasi Multimedia', 3, 0, 3),
-(385, 'MTK30119', 'Sistem Tertanam', 3, 0, 3),
-(386, 'MTK30120', 'Organisasi Sistem Komputer', 3, 0, 3),
-(387, 'MTK30121', 'Simulasi & Pemodelan', 2, 0, 3),
-(388, 'MTK30122', 'Sistem Terdistribusi', 2, 0, 3),
-(389, 'MTK30123', 'Ubiquitous & Net-Centric Computing', 3, 0, 3),
-(390, 'MTK30124', 'Robotika', 3, 0, 3),
-(391, 'MTK30125', 'Rancangan Sistem Dijital', 3, 0, 3),
-(392, 'MTK30126', 'Topik Khusus Bidang Minat Arsitektur & Infrastruktur', 3, 0, 3),
-(393, 'MTK30127', 'Bioinformatika', 2, 0, 3),
-(394, 'MTK30128', 'Persamaan Diferensial', 3, 0, 3),
-(395, 'MTK30129', 'Aproksimasi Sistem Nonlinier', 4, 0, 3),
-(396, 'MTK30130', 'Komputasi Lunak', 3, 0, 3),
-(397, 'MTK30131', 'Logika Komputasional', 3, 0, 3),
-(398, 'MTK30132', 'Aljabar Linier Numerik', 3, 0, 3),
-(399, 'MTK30133', 'Topik Khusus Bidang Minat Kecerdasan Komputasional', 3, 0, 3);
+INSERT INTO `mata_kuliah` (`id`, `id_univ`, `id_fakultas`, `id_prodi`, `kode_matkul`, `nama_matkul`, `jumlah_sks`, `prasyarat_sks`) VALUES
+(1, 1, 1, 1, 'MTK11101', 'Mata Kuliah 11101', 6, 0),
+(2, 1, 1, 1, 'MTK11102', 'Mata Kuliah 11102', 6, 0),
+(3, 1, 1, 1, 'MTK11103', 'Mata Kuliah 11103', 1, 0),
+(4, 1, 1, 1, 'MTK11104', 'Mata Kuliah 11104', 1, 0),
+(5, 1, 1, 1, 'MTK11105', 'Mata Kuliah 11105', 3, 0),
+(6, 1, 1, 1, 'MTK11106', 'Mata Kuliah 11106', 3, 0),
+(7, 1, 1, 1, 'MTK11107', 'Mata Kuliah 11107', 3, 0),
+(8, 1, 1, 1, 'MTK11108', 'Mata Kuliah 11108', 3, 0),
+(9, 1, 1, 1, 'MTK11109', 'Mata Kuliah 11109', 3, 0),
+(10, 1, 1, 1, 'MTK11110', 'Mata Kuliah 11110', 3, 0),
+(11, 1, 1, 1, 'MTK11111', 'Mata Kuliah 11111', 3, 0),
+(12, 1, 1, 1, 'MTK11112', 'Mata Kuliah 11112', 3, 0),
+(13, 1, 1, 1, 'MTK11113', 'Mata Kuliah 11113', 3, 0),
+(14, 1, 1, 1, 'MTK11114', 'Mata Kuliah 11114', 3, 0),
+(15, 1, 1, 1, 'MTK11115', 'Mata Kuliah 11115', 3, 0),
+(16, 1, 1, 1, 'MTK11116', 'Mata Kuliah 11116', 3, 0),
+(17, 1, 1, 1, 'MTK11117', 'Mata Kuliah 11117', 3, 0),
+(18, 1, 1, 1, 'MTK11118', 'Mata Kuliah 11118', 3, 0),
+(19, 1, 1, 1, 'MTK11119', 'Mata Kuliah 11119', 3, 0),
+(20, 1, 1, 1, 'MTK11120', 'Mata Kuliah 11120', 3, 0),
+(21, 1, 1, 1, 'MTK11121', 'Mata Kuliah 11121', 3, 0),
+(22, 1, 1, 1, 'MTK11122', 'Mata Kuliah 11122', 3, 0),
+(23, 1, 1, 1, 'MTK11123', 'Mata Kuliah 11123', 3, 0),
+(24, 1, 1, 1, 'MTK11124', 'Mata Kuliah 11124', 3, 0),
+(25, 1, 1, 1, 'MTK11125', 'Mata Kuliah 11125', 3, 0),
+(26, 1, 1, 1, 'MTK11126', 'Mata Kuliah 11126', 3, 0),
+(27, 1, 1, 1, 'MTK11127', 'Mata Kuliah 11127', 3, 0),
+(28, 1, 1, 1, 'MTK11128', 'Mata Kuliah 11128', 3, 0),
+(29, 1, 1, 1, 'MTK11129', 'Mata Kuliah 11129', 3, 0),
+(30, 1, 1, 1, 'MTK11130', 'Mata Kuliah 11130', 3, 0),
+(31, 1, 1, 1, 'MTK11131', 'Mata Kuliah 11131', 3, 48),
+(32, 1, 1, 1, 'MTK11132', 'Mata Kuliah 11132', 3, 100),
+(33, 1, 1, 1, 'MTK11133', 'Mata Kuliah 11133', 3, 0),
+(34, 1, 1, 1, 'MTK11134', 'Mata Kuliah 11134', 3, 0),
+(35, 1, 1, 1, 'MTK11135', 'Mata Kuliah 11135', 3, 0),
+(36, 1, 1, 1, 'MTK11136', 'Mata Kuliah 11136', 3, 0),
+(37, 1, 1, 1, 'MTK11137', 'Mata Kuliah 11137', 3, 0),
+(38, 1, 1, 1, 'MTK11138', 'Mata Kuliah 11138', 3, 0),
+(39, 1, 1, 1, 'MTK11139', 'Mata Kuliah 11139', 3, 0),
+(40, 1, 1, 1, 'MTK11140', 'Mata Kuliah 11140', 3, 0),
+(41, 1, 1, 2, 'MTK11201', 'Mata Kuliah 11201', 6, 0),
+(42, 1, 1, 2, 'MTK11202', 'Mata Kuliah 11202', 6, 0),
+(43, 1, 1, 2, 'MTK11203', 'Mata Kuliah 11203', 1, 0),
+(44, 1, 1, 2, 'MTK11204', 'Mata Kuliah 11204', 1, 0),
+(45, 1, 1, 2, 'MTK11205', 'Mata Kuliah 11205', 3, 0),
+(46, 1, 1, 2, 'MTK11206', 'Mata Kuliah 11206', 3, 0),
+(47, 1, 1, 2, 'MTK11207', 'Mata Kuliah 11207', 3, 0),
+(48, 1, 1, 2, 'MTK11208', 'Mata Kuliah 11208', 3, 0),
+(49, 1, 1, 2, 'MTK11209', 'Mata Kuliah 11209', 3, 0),
+(50, 1, 1, 2, 'MTK11210', 'Mata Kuliah 11210', 3, 0),
+(51, 1, 1, 2, 'MTK11211', 'Mata Kuliah 11211', 3, 0),
+(52, 1, 1, 2, 'MTK11212', 'Mata Kuliah 11212', 3, 0),
+(53, 1, 1, 2, 'MTK11213', 'Mata Kuliah 11213', 3, 0),
+(54, 1, 1, 2, 'MTK11214', 'Mata Kuliah 11214', 3, 0),
+(55, 1, 1, 2, 'MTK11215', 'Mata Kuliah 11215', 3, 0),
+(56, 1, 1, 2, 'MTK11216', 'Mata Kuliah 11216', 3, 0),
+(57, 1, 1, 2, 'MTK11217', 'Mata Kuliah 11217', 3, 0),
+(58, 1, 1, 2, 'MTK11218', 'Mata Kuliah 11218', 3, 0),
+(59, 1, 1, 2, 'MTK11219', 'Mata Kuliah 11219', 3, 0),
+(60, 1, 1, 2, 'MTK11220', 'Mata Kuliah 11220', 3, 0),
+(61, 1, 1, 2, 'MTK11221', 'Mata Kuliah 11221', 3, 0),
+(62, 1, 1, 2, 'MTK11222', 'Mata Kuliah 11222', 3, 0),
+(63, 1, 1, 2, 'MTK11223', 'Mata Kuliah 11223', 3, 0),
+(64, 1, 1, 2, 'MTK11224', 'Mata Kuliah 11224', 3, 0),
+(65, 1, 1, 2, 'MTK11225', 'Mata Kuliah 11225', 3, 0),
+(66, 1, 1, 2, 'MTK11226', 'Mata Kuliah 11226', 3, 0),
+(67, 1, 1, 2, 'MTK11227', 'Mata Kuliah 11227', 3, 0),
+(68, 1, 1, 2, 'MTK11228', 'Mata Kuliah 11228', 3, 0),
+(69, 1, 1, 2, 'MTK11229', 'Mata Kuliah 11229', 3, 0),
+(70, 1, 1, 2, 'MTK11230', 'Mata Kuliah 11230', 3, 0),
+(71, 1, 1, 2, 'MTK11231', 'Mata Kuliah 11231', 3, 48),
+(72, 1, 1, 2, 'MTK11232', 'Mata Kuliah 11232', 3, 100),
+(73, 1, 1, 2, 'MTK11233', 'Mata Kuliah 11233', 3, 0),
+(74, 1, 1, 2, 'MTK11234', 'Mata Kuliah 11234', 3, 0),
+(75, 1, 1, 2, 'MTK11235', 'Mata Kuliah 11235', 3, 0),
+(76, 1, 1, 2, 'MTK11236', 'Mata Kuliah 11236', 3, 0),
+(77, 1, 1, 2, 'MTK11237', 'Mata Kuliah 11237', 3, 0),
+(78, 1, 1, 2, 'MTK11238', 'Mata Kuliah 11238', 3, 0),
+(79, 1, 1, 2, 'MTK11239', 'Mata Kuliah 11239', 3, 0),
+(80, 1, 1, 2, 'MTK11240', 'Mata Kuliah 11240', 3, 0),
+(81, 1, 1, 3, 'MTK11301', 'Mata Kuliah 11301', 6, 0),
+(82, 1, 1, 3, 'MTK11302', 'Mata Kuliah 11302', 6, 0),
+(83, 1, 1, 3, 'MTK11303', 'Mata Kuliah 11303', 1, 0),
+(84, 1, 1, 3, 'MTK11304', 'Mata Kuliah 11304', 1, 0),
+(85, 1, 1, 3, 'MTK11305', 'Mata Kuliah 11305', 3, 0),
+(86, 1, 1, 3, 'MTK11306', 'Mata Kuliah 11306', 3, 0),
+(87, 1, 1, 3, 'MTK11307', 'Mata Kuliah 11307', 3, 0),
+(88, 1, 1, 3, 'MTK11308', 'Mata Kuliah 11308', 3, 0),
+(89, 1, 1, 3, 'MTK11309', 'Mata Kuliah 11309', 3, 0),
+(90, 1, 1, 3, 'MTK11310', 'Mata Kuliah 11310', 3, 0),
+(91, 1, 1, 3, 'MTK11311', 'Mata Kuliah 11311', 3, 0),
+(92, 1, 1, 3, 'MTK11312', 'Mata Kuliah 11312', 3, 0),
+(93, 1, 1, 3, 'MTK11313', 'Mata Kuliah 11313', 3, 0),
+(94, 1, 1, 3, 'MTK11314', 'Mata Kuliah 11314', 3, 0),
+(95, 1, 1, 3, 'MTK11315', 'Mata Kuliah 11315', 3, 0),
+(96, 1, 1, 3, 'MTK11316', 'Mata Kuliah 11316', 3, 0),
+(97, 1, 1, 3, 'MTK11317', 'Mata Kuliah 11317', 3, 0),
+(98, 1, 1, 3, 'MTK11318', 'Mata Kuliah 11318', 3, 0),
+(99, 1, 1, 3, 'MTK11319', 'Mata Kuliah 11319', 3, 0),
+(100, 1, 1, 3, 'MTK11320', 'Mata Kuliah 11320', 3, 0),
+(101, 1, 1, 3, 'MTK11321', 'Mata Kuliah 11321', 3, 0),
+(102, 1, 1, 3, 'MTK11322', 'Mata Kuliah 11322', 3, 0),
+(103, 1, 1, 3, 'MTK11323', 'Mata Kuliah 11323', 3, 0),
+(104, 1, 1, 3, 'MTK11324', 'Mata Kuliah 11324', 3, 0),
+(105, 1, 1, 3, 'MTK11325', 'Mata Kuliah 11325', 3, 0),
+(106, 1, 1, 3, 'MTK11326', 'Mata Kuliah 11326', 3, 0),
+(107, 1, 1, 3, 'MTK11327', 'Mata Kuliah 11327', 3, 0),
+(108, 1, 1, 3, 'MTK11328', 'Mata Kuliah 11328', 3, 0),
+(109, 1, 1, 3, 'MTK11329', 'Mata Kuliah 11329', 3, 0),
+(110, 1, 1, 3, 'MTK11330', 'Mata Kuliah 11330', 3, 0),
+(111, 1, 1, 3, 'MTK11331', 'Mata Kuliah 11331', 3, 48),
+(112, 1, 1, 3, 'MTK11332', 'Mata Kuliah 11332', 3, 100),
+(113, 1, 1, 3, 'MTK11333', 'Mata Kuliah 11333', 3, 0),
+(114, 1, 1, 3, 'MTK11334', 'Mata Kuliah 11334', 3, 0),
+(115, 1, 1, 3, 'MTK11335', 'Mata Kuliah 11335', 3, 0),
+(116, 1, 1, 3, 'MTK11336', 'Mata Kuliah 11336', 3, 0),
+(117, 1, 1, 3, 'MTK11337', 'Mata Kuliah 11337', 3, 0),
+(118, 1, 1, 3, 'MTK11338', 'Mata Kuliah 11338', 3, 0),
+(119, 1, 1, 3, 'MTK11339', 'Mata Kuliah 11339', 3, 0),
+(120, 1, 1, 3, 'MTK11340', 'Mata Kuliah 11340', 3, 0),
+(121, 1, 2, 1, 'MTK12101', 'Mata Kuliah 12101', 6, 0),
+(122, 1, 2, 1, 'MTK12102', 'Mata Kuliah 12102', 6, 0),
+(123, 1, 2, 1, 'MTK12103', 'Mata Kuliah 12103', 1, 0),
+(124, 1, 2, 1, 'MTK12104', 'Mata Kuliah 12104', 1, 0),
+(125, 1, 2, 1, 'MTK12105', 'Mata Kuliah 12105', 3, 0),
+(126, 1, 2, 1, 'MTK12106', 'Mata Kuliah 12106', 3, 0),
+(127, 1, 2, 1, 'MTK12107', 'Mata Kuliah 12107', 3, 0),
+(128, 1, 2, 1, 'MTK12108', 'Mata Kuliah 12108', 3, 0),
+(129, 1, 2, 1, 'MTK12109', 'Mata Kuliah 12109', 3, 0),
+(130, 1, 2, 1, 'MTK12110', 'Mata Kuliah 12110', 3, 0),
+(131, 1, 2, 1, 'MTK12111', 'Mata Kuliah 12111', 3, 0),
+(132, 1, 2, 1, 'MTK12112', 'Mata Kuliah 12112', 3, 0),
+(133, 1, 2, 1, 'MTK12113', 'Mata Kuliah 12113', 3, 0),
+(134, 1, 2, 1, 'MTK12114', 'Mata Kuliah 12114', 3, 0),
+(135, 1, 2, 1, 'MTK12115', 'Mata Kuliah 12115', 3, 0),
+(136, 1, 2, 1, 'MTK12116', 'Mata Kuliah 12116', 3, 0),
+(137, 1, 2, 1, 'MTK12117', 'Mata Kuliah 12117', 3, 0),
+(138, 1, 2, 1, 'MTK12118', 'Mata Kuliah 12118', 3, 0),
+(139, 1, 2, 1, 'MTK12119', 'Mata Kuliah 12119', 3, 0),
+(140, 1, 2, 1, 'MTK12120', 'Mata Kuliah 12120', 3, 0),
+(141, 1, 2, 1, 'MTK12121', 'Mata Kuliah 12121', 3, 0),
+(142, 1, 2, 1, 'MTK12122', 'Mata Kuliah 12122', 3, 0),
+(143, 1, 2, 1, 'MTK12123', 'Mata Kuliah 12123', 3, 0),
+(144, 1, 2, 1, 'MTK12124', 'Mata Kuliah 12124', 3, 0),
+(145, 1, 2, 1, 'MTK12125', 'Mata Kuliah 12125', 3, 0),
+(146, 1, 2, 1, 'MTK12126', 'Mata Kuliah 12126', 3, 0),
+(147, 1, 2, 1, 'MTK12127', 'Mata Kuliah 12127', 3, 0),
+(148, 1, 2, 1, 'MTK12128', 'Mata Kuliah 12128', 3, 0),
+(149, 1, 2, 1, 'MTK12129', 'Mata Kuliah 12129', 3, 0),
+(150, 1, 2, 1, 'MTK12130', 'Mata Kuliah 12130', 3, 0),
+(151, 1, 2, 1, 'MTK12131', 'Mata Kuliah 12131', 3, 48),
+(152, 1, 2, 1, 'MTK12132', 'Mata Kuliah 12132', 3, 100),
+(153, 1, 2, 1, 'MTK12133', 'Mata Kuliah 12133', 3, 0),
+(154, 1, 2, 1, 'MTK12134', 'Mata Kuliah 12134', 3, 0),
+(155, 1, 2, 1, 'MTK12135', 'Mata Kuliah 12135', 3, 0),
+(156, 1, 2, 1, 'MTK12136', 'Mata Kuliah 12136', 3, 0),
+(157, 1, 2, 1, 'MTK12137', 'Mata Kuliah 12137', 3, 0),
+(158, 1, 2, 1, 'MTK12138', 'Mata Kuliah 12138', 3, 0),
+(159, 1, 2, 1, 'MTK12139', 'Mata Kuliah 12139', 3, 0),
+(160, 1, 2, 1, 'MTK12140', 'Mata Kuliah 12140', 3, 0),
+(161, 1, 2, 2, 'MTK12201', 'Mata Kuliah 12201', 6, 0),
+(162, 1, 2, 2, 'MTK12202', 'Mata Kuliah 12202', 6, 0),
+(163, 1, 2, 2, 'MTK12203', 'Mata Kuliah 12203', 1, 0),
+(164, 1, 2, 2, 'MTK12204', 'Mata Kuliah 12204', 1, 0),
+(165, 1, 2, 2, 'MTK12205', 'Mata Kuliah 12205', 3, 0),
+(166, 1, 2, 2, 'MTK12206', 'Mata Kuliah 12206', 3, 0),
+(167, 1, 2, 2, 'MTK12207', 'Mata Kuliah 12207', 3, 0),
+(168, 1, 2, 2, 'MTK12208', 'Mata Kuliah 12208', 3, 0),
+(169, 1, 2, 2, 'MTK12209', 'Mata Kuliah 12209', 3, 0),
+(170, 1, 2, 2, 'MTK12210', 'Mata Kuliah 12210', 3, 0),
+(171, 1, 2, 2, 'MTK12211', 'Mata Kuliah 12211', 3, 0),
+(172, 1, 2, 2, 'MTK12212', 'Mata Kuliah 12212', 3, 0),
+(173, 1, 2, 2, 'MTK12213', 'Mata Kuliah 12213', 3, 0),
+(174, 1, 2, 2, 'MTK12214', 'Mata Kuliah 12214', 3, 0),
+(175, 1, 2, 2, 'MTK12215', 'Mata Kuliah 12215', 3, 0),
+(176, 1, 2, 2, 'MTK12216', 'Mata Kuliah 12216', 3, 0),
+(177, 1, 2, 2, 'MTK12217', 'Mata Kuliah 12217', 3, 0),
+(178, 1, 2, 2, 'MTK12218', 'Mata Kuliah 12218', 3, 0),
+(179, 1, 2, 2, 'MTK12219', 'Mata Kuliah 12219', 3, 0),
+(180, 1, 2, 2, 'MTK12220', 'Mata Kuliah 12220', 3, 0),
+(181, 1, 2, 2, 'MTK12221', 'Mata Kuliah 12221', 3, 0),
+(182, 1, 2, 2, 'MTK12222', 'Mata Kuliah 12222', 3, 0),
+(183, 1, 2, 2, 'MTK12223', 'Mata Kuliah 12223', 3, 0),
+(184, 1, 2, 2, 'MTK12224', 'Mata Kuliah 12224', 3, 0),
+(185, 1, 2, 2, 'MTK12225', 'Mata Kuliah 12225', 3, 0),
+(186, 1, 2, 2, 'MTK12226', 'Mata Kuliah 12226', 3, 0),
+(187, 1, 2, 2, 'MTK12227', 'Mata Kuliah 12227', 3, 0),
+(188, 1, 2, 2, 'MTK12228', 'Mata Kuliah 12228', 3, 0),
+(189, 1, 2, 2, 'MTK12229', 'Mata Kuliah 12229', 3, 0),
+(190, 1, 2, 2, 'MTK12230', 'Mata Kuliah 12230', 3, 0),
+(191, 1, 2, 2, 'MTK12231', 'Mata Kuliah 12231', 3, 48),
+(192, 1, 2, 2, 'MTK12232', 'Mata Kuliah 12232', 3, 100),
+(193, 1, 2, 2, 'MTK12233', 'Mata Kuliah 12233', 3, 0),
+(194, 1, 2, 2, 'MTK12234', 'Mata Kuliah 12234', 3, 0),
+(195, 1, 2, 2, 'MTK12235', 'Mata Kuliah 12235', 3, 0),
+(196, 1, 2, 2, 'MTK12236', 'Mata Kuliah 12236', 3, 0),
+(197, 1, 2, 2, 'MTK12237', 'Mata Kuliah 12237', 3, 0),
+(198, 1, 2, 2, 'MTK12238', 'Mata Kuliah 12238', 3, 0),
+(199, 1, 2, 2, 'MTK12239', 'Mata Kuliah 12239', 3, 0),
+(200, 1, 2, 2, 'MTK12240', 'Mata Kuliah 12240', 3, 0),
+(201, 1, 2, 3, 'MTK12301', 'Mata Kuliah 12301', 6, 0),
+(202, 1, 2, 3, 'MTK12302', 'Mata Kuliah 12302', 6, 0),
+(203, 1, 2, 3, 'MTK12303', 'Mata Kuliah 12303', 1, 0),
+(204, 1, 2, 3, 'MTK12304', 'Mata Kuliah 12304', 1, 0),
+(205, 1, 2, 3, 'MTK12305', 'Mata Kuliah 12305', 3, 0),
+(206, 1, 2, 3, 'MTK12306', 'Mata Kuliah 12306', 3, 0),
+(207, 1, 2, 3, 'MTK12307', 'Mata Kuliah 12307', 3, 0),
+(208, 1, 2, 3, 'MTK12308', 'Mata Kuliah 12308', 3, 0),
+(209, 1, 2, 3, 'MTK12309', 'Mata Kuliah 12309', 3, 0),
+(210, 1, 2, 3, 'MTK12310', 'Mata Kuliah 12310', 3, 0),
+(211, 1, 2, 3, 'MTK12311', 'Mata Kuliah 12311', 3, 0),
+(212, 1, 2, 3, 'MTK12312', 'Mata Kuliah 12312', 3, 0),
+(213, 1, 2, 3, 'MTK12313', 'Mata Kuliah 12313', 3, 0),
+(214, 1, 2, 3, 'MTK12314', 'Mata Kuliah 12314', 3, 0),
+(215, 1, 2, 3, 'MTK12315', 'Mata Kuliah 12315', 3, 0),
+(216, 1, 2, 3, 'MTK12316', 'Mata Kuliah 12316', 3, 0),
+(217, 1, 2, 3, 'MTK12317', 'Mata Kuliah 12317', 3, 0),
+(218, 1, 2, 3, 'MTK12318', 'Mata Kuliah 12318', 3, 0),
+(219, 1, 2, 3, 'MTK12319', 'Mata Kuliah 12319', 3, 0),
+(220, 1, 2, 3, 'MTK12320', 'Mata Kuliah 12320', 3, 0),
+(221, 1, 2, 3, 'MTK12321', 'Mata Kuliah 12321', 3, 0),
+(222, 1, 2, 3, 'MTK12322', 'Mata Kuliah 12322', 3, 0),
+(223, 1, 2, 3, 'MTK12323', 'Mata Kuliah 12323', 3, 0),
+(224, 1, 2, 3, 'MTK12324', 'Mata Kuliah 12324', 3, 0),
+(225, 1, 2, 3, 'MTK12325', 'Mata Kuliah 12325', 3, 0),
+(226, 1, 2, 3, 'MTK12326', 'Mata Kuliah 12326', 3, 0),
+(227, 1, 2, 3, 'MTK12327', 'Mata Kuliah 12327', 3, 0),
+(228, 1, 2, 3, 'MTK12328', 'Mata Kuliah 12328', 3, 0),
+(229, 1, 2, 3, 'MTK12329', 'Mata Kuliah 12329', 3, 0),
+(230, 1, 2, 3, 'MTK12330', 'Mata Kuliah 12330', 3, 0),
+(231, 1, 2, 3, 'MTK12331', 'Mata Kuliah 12331', 3, 48),
+(232, 1, 2, 3, 'MTK12332', 'Mata Kuliah 12332', 3, 100),
+(233, 1, 2, 3, 'MTK12333', 'Mata Kuliah 12333', 3, 0),
+(234, 1, 2, 3, 'MTK12334', 'Mata Kuliah 12334', 3, 0),
+(235, 1, 2, 3, 'MTK12335', 'Mata Kuliah 12335', 3, 0),
+(236, 1, 2, 3, 'MTK12336', 'Mata Kuliah 12336', 3, 0),
+(237, 1, 2, 3, 'MTK12337', 'Mata Kuliah 12337', 3, 0),
+(238, 1, 2, 3, 'MTK12338', 'Mata Kuliah 12338', 3, 0),
+(239, 1, 2, 3, 'MTK12339', 'Mata Kuliah 12339', 3, 0),
+(240, 1, 2, 3, 'MTK12340', 'Mata Kuliah 12340', 3, 0),
+(241, 1, 3, 1, 'MTK13101', 'Mata Kuliah 13101', 6, 0),
+(242, 1, 3, 1, 'MTK13102', 'Mata Kuliah 13102', 6, 0),
+(243, 1, 3, 1, 'MTK13103', 'Mata Kuliah 13103', 1, 0),
+(244, 1, 3, 1, 'MTK13104', 'Mata Kuliah 13104', 1, 0),
+(245, 1, 3, 1, 'MTK13105', 'Mata Kuliah 13105', 3, 0),
+(246, 1, 3, 1, 'MTK13106', 'Mata Kuliah 13106', 3, 0),
+(247, 1, 3, 1, 'MTK13107', 'Mata Kuliah 13107', 3, 0),
+(248, 1, 3, 1, 'MTK13108', 'Mata Kuliah 13108', 3, 0),
+(249, 1, 3, 1, 'MTK13109', 'Mata Kuliah 13109', 3, 0),
+(250, 1, 3, 1, 'MTK13110', 'Mata Kuliah 13110', 3, 0),
+(251, 1, 3, 1, 'MTK13111', 'Mata Kuliah 13111', 3, 0),
+(252, 1, 3, 1, 'MTK13112', 'Mata Kuliah 13112', 3, 0),
+(253, 1, 3, 1, 'MTK13113', 'Mata Kuliah 13113', 3, 0),
+(254, 1, 3, 1, 'MTK13114', 'Mata Kuliah 13114', 3, 0),
+(255, 1, 3, 1, 'MTK13115', 'Mata Kuliah 13115', 3, 0),
+(256, 1, 3, 1, 'MTK13116', 'Mata Kuliah 13116', 3, 0),
+(257, 1, 3, 1, 'MTK13117', 'Mata Kuliah 13117', 3, 0),
+(258, 1, 3, 1, 'MTK13118', 'Mata Kuliah 13118', 3, 0),
+(259, 1, 3, 1, 'MTK13119', 'Mata Kuliah 13119', 3, 0),
+(260, 1, 3, 1, 'MTK13120', 'Mata Kuliah 13120', 3, 0),
+(261, 1, 3, 1, 'MTK13121', 'Mata Kuliah 13121', 3, 0),
+(262, 1, 3, 1, 'MTK13122', 'Mata Kuliah 13122', 3, 0),
+(263, 1, 3, 1, 'MTK13123', 'Mata Kuliah 13123', 3, 0),
+(264, 1, 3, 1, 'MTK13124', 'Mata Kuliah 13124', 3, 0),
+(265, 1, 3, 1, 'MTK13125', 'Mata Kuliah 13125', 3, 0),
+(266, 1, 3, 1, 'MTK13126', 'Mata Kuliah 13126', 3, 0),
+(267, 1, 3, 1, 'MTK13127', 'Mata Kuliah 13127', 3, 0),
+(268, 1, 3, 1, 'MTK13128', 'Mata Kuliah 13128', 3, 0),
+(269, 1, 3, 1, 'MTK13129', 'Mata Kuliah 13129', 3, 0),
+(270, 1, 3, 1, 'MTK13130', 'Mata Kuliah 13130', 3, 0),
+(271, 1, 3, 1, 'MTK13131', 'Mata Kuliah 13131', 3, 48),
+(272, 1, 3, 1, 'MTK13132', 'Mata Kuliah 13132', 3, 100),
+(273, 1, 3, 1, 'MTK13133', 'Mata Kuliah 13133', 3, 0),
+(274, 1, 3, 1, 'MTK13134', 'Mata Kuliah 13134', 3, 0),
+(275, 1, 3, 1, 'MTK13135', 'Mata Kuliah 13135', 3, 0),
+(276, 1, 3, 1, 'MTK13136', 'Mata Kuliah 13136', 3, 0),
+(277, 1, 3, 1, 'MTK13137', 'Mata Kuliah 13137', 3, 0),
+(278, 1, 3, 1, 'MTK13138', 'Mata Kuliah 13138', 3, 0),
+(279, 1, 3, 1, 'MTK13139', 'Mata Kuliah 13139', 3, 0),
+(280, 1, 3, 1, 'MTK13140', 'Mata Kuliah 13140', 3, 0),
+(281, 1, 3, 2, 'MTK13201', 'Mata Kuliah 13201', 6, 0),
+(282, 1, 3, 2, 'MTK13202', 'Mata Kuliah 13202', 6, 0),
+(283, 1, 3, 2, 'MTK13203', 'Mata Kuliah 13203', 1, 0),
+(284, 1, 3, 2, 'MTK13204', 'Mata Kuliah 13204', 1, 0),
+(285, 1, 3, 2, 'MTK13205', 'Mata Kuliah 13205', 3, 0),
+(286, 1, 3, 2, 'MTK13206', 'Mata Kuliah 13206', 3, 0),
+(287, 1, 3, 2, 'MTK13207', 'Mata Kuliah 13207', 3, 0),
+(288, 1, 3, 2, 'MTK13208', 'Mata Kuliah 13208', 3, 0),
+(289, 1, 3, 2, 'MTK13209', 'Mata Kuliah 13209', 3, 0),
+(290, 1, 3, 2, 'MTK13210', 'Mata Kuliah 13210', 3, 0),
+(291, 1, 3, 2, 'MTK13211', 'Mata Kuliah 13211', 3, 0),
+(292, 1, 3, 2, 'MTK13212', 'Mata Kuliah 13212', 3, 0),
+(293, 1, 3, 2, 'MTK13213', 'Mata Kuliah 13213', 3, 0),
+(294, 1, 3, 2, 'MTK13214', 'Mata Kuliah 13214', 3, 0),
+(295, 1, 3, 2, 'MTK13215', 'Mata Kuliah 13215', 3, 0),
+(296, 1, 3, 2, 'MTK13216', 'Mata Kuliah 13216', 3, 0),
+(297, 1, 3, 2, 'MTK13217', 'Mata Kuliah 13217', 3, 0),
+(298, 1, 3, 2, 'MTK13218', 'Mata Kuliah 13218', 3, 0),
+(299, 1, 3, 2, 'MTK13219', 'Mata Kuliah 13219', 3, 0),
+(300, 1, 3, 2, 'MTK13220', 'Mata Kuliah 13220', 3, 0),
+(301, 1, 3, 2, 'MTK13221', 'Mata Kuliah 13221', 3, 0),
+(302, 1, 3, 2, 'MTK13222', 'Mata Kuliah 13222', 3, 0),
+(303, 1, 3, 2, 'MTK13223', 'Mata Kuliah 13223', 3, 0),
+(304, 1, 3, 2, 'MTK13224', 'Mata Kuliah 13224', 3, 0),
+(305, 1, 3, 2, 'MTK13225', 'Mata Kuliah 13225', 3, 0),
+(306, 1, 3, 2, 'MTK13226', 'Mata Kuliah 13226', 3, 0),
+(307, 1, 3, 2, 'MTK13227', 'Mata Kuliah 13227', 3, 0),
+(308, 1, 3, 2, 'MTK13228', 'Mata Kuliah 13228', 3, 0),
+(309, 1, 3, 2, 'MTK13229', 'Mata Kuliah 13229', 3, 0),
+(310, 1, 3, 2, 'MTK13230', 'Mata Kuliah 13230', 3, 0),
+(311, 1, 3, 2, 'MTK13231', 'Mata Kuliah 13231', 3, 48),
+(312, 1, 3, 2, 'MTK13232', 'Mata Kuliah 13232', 3, 100),
+(313, 1, 3, 2, 'MTK13233', 'Mata Kuliah 13233', 3, 0),
+(314, 1, 3, 2, 'MTK13234', 'Mata Kuliah 13234', 3, 0),
+(315, 1, 3, 2, 'MTK13235', 'Mata Kuliah 13235', 3, 0),
+(316, 1, 3, 2, 'MTK13236', 'Mata Kuliah 13236', 3, 0),
+(317, 1, 3, 2, 'MTK13237', 'Mata Kuliah 13237', 3, 0),
+(318, 1, 3, 2, 'MTK13238', 'Mata Kuliah 13238', 3, 0),
+(319, 1, 3, 2, 'MTK13239', 'Mata Kuliah 13239', 3, 0),
+(320, 1, 3, 2, 'MTK13240', 'Mata Kuliah 13240', 3, 0),
+(321, 1, 3, 3, 'MTK13301', 'Mata Kuliah 13301', 6, 0),
+(322, 1, 3, 3, 'MTK13302', 'Mata Kuliah 13302', 6, 0),
+(323, 1, 3, 3, 'MTK13303', 'Mata Kuliah 13303', 1, 0),
+(324, 1, 3, 3, 'MTK13304', 'Mata Kuliah 13304', 1, 0),
+(325, 1, 3, 3, 'MTK13305', 'Mata Kuliah 13305', 3, 0),
+(326, 1, 3, 3, 'MTK13306', 'Mata Kuliah 13306', 3, 0),
+(327, 1, 3, 3, 'MTK13307', 'Mata Kuliah 13307', 3, 0),
+(328, 1, 3, 3, 'MTK13308', 'Mata Kuliah 13308', 3, 0),
+(329, 1, 3, 3, 'MTK13309', 'Mata Kuliah 13309', 3, 0),
+(330, 1, 3, 3, 'MTK13310', 'Mata Kuliah 13310', 3, 0),
+(331, 1, 3, 3, 'MTK13311', 'Mata Kuliah 13311', 3, 0),
+(332, 1, 3, 3, 'MTK13312', 'Mata Kuliah 13312', 3, 0),
+(333, 1, 3, 3, 'MTK13313', 'Mata Kuliah 13313', 3, 0),
+(334, 1, 3, 3, 'MTK13314', 'Mata Kuliah 13314', 3, 0),
+(335, 1, 3, 3, 'MTK13315', 'Mata Kuliah 13315', 3, 0),
+(336, 1, 3, 3, 'MTK13316', 'Mata Kuliah 13316', 3, 0),
+(337, 1, 3, 3, 'MTK13317', 'Mata Kuliah 13317', 3, 0),
+(338, 1, 3, 3, 'MTK13318', 'Mata Kuliah 13318', 3, 0),
+(339, 1, 3, 3, 'MTK13319', 'Mata Kuliah 13319', 3, 0),
+(340, 1, 3, 3, 'MTK13320', 'Mata Kuliah 13320', 3, 0),
+(341, 1, 3, 3, 'MTK13321', 'Mata Kuliah 13321', 3, 48),
+(342, 1, 3, 3, 'MTK13322', 'Mata Kuliah 13322', 3, 48),
+(343, 1, 3, 3, 'MTK13323', 'Mata Kuliah 13323', 3, 0),
+(344, 1, 3, 3, 'MTK13324', 'Mata Kuliah 13324', 3, 0),
+(345, 1, 3, 3, 'MTK13325', 'Mata Kuliah 13325', 3, 0),
+(346, 1, 3, 3, 'MTK13326', 'Mata Kuliah 13326', 3, 0),
+(347, 1, 3, 3, 'MTK13327', 'Mata Kuliah 13327', 3, 0),
+(348, 1, 3, 3, 'MTK13328', 'Mata Kuliah 13328', 3, 0),
+(349, 1, 3, 3, 'MTK13329', 'Mata Kuliah 13329', 3, 0),
+(350, 1, 3, 3, 'MTK13330', 'Mata Kuliah 13330', 3, 0),
+(351, 1, 3, 3, 'MTK13331', 'Mata Kuliah 13331', 3, 48),
+(352, 1, 3, 3, 'MTK13332', 'Mata Kuliah 13332', 3, 100),
+(353, 1, 3, 3, 'MTK13333', 'Mata Kuliah 13333', 3, 0),
+(354, 1, 3, 3, 'MTK13334', 'Mata Kuliah 13334', 3, 0),
+(355, 1, 3, 3, 'MTK13335', 'Mata Kuliah 13335', 3, 0),
+(356, 1, 3, 3, 'MTK13336', 'Mata Kuliah 13336', 3, 0),
+(357, 1, 3, 3, 'MTK13337', 'Mata Kuliah 13337', 3, 0),
+(358, 1, 3, 3, 'MTK13338', 'Mata Kuliah 13338', 3, 0),
+(359, 1, 3, 3, 'MTK13339', 'Mata Kuliah 13339', 3, 0),
+(360, 1, 3, 3, 'MTK13340', 'Mata Kuliah 13340', 3, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mata_kuliah_kurikulum`
+-- Struktur dari tabel `mata_kuliah_kurikulum`
 --
 
 CREATE TABLE `mata_kuliah_kurikulum` (
@@ -480,273 +471,187 @@ CREATE TABLE `mata_kuliah_kurikulum` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mata_kuliah_kurikulum`
+-- Dumping data untuk tabel `mata_kuliah_kurikulum`
 --
 
 INSERT INTO `mata_kuliah_kurikulum` (`id`, `id_kurikulum`, `id_matkul`, `status_matkul`, `term`) VALUES
-(1, 1, 2, 'Wajib UI', 1),
-(2, 1, 30, 'Wajib Fakultas', 1),
-(3, 1, 28, 'Wajib Rumpun', 1),
-(4, 1, 31, 'Wajib Fakultas', 1),
-(5, 1, 10, 'Wajib UI', 1),
-(6, 1, 4, 'Wajib UI', 1),
-(7, 1, 1, 'Wajib UI', 2),
-(8, 1, 33, 'Wajib Fakultas', 2),
-(9, 1, 32, 'Wajib Fakultas', 2),
-(10, 1, 44, 'Wajib Prodi', 2),
-(11, 1, 3, 'Wajib UI', 2),
-(12, 1, 29, 'Wajib Rumpun', 3),
-(13, 1, 34, 'Wajib Fakultas', 3),
-(14, 1, 35, 'Wajib Fakultas', 3),
-(15, 1, 36, 'Wajib Fakultas', 3),
-(16, 1, 45, 'Wajib Prodi', 3),
-(17, 1, 43, 'Wajib Prodi', 3),
-(18, 1, 46, 'Wajib Prodi', 4),
-(19, 1, 39, 'Wajib Fakultas', 4),
-(20, 1, 37, 'Wajib Fakultas', 4),
-(21, 1, 38, 'Wajib Fakultas', 4),
-(22, 1, 47, 'Wajib Fakultas', 4),
-(23, 1, 48, 'Wajib Fakultas', 4),
-(24, 1, 49, 'Wajib Prodi', 5),
-(25, 1, 50, 'Wajib Prodi', 5),
-(26, 1, 51, 'Wajib Prodi', 5),
-(27, 1, 52, 'Wajib Prodi', 5),
-(28, 1, 53, 'Wajib Prodi', 5),
-(29, 1, 40, 'Wajib Prodi', 6),
-(30, 1, 54, 'Wajib Prodi', 6),
-(31, 1, 55, 'Wajib Prodi', 6),
-(32, 1, 56, 'Wajib Prodi', 6),
-(33, 1, 41, 'Wajib Fakultas', 7),
-(34, 1, 57, 'Wajib Prodi', 7),
-(35, 1, 42, 'Wajib Fakultas', 8),
-(36, 1, 71, 'Peminatan', 0),
-(37, 1, 72, 'Peminatan', 0),
-(38, 1, 73, 'Peminatan', 0),
-(39, 1, 74, 'Peminatan', 0),
-(40, 1, 75, 'Peminatan', 0),
-(41, 1, 76, 'Peminatan', 0),
-(42, 1, 77, 'Peminatan', 0),
-(43, 1, 78, 'Peminatan', 0),
-(44, 1, 79, 'Peminatan', 0),
-(45, 1, 80, 'Peminatan', 0),
-(46, 1, 81, 'Peminatan', 0),
-(47, 1, 82, 'Peminatan', 0),
-(48, 1, 83, 'Peminatan', 0),
-(49, 1, 84, 'Peminatan', 0),
-(50, 1, 85, 'Peminatan', 0),
-(51, 1, 86, 'Peminatan', 0),
-(52, 1, 87, 'Peminatan', 0),
-(53, 1, 88, 'Peminatan', 0),
-(54, 1, 89, 'Peminatan', 0),
-(55, 1, 90, 'Peminatan', 0),
-(56, 1, 91, 'Peminatan', 0),
-(57, 1, 92, 'Peminatan', 0),
-(58, 1, 93, 'Peminatan', 0),
-(59, 1, 94, 'Peminatan', 0),
-(60, 1, 95, 'Peminatan', 0),
-(61, 1, 96, 'Peminatan', 0),
-(62, 1, 97, 'Peminatan', 0),
-(63, 1, 98, 'Peminatan', 0),
-(64, 1, 99, 'Peminatan', 0),
-(65, 1, 100, 'Peminatan', 0),
-(66, 1, 101, 'Peminatan', 0),
-(67, 1, 102, 'Peminatan', 0),
-(68, 1, 103, 'Peminatan', 0),
-(69, 1, 104, 'Peminatan', 0),
-(70, 1, 105, 'Peminatan', 0),
-(71, 1, 106, 'Peminatan', 0),
-(72, 2, 2, 'Wajib UI', 1),
-(73, 2, 30, 'Wajib Fakultas', 1),
-(74, 2, 29, 'Wajib Rumpun', 1),
-(75, 2, 31, 'Wajib Fakultas', 1),
-(76, 2, 10, 'Wajib UI', 1),
-(77, 2, 4, 'Wajib UI', 1),
-(78, 2, 1, 'Wajib UI', 2),
-(79, 2, 33, 'Wajib Fakultas', 2),
-(80, 2, 32, 'Wajib Fakultas', 2),
-(81, 2, 43, 'Wajib Prodi', 2),
-(82, 2, 3, 'Wajib UI', 2),
-(83, 2, 28, 'Wajib Rumpun', 3),
-(84, 2, 34, 'Wajib Fakultas', 3),
-(85, 2, 35, 'Wajib Fakultas', 3),
-(86, 2, 36, 'Wajib Fakultas', 3),
-(87, 2, 45, 'Wajib Prodi', 3),
-(88, 2, 44, 'Wajib Prodi', 3),
-(89, 2, 46, 'Wajib Prodi', 4),
-(90, 2, 39, 'Wajib Fakultas', 4),
-(91, 2, 37, 'Wajib Fakultas', 4),
-(92, 2, 38, 'Wajib Fakultas', 4),
-(93, 2, 47, 'Wajib Fakultas', 4),
-(94, 2, 48, 'Wajib Fakultas', 4),
-(95, 2, 49, 'Wajib Prodi', 5),
-(96, 2, 50, 'Wajib Prodi', 5),
-(97, 2, 51, 'Wajib Prodi', 5),
-(98, 2, 52, 'Wajib Prodi', 5),
-(99, 2, 53, 'Wajib Prodi', 5),
-(100, 2, 40, 'Wajib Prodi', 6),
-(101, 2, 54, 'Wajib Prodi', 6),
-(102, 2, 55, 'Wajib Prodi', 6),
-(103, 2, 56, 'Wajib Prodi', 6),
-(104, 2, 41, 'Wajib Fakultas', 7),
-(105, 2, 57, 'Wajib Prodi', 7),
-(106, 2, 42, 'Wajib Fakultas', 8),
-(107, 2, 71, 'Peminatan', 0),
-(108, 2, 72, 'Peminatan', 0),
-(109, 2, 73, 'Peminatan', 0),
-(110, 2, 74, 'Peminatan', 0),
-(111, 2, 75, 'Peminatan', 0),
-(112, 2, 76, 'Peminatan', 0),
-(113, 2, 77, 'Peminatan', 0),
-(114, 2, 78, 'Peminatan', 0),
-(115, 2, 79, 'Peminatan', 0),
-(116, 2, 80, 'Peminatan', 0),
-(117, 2, 81, 'Peminatan', 0),
-(118, 2, 82, 'Peminatan', 0),
-(119, 2, 83, 'Peminatan', 0),
-(120, 2, 84, 'Peminatan', 0),
-(121, 2, 85, 'Peminatan', 0),
-(122, 2, 86, 'Peminatan', 0),
-(123, 2, 87, 'Peminatan', 0),
-(124, 2, 88, 'Peminatan', 0),
-(125, 2, 89, 'Peminatan', 0),
-(126, 2, 90, 'Peminatan', 0),
-(127, 2, 91, 'Peminatan', 0),
-(128, 2, 92, 'Peminatan', 0),
-(129, 2, 93, 'Peminatan', 0),
-(130, 2, 94, 'Peminatan', 0),
-(131, 2, 95, 'Peminatan', 0),
-(132, 2, 96, 'Peminatan', 0),
-(133, 2, 97, 'Peminatan', 0),
-(134, 2, 98, 'Peminatan', 0),
-(135, 2, 99, 'Peminatan', 0),
-(136, 2, 100, 'Peminatan', 0),
-(137, 2, 101, 'Peminatan', 0),
-(138, 2, 102, 'Peminatan', 0),
-(139, 2, 103, 'Peminatan', 0),
-(140, 2, 104, 'Peminatan', 0),
-(141, 2, 105, 'Peminatan', 0),
-(142, 2, 106, 'Peminatan', 0),
-(143, 3, 1, 'Wajib UI', 1),
-(144, 3, 30, 'Wajib Fakultas', 1),
-(145, 3, 29, 'Wajib Rumpun', 1),
-(146, 3, 31, 'Wajib Fakultas', 1),
-(147, 3, 12, 'Wajib UI', 1),
-(148, 3, 3, 'Wajib UI', 1),
-(149, 3, 2, 'Wajib UI', 2),
-(150, 3, 33, 'Wajib Fakultas', 2),
-(151, 3, 32, 'Wajib Fakultas', 2),
-(152, 3, 43, 'Wajib Prodi', 2),
-(153, 3, 4, 'Wajib UI', 2),
-(154, 3, 28, 'Wajib Rumpun', 3),
-(155, 3, 34, 'Wajib Fakultas', 3),
-(156, 3, 35, 'Wajib Fakultas', 3),
-(157, 3, 36, 'Wajib Fakultas', 3),
-(158, 3, 45, 'Wajib Prodi', 3),
-(159, 3, 44, 'Wajib Prodi', 3),
-(160, 3, 46, 'Wajib Prodi', 4),
-(161, 3, 39, 'Wajib Fakultas', 4),
-(162, 3, 37, 'Wajib Fakultas', 4),
-(163, 3, 38, 'Wajib Fakultas', 4),
-(164, 3, 47, 'Wajib Fakultas', 4),
-(165, 3, 48, 'Wajib Fakultas', 4),
-(166, 3, 49, 'Wajib Prodi', 5),
-(167, 3, 50, 'Wajib Prodi', 5),
-(168, 3, 51, 'Wajib Prodi', 5),
-(169, 3, 52, 'Wajib Prodi', 5),
-(170, 3, 53, 'Wajib Prodi', 5),
-(171, 3, 40, 'Wajib Prodi', 6),
-(172, 3, 54, 'Wajib Prodi', 6),
-(173, 3, 55, 'Wajib Prodi', 6),
-(174, 3, 56, 'Wajib Prodi', 6),
-(175, 3, 41, 'Wajib Fakultas', 7),
-(176, 3, 57, 'Wajib Prodi', 7),
-(177, 3, 42, 'Wajib Fakultas', 8),
-(178, 3, 71, 'Peminatan', 0),
-(179, 3, 72, 'Peminatan', 0),
-(180, 3, 73, 'Peminatan', 0),
-(181, 3, 74, 'Peminatan', 0),
-(182, 3, 75, 'Peminatan', 0),
-(183, 3, 76, 'Peminatan', 0),
-(184, 3, 77, 'Peminatan', 0),
-(185, 3, 78, 'Peminatan', 0),
-(186, 3, 79, 'Peminatan', 0),
-(187, 3, 80, 'Peminatan', 0),
-(188, 3, 81, 'Peminatan', 0),
-(189, 3, 82, 'Peminatan', 0),
-(190, 3, 83, 'Peminatan', 0),
-(191, 3, 84, 'Peminatan', 0),
-(192, 3, 85, 'Peminatan', 0),
-(193, 3, 86, 'Peminatan', 0),
-(194, 3, 87, 'Peminatan', 0),
-(195, 3, 88, 'Peminatan', 0),
-(196, 3, 89, 'Peminatan', 0),
-(197, 3, 90, 'Peminatan', 0),
-(198, 3, 91, 'Peminatan', 0),
-(199, 3, 92, 'Peminatan', 0),
-(200, 3, 93, 'Peminatan', 0),
-(201, 3, 94, 'Peminatan', 0),
-(202, 3, 95, 'Peminatan', 0),
-(203, 3, 96, 'Peminatan', 0),
-(204, 3, 97, 'Peminatan', 0),
-(205, 3, 98, 'Peminatan', 0),
-(206, 3, 99, 'Peminatan', 0),
-(207, 3, 100, 'Peminatan', 0),
-(208, 3, 101, 'Peminatan', 0),
-(209, 3, 102, 'Peminatan', 0),
-(210, 3, 103, 'Peminatan', 0),
-(211, 3, 104, 'Peminatan', 0),
-(212, 3, 105, 'Peminatan', 0),
-(213, 3, 106, 'Peminatan', 0);
+(1, 1, 1, 'Wajib Univ', 1),
+(2, 1, 2, 'Wajib Fakultas', 1),
+(3, 1, 3, 'Wajib Fakultas', 1),
+(4, 1, 4, 'Wajib Prodi', 1),
+(5, 1, 5, 'Wajib Prodi', 1),
+(6, 1, 6, 'Wajib Univ', 2),
+(7, 1, 7, 'Wajib Fakultas', 2),
+(8, 1, 8, 'Wajib Prodi', 2),
+(9, 1, 9, 'Wajib Prodi', 2),
+(10, 1, 10, 'Wajib Prodi', 2),
+(11, 1, 11, 'Wajib Univ', 3),
+(12, 1, 12, 'Wajib Fakultas', 3),
+(13, 1, 13, 'Wajib Prodi', 3),
+(14, 1, 14, 'Wajib Prodi', 3),
+(15, 1, 15, 'Wajib Prodi', 3),
+(16, 1, 16, 'Wajib Univ', 4),
+(17, 1, 17, 'Wajib Fakultas', 4),
+(18, 1, 18, 'Wajib Prodi', 4),
+(19, 1, 19, 'Wajib Prodi', 4),
+(20, 1, 20, 'Wajib Prodi', 4),
+(21, 1, 21, 'Wajib Fakultas', 5),
+(22, 1, 22, 'Wajib Prodi', 5),
+(23, 1, 23, 'Wajib Prodi', 5),
+(24, 1, 24, 'Wajib Prodi', 5),
+(25, 1, 25, 'Pilihan Minat', 5),
+(26, 1, 26, 'Wajib Prodi', 6),
+(27, 1, 27, 'Wajib Prodi', 6),
+(28, 1, 28, 'Wajib Prodi', 6),
+(29, 1, 29, 'Pilihan Minat', 6),
+(30, 1, 30, 'Pilihan Minat', 6),
+(31, 1, 31, 'Wajib Fakultas', 7),
+(32, 1, 32, 'Wajib Prodi', 7),
+(33, 1, 33, 'Pilihan Minat', 7),
+(34, 1, 34, 'Pilihan Minat', 7),
+(35, 1, 35, 'Pilihan Minat', 7),
+(36, 1, 36, 'Wajib Prodi', 8),
+(37, 1, 37, 'Pilihan Minat', 8),
+(38, 1, 38, 'Pilihan Minat', 8),
+(39, 1, 39, 'Pilihan Minat', 8),
+(40, 1, 40, 'Pilihan Minat', 8),
+(41, 2, 41, 'Wajib Univ', 1),
+(42, 2, 42, 'Wajib Fakultas', 1),
+(43, 2, 43, 'Wajib Fakultas', 1),
+(44, 2, 44, 'Wajib Prodi', 1),
+(45, 2, 45, 'Wajib Prodi', 1),
+(46, 2, 46, 'Wajib Univ', 2),
+(47, 2, 47, 'Wajib Fakultas', 2),
+(48, 2, 48, 'Wajib Prodi', 2),
+(49, 2, 49, 'Wajib Prodi', 2),
+(50, 2, 50, 'Wajib Prodi', 2),
+(51, 2, 51, 'Wajib Univ', 3),
+(52, 2, 52, 'Wajib Fakultas', 3),
+(53, 2, 53, 'Wajib Prodi', 3),
+(54, 2, 54, 'Wajib Prodi', 3),
+(55, 2, 55, 'Wajib Prodi', 3),
+(56, 2, 56, 'Wajib Univ', 4),
+(57, 2, 57, 'Wajib Fakultas', 4),
+(58, 2, 58, 'Wajib Prodi', 4),
+(59, 2, 59, 'Wajib Prodi', 4),
+(60, 2, 60, 'Wajib Prodi', 4),
+(61, 2, 61, 'Wajib Fakultas', 5),
+(62, 2, 62, 'Wajib Prodi', 5),
+(63, 2, 63, 'Wajib Prodi', 5),
+(64, 2, 64, 'Wajib Prodi', 5),
+(65, 2, 65, 'Pilihan Minat', 5),
+(66, 2, 66, 'Wajib Prodi', 6),
+(67, 2, 67, 'Wajib Prodi', 6),
+(68, 2, 68, 'Wajib Prodi', 6),
+(69, 2, 69, 'Pilihan Minat', 6),
+(70, 2, 70, 'Pilihan Minat', 6),
+(71, 2, 71, 'Wajib Fakultas', 7),
+(72, 2, 72, 'Wajib Prodi', 7),
+(73, 2, 73, 'Pilihan Minat', 7),
+(74, 2, 74, 'Pilihan Minat', 7),
+(75, 2, 75, 'Pilihan Minat', 7),
+(76, 2, 76, 'Wajib Prodi', 8),
+(77, 2, 77, 'Pilihan Minat', 8),
+(78, 2, 78, 'Pilihan Minat', 8),
+(79, 2, 79, 'Pilihan Minat', 8),
+(80, 2, 80, 'Pilihan Minat', 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prasyarat_mata_kuliah`
+-- Struktur dari tabel `prasyarat_mata_kuliah`
 --
 
 CREATE TABLE `prasyarat_mata_kuliah` (
   `id` int(11) NOT NULL,
-  `id_matkul` int(11) NOT NULL,
-  `id_prasyarat_matkul` int(11) NOT NULL
+  `kode_matkul` varchar(30) NOT NULL,
+  `kode_prasyarat_matkul` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `prasyarat_mata_kuliah`
+-- Dumping data untuk tabel `prasyarat_mata_kuliah`
 --
 
-INSERT INTO `prasyarat_mata_kuliah` (`id`, `id_matkul`, `id_prasyarat_matkul`) VALUES
-(1, 33, 31),
-(2, 34, 30),
-(3, 35, 31),
-(4, 36, 33),
-(5, 37, 28),
-(6, 38, 44),
-(7, 39, 33),
-(8, 40, 1),
-(9, 40, 2),
-(10, 47, 45),
-(11, 48, 45),
-(12, 49, 35),
-(13, 50, 39),
-(14, 50, 43),
-(15, 51, 35),
-(16, 51, 36),
-(17, 52, 43),
-(18, 52, 46),
-(19, 53, 29),
-(20, 53, 31),
-(21, 53, 38),
-(22, 54, 49),
-(23, 54, 50),
-(24, 54, 52),
-(25, 56, 37),
-(26, 57, 43),
-(27, 57, 46);
+INSERT INTO `prasyarat_mata_kuliah` (`id`, `kode_matkul`, `kode_prasyarat_matkul`) VALUES
+(1, 'MTK11111', 'MTK11101'),
+(2, 'MTK11112', 'MTK11102'),
+(3, 'MTK11113', 'MTK11103'),
+(4, 'MTK11211', 'MTK11201'),
+(5, 'MTK11212', 'MTK11202'),
+(6, 'MTK11213', 'MTK11203'),
+(7, 'MTK11311', 'MTK11301'),
+(8, 'MTK11312', 'MTK11302'),
+(9, 'MTK11313', 'MTK11303'),
+(10, 'MTK12111', 'MTK12101'),
+(11, 'MTK12112', 'MTK12102'),
+(12, 'MTK12113', 'MTK12103'),
+(13, 'MTK12211', 'MTK12201'),
+(14, 'MTK12212', 'MTK12202'),
+(15, 'MTK12213', 'MTK12203'),
+(16, 'MTK12311', 'MTK12301'),
+(17, 'MTK12312', 'MTK12302'),
+(18, 'MTK12313', 'MTK12303'),
+(19, 'MTK13111', 'MTK13101'),
+(20, 'MTK13112', 'MTK13102'),
+(21, 'MTK13113', 'MTK13103'),
+(22, 'MTK13211', 'MTK13201'),
+(23, 'MTK13212', 'MTK13202'),
+(24, 'MTK13213', 'MTK13203'),
+(25, 'MTK13311', 'MTK13301'),
+(26, 'MTK13312', 'MTK13302'),
+(27, 'MTK13313', 'MTK13303');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Struktur dari tabel `prodi`
+--
+
+CREATE TABLE `prodi` (
+  `id_univ` int(11) NOT NULL,
+  `id_fakultas` int(11) NOT NULL,
+  `id_prodi` int(11) NOT NULL,
+  `kode_prodi` varchar(30) NOT NULL,
+  `nama_prodi` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `prodi`
+--
+
+INSERT INTO `prodi` (`id_univ`, `id_fakultas`, `id_prodi`, `kode_prodi`, `nama_prodi`) VALUES
+(1, 1, 1, '', 'Program Studi A1X'),
+(1, 1, 2, '', 'Program Studi A1Y'),
+(1, 1, 3, '', 'Program Studi A1Z'),
+(1, 2, 1, '', 'Program Studi A2X'),
+(1, 2, 2, '', 'Program Studi A2Y'),
+(1, 2, 3, '', 'Program Studi A2Z'),
+(1, 3, 1, '', 'Program Studi A3X'),
+(1, 3, 2, '', 'Program Studi A3Y'),
+(1, 3, 3, '', 'Program Studi A3Z'),
+(2, 1, 1, '', 'Program Studi B1X'),
+(2, 1, 2, '', 'Program Studi B1Y'),
+(2, 1, 3, '', 'Program Studi B1Z'),
+(2, 2, 1, '', 'Program Studi B2X'),
+(2, 2, 2, '', 'Program Studi B2Y'),
+(2, 2, 3, '', 'Program Studi B2Z'),
+(2, 3, 1, '', 'Program Studi B3X'),
+(2, 3, 2, '', 'Program Studi B3Y'),
+(2, 3, 3, '', 'Program Studi B3Z'),
+(3, 1, 1, '', 'Program Studi C1X'),
+(3, 1, 2, '', 'Program Studi C1Y'),
+(3, 1, 3, '', 'Program Studi C1Z'),
+(3, 2, 1, '', 'Program Studi C2X'),
+(3, 2, 2, '', 'Program Studi C2Y'),
+(3, 2, 3, '', 'Program Studi C2Z'),
+(3, 3, 1, '', 'Program Studi C3X'),
+(3, 3, 2, '', 'Program Studi C3Y'),
+(3, 3, 3, '', 'Program Studi C3Z');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `roles`
 --
 
 CREATE TABLE `roles` (
@@ -755,19 +660,40 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Dumping data untuk tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `nama_role`) VALUES
 (1, 'ROLE_KAPRODI'),
-(2, 'ROLE_SEKRE'),
+(2, 'ROLE_SEKRETARIAT'),
 (3, 'ROLE_DOSEN'),
-(4, 'ROLE_MAHASISWA');
+(4, 'ROLE_MAHASISWA'),
+(5, 'ROLE_STAFF');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `universitas`
+--
+
+CREATE TABLE `universitas` (
+  `id` int(11) NOT NULL,
+  `nama_univ` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `universitas`
+--
+
+INSERT INTO `universitas` (`id`, `nama_univ`) VALUES
+(1, 'Universitas A'),
+(2, 'Universitas B'),
+(3, 'Universitas C');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -776,36 +702,51 @@ CREATE TABLE `users` (
   `password` varchar(50) NOT NULL,
   `nama` varchar(150) NOT NULL,
   `id_role` int(11) NOT NULL,
-  `id_universitas` int(11) NOT NULL
+  `id_univ` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `nama`, `id_role`, `id_universitas`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `nama`, `id_role`, `id_univ`) VALUES
 (1, 'kaprodi1', 'kaprodi', 'Faisal Rizky', 1, 1),
 (2, 'kaprodi2', 'kaprodi', 'Radhitya Rahman', 1, 2),
-(3, 'kaprodi3', 'kaprodi', 'Aditya Putra', 1, 3),
-(4, 'sekre', 'sekre', 'Kurniawan Bahari', 2, 1),
-(5, 'dosen', 'dosen', 'Muhammad Panji', 3, 1),
-(6, 'mahasiswa', 'mahasiswa', 'Junior Aji', 4, 1);
+(3, 'kaprodi3', 'kaprodi', 'Nugraha Aditya', 1, 3),
+(4, 'sekretariat1', 'sekre', 'Kurniawan Bahari', 2, 1),
+(5, 'dosen1', 'dosen', 'Muhammad Panji', 3, 1),
+(6, 'mahasiswa1', 'mahasiswa', 'Junior Aji', 4, 1),
+(7, 'kaprodi2', 'kaprodi', 'Radhitya Rahman', 1, 2),
+(8, 'sekretariat2', 'sekre', 'Ali Bayu', 2, 2),
+(9, 'dosen2', 'dosen', 'Putra Utama', 3, 2),
+(10, 'mahasiswa2', 'mahasiswa', 'Sanjaya Pratama', 4, 2),
+(11, 'kaprodi3', 'kaprodi', 'Nugraha Aditya', 1, 3),
+(12, 'sekretariat3', 'sekre', 'Pradana', 2, 3);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `fakultas`
+--
+ALTER TABLE `fakultas`
+  ADD PRIMARY KEY (`id_univ`,`id_fakultas`);
+
+--
 -- Indexes for table `kurikulum`
 --
 ALTER TABLE `kurikulum`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_univ` (`id_univ`,`id_fakultas`,`id_prodi`);
 
 --
 -- Indexes for table `mata_kuliah`
 --
 ALTER TABLE `mata_kuliah`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode_matkul` (`kode_matkul`),
+  ADD KEY `id_univ` (`id_univ`,`id_fakultas`,`id_prodi`);
 
 --
 -- Indexes for table `mata_kuliah_kurikulum`
@@ -820,8 +761,14 @@ ALTER TABLE `mata_kuliah_kurikulum`
 --
 ALTER TABLE `prasyarat_mata_kuliah`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_matkul` (`id_matkul`),
-  ADD KEY `id_prasyarat_matkul` (`id_prasyarat_matkul`);
+  ADD KEY `kode_matkul` (`kode_matkul`),
+  ADD KEY `kode_prasyarat_matkul` (`kode_prasyarat_matkul`);
+
+--
+-- Indexes for table `prodi`
+--
+ALTER TABLE `prodi`
+  ADD PRIMARY KEY (`id_univ`,`id_fakultas`,`id_prodi`);
 
 --
 -- Indexes for table `roles`
@@ -830,11 +777,18 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `universitas`
+--
+ALTER TABLE `universitas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_role` (`id_role`);
+  ADD KEY `id_role` (`id_role`),
+  ADD KEY `users_ibfk_2` (`id_univ`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -846,28 +800,53 @@ ALTER TABLE `users`
 ALTER TABLE `kurikulum`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `mata_kuliah_kurikulum`
+-- Ketidakleluasaan untuk tabel `fakultas`
+--
+ALTER TABLE `fakultas`
+  ADD CONSTRAINT `fakultas_ibfk_1` FOREIGN KEY (`id_univ`) REFERENCES `universitas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `kurikulum`
+--
+ALTER TABLE `kurikulum`
+  ADD CONSTRAINT `kurikulum_ibfk_1` FOREIGN KEY (`id_univ`,`id_fakultas`,`id_prodi`) REFERENCES `prodi` (`id_univ`, `id_fakultas`, `id_prodi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `mata_kuliah`
+--
+ALTER TABLE `mata_kuliah`
+  ADD CONSTRAINT `mata_kuliah_ibfk_1` FOREIGN KEY (`id_univ`,`id_fakultas`,`id_prodi`) REFERENCES `prodi` (`id_univ`, `id_fakultas`, `id_prodi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `mata_kuliah_kurikulum`
 --
 ALTER TABLE `mata_kuliah_kurikulum`
   ADD CONSTRAINT `mata_kuliah_kurikulum_ibfk_1` FOREIGN KEY (`id_kurikulum`) REFERENCES `kurikulum` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `mata_kuliah_kurikulum_ibfk_2` FOREIGN KEY (`id_matkul`) REFERENCES `mata_kuliah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `prasyarat_mata_kuliah`
+-- Ketidakleluasaan untuk tabel `prasyarat_mata_kuliah`
 --
 ALTER TABLE `prasyarat_mata_kuliah`
-  ADD CONSTRAINT `prasyarat_mata_kuliah_ibfk_1` FOREIGN KEY (`id_matkul`) REFERENCES `mata_kuliah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `prasyarat_mata_kuliah_ibfk_2` FOREIGN KEY (`id_prasyarat_matkul`) REFERENCES `mata_kuliah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `prasyarat_mata_kuliah_ibfk_1` FOREIGN KEY (`kode_matkul`) REFERENCES `mata_kuliah` (`kode_matkul`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `prasyarat_mata_kuliah_ibfk_2` FOREIGN KEY (`kode_prasyarat_matkul`) REFERENCES `mata_kuliah` (`kode_matkul`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- Ketidakleluasaan untuk tabel `prodi`
+--
+ALTER TABLE `prodi`
+  ADD CONSTRAINT `prodi_ibfk_1` FOREIGN KEY (`id_univ`,`id_fakultas`) REFERENCES `fakultas` (`id_univ`, `id_fakultas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_univ`) REFERENCES `universitas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
