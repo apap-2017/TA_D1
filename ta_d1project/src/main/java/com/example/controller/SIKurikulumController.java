@@ -66,14 +66,19 @@ public class SIKurikulumController {
 		return "kurikulum-add";
 	}
 
-	// halaman ubah kurikulum
+	// halaman ubah kurikulum part 1
 	@RequestMapping("/kurikulum/update/{id}")
 	public String updateKurikulum(Model model, @PathVariable(value = "id") int id) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
 
 		if (kurikulum != null) {
+			String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
+			String prodi = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
+			
+			model.addAttribute("fakultas", fakultas);
+			model.addAttribute("prodi", prodi);
 			model.addAttribute("kurikulum", kurikulum);
-			return "kurikulum-update-1";
+			return "kurikulum-update";
 		} else {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";

@@ -17,14 +17,15 @@ import com.example.model.MataKuliahModel;
 
 @Mapper
 public interface KurikulumMapper {
-	@Select("select id, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan, id_prodi, "
-			+ "id_fakultas from kurikulum where id = #{id}")
+	@Select("select id, id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan "
+			+ "from kurikulum where id = #{id}")
 	@Results(value= {
 			@Result(property="id", column="id"),
 			@Result(property="kode_kurikulum", column="kode_kurikulum"),
 			@Result(property="nama_kurikulum", column="nama_kurikulum"),
 			@Result(property="jumlah_sks_wajib", column="jumlah_sks_wajib"),
 			@Result(property="jumlah_sks_pilihan", column="jumlah_sks_pilihan"),
+			@Result(property="id_univ", column="id_univ"),
 			@Result(property="id_prodi", column="id_prodi"),
 			@Result(property="id_fakultas", column="id_fakultas"),
 			@Result(property="listMataKuliah", column="id",
@@ -36,7 +37,8 @@ public interface KurikulumMapper {
 	})
 	KurikulumModel selectKurikulum(@Param (value = "id") int id);	
 	
-	@Update("UPDATE kurikulum SET kode_kurikulum = #{kurikulum.kode_kurikulum}, nama_kurikulum = #{kurikulum.nama_kurikulum}, "
+	@Update("UPDATE kurikulum SET id_fakultas = #{kurikulum.id_fakultas}, id_prodi = #{kurikulum.id_prodi},"
+			+ " kode_kurikulum = #{kurikulum.kode_kurikulum}, nama_kurikulum = #{kurikulum.nama_kurikulum}, "
 			+ "jumlah_sks_wajib = #{kurikulum.jumlah_sks_wajib}, jumlah_sks_pilihan = #{kurikulum.jumlah_sks_pilihan} "
 			+ "where id = #{id_kurikulum}")
 	void updateKurikulum(@Param("kurikulum") KurikulumModel kurikulum, @Param(value = "id_kurikulum") int id_kurikulum);
@@ -49,8 +51,9 @@ public interface KurikulumMapper {
 			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
 	List<MataKuliahKurikulumModel> selectMataKuliahKurikulum (@Param (value = "id") int id);
 	
-	@Select("SELECT mata_kuliah.id, mata_kuliah.kode_matkul, mata_kuliah.nama_matkul, mata_kuliah.jumlah_sks, "
-			+ "mata_kuliah.prasyarat_sks, mata_kuliah.id_prodi from mata_kuliah join mata_kuliah_kurikulum on "
+	@Select("SELECT mata_kuliah.id, mata_kuliah.id_univ, mata_kuliah.id_fakultas, mata_kuliah.id_prodi, mata_kuliah.kode_matkul,"
+			+ " mata_kuliah.nama_matkul, mata_kuliah.jumlah_sks, "
+			+ "mata_kuliah.prasyarat_sks from mata_kuliah join mata_kuliah_kurikulum on "
 			+ "mata_kuliah.id = mata_kuliah_kurikulum.id_matkul JOIN kurikulum on kurikulum.id = "
 			+ "mata_kuliah_kurikulum.id_kurikulum WHERE kurikulum.id = #{id}")
 	List<MataKuliahModel> selectMataKuliah(@Param (value = "id") int id);
