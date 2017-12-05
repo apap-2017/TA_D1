@@ -39,21 +39,21 @@
 		</div>
 	</nav>
 	<nav aria-label="breadcrumb" role="navigation">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Kurikulum</li>
-	  </ol>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Kurikulum</li>
+		</ol>
 	</nav>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-9">
 				<h3>Cari Kurikulum</h3>
-				<form class="form-group" action="/kurikulum/find/submit" method="GET"
-					th:object="${kurikulum}">
+				<form class="form-group" action="/kurikulum/find/submit"
+					method="GET" th:object="${kurikulum}">
 					<table class="table-condensed" style="margin-top: 30px; width: 70%">
 						<tbody>
-							
+
 							<tr>
 								<td class="col-md-2"><label for="fakultas">Fakultas</label></td>
 								<td class="col-md-4"><select class="form-control"
@@ -64,22 +64,21 @@
 										<option th:value="'Fakultas Kesehatan Masyarakat'">Fakultas Kesehatan Masyarakat</option>
 										<option th:value="'Fakultas Ilmu Keperawatan'">Fakultas Ilmu Keperawatan</option>
 										<option th:value="'Fakultas Farmasi'">Fakultas Farmasi</option>
-										<option th:value="'Fakultas Matematika Ilmu Pengetahuan Alam'">Fakultas Matematika Ilmu Pengetahuan Alam</option>
+										<option th:value="'Fakultas Matematika &amp; Ilmu Pengetahuan Alam'">Fakultas Matematika &amp; Ilmu Pengetahuan Alam</option>
 										<option th:value="'Fakultas Teknik'">Fakultas Teknik</option>
 										<option th:value="'Fakultas Ilmu Komputer'">Fakultas Ilmu Komputer</option>
 										<option th:value="'Fakultas Hukum'">Fakultas Hukum</option>
-										<option th:value="'Fakultas Ekonomi Bisnis'">Fakultas Ekonomi Bisnis</option>
+										<option th:value="'Fakultas Ekonomi &amp; Bisnis'">Fakultas Ekonomi &amp; Bisnis</option>
 										<option th:value="'Fakultas Ilmu Pengetahuan Budaya'">Fakultas Ilmu Pengetahuan Budaya</option>
 										<option th:value="'Fakultas Psikologi'">Fakultas Psikologi</option>
-										<option th:value="'Fakultas Ilmu Sosial Ilmu Politik'">Fakultas Ilmu Sosial Ilmu Politik</option>
+										<option th:value="'Fakultas Ilmu Sosial &amp; Ilmu Politik'">Fakultas Ilmu Sosial &amp; Ilmu Politik</option>
 										<option th:value="'Fakultas Ilmu Administrasi'">Fakultas Ilmu Administrasi</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="col-md-2"><label for="prodi">Prodi</label></td>
 								<td class="col-md-4"><select class="form-control"
-									name="prodi"
-									required="true">
+									name="prodi" required="true">
 										<option selected="true" disabled="disabled" value="''">Pilih Prodi</option>
 										<option th:value="'S1'">S1</option>
 										<option th:value="'S2'">S2</option>
@@ -97,10 +96,6 @@
 			<div class="col-md-2"></div>
 		</div>
 	</div>
-	<div class="navbar navbar-default navbar-fixed-bottom">
-    	<div class="container">
-     		<p class="navbar-text text-center">Sistem Informasi Kurikulum - Universitas Indonesia created by D-Kurikulum &copy; 2017</p>
-     	</div>
-	</div>
+	<div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>

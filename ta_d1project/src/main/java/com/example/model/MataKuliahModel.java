@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MataKuliahModel {
-	private Integer id;
+	private int id;
+	private int id_univ;
+	private int id_fakultas;
+	private int id_prodi;
 	private String kode_matkul;
 	private String nama_matkul;
 	private Integer jumlah_sks;
 	private Integer prasyarat_sks;
-	private Integer id_prodi;
 	private List<MataKuliahModel> listPrasyarat;
 }

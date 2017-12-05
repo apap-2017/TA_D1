@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PrasyaratMataKuliahModel {
-	private Integer id;
-	private String id_matkul;
-	private String id_prasyarat_matkul;
+	private int id;
+	private String kode_matkul;
+	private String kode_prasyarat_matkul;
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.dao.KurikulumMapper;
 //import com.example.dao.KurikulumMapper;
 import com.example.model.KurikulumModel;
 
@@ -12,14 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class KurikulumServiceDatabase implements KurikulumService{
-	//@Autowired
-    //private KurikulumMapper kurikulumMapper;
+	@Autowired
+    private KurikulumMapper kurikulumMapper;
 
 	@Override
 	public KurikulumModel selectKurikulum(int id) {
 		log.info ("select kurikulum with id {}", id);
-        //return kurikulumMapper.selectKurikulum (id);
-        return null;
+        return kurikulumMapper.selectKurikulum (id);
 	}
 
 	@Override
@@ -36,15 +37,16 @@ public class KurikulumServiceDatabase implements KurikulumService{
 	}
 
 	@Override
-	public String updateKurikulum(KurikulumModel kurikulum, int id) {
-		log.info ("update kurikulum with id {}", id);
-        //return kurikulumMapper.updateKurikulum(kurikulum, id);
-        return null;
+	public String updateKurikulum(KurikulumModel kurikulum, int id_kurikulum) {
+		log.info ("update kurikulum with id {}", id_kurikulum);
+		kurikulumMapper.updateKurikulum(kurikulum, id_kurikulum);
+		
+        return kurikulum.getNama_kurikulum();
 	}
 
 	@Override
 	public void deleteKurikulum(int id) {
 		log.info ("delete kurikulum with id {}", id);
-        //return kurikulumMapper.deleteKurikulum(id);
+        kurikulumMapper.deleteKurikulum(id);
 	}
 }

@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FakultasModel
 {
-    private int id;
-    private String kode_fakultas;
+    private int id_fakultas;
+    private int id_univ;
     private String nama_fakultas;
     private List<ProdiModel> listProdi;
 }
