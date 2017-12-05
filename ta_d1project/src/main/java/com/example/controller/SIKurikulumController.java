@@ -73,7 +73,7 @@ public class SIKurikulumController {
 
 		if (kurikulum != null) {
 			model.addAttribute("kurikulum", kurikulum);
-			return "kurikulum-update";
+			return "kurikulum-update-1";
 		} else {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";

@@ -36,15 +36,16 @@ public interface KurikulumMapper {
 	})
 	KurikulumModel selectKurikulum(@Param (value = "id") int id);	
 	
-	@Update("UPDATE kurikulum SET kode_kurikulum = #{kode_kurikulum}, nama_kurikulum = #{nama_kurikulum}, "
-			+ "jumlah_sks_wajib = #{jumlah_sks_wajib}, jumlah_sks_pilihan = #{jumlah_sks_pilihan} "
-			+ "where kurikulum.id = #{id}")
-	void updateKurikulum(KurikulumModel kurikulum);
+	@Update("UPDATE kurikulum SET kode_kurikulum = #{kurikulum.kode_kurikulum}, nama_kurikulum = #{kurikulum.nama_kurikulum}, "
+			+ "jumlah_sks_wajib = #{kurikulum.jumlah_sks_wajib}, jumlah_sks_pilihan = #{kurikulum.jumlah_sks_pilihan} "
+			+ "where id = #{id_kurikulum}")
+	void updateKurikulum(@Param("kurikulum") KurikulumModel kurikulum, @Param(value = "id_kurikulum") int id_kurikulum);
 	
 	@Delete("DELETE FROM kurikulum where id = #{id}")
 	void deleteKurikulum(@Param("id") int id);
 	
-	@Select("select id, id_kurikulum, id_matkul, status_matkul, term from mata_kuliah_kurikulum join kurikulum"
+	@Select("select mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
+			+ "mata_kuliah_kurikulum.status_matkul, mata_kuliah_kurikulum.term from mata_kuliah_kurikulum join kurikulum"
 			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
 	List<MataKuliahKurikulumModel> selectMataKuliahKurikulum (@Param (value = "id") int id);
 	
