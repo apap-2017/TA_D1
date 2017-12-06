@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			"select username,password, id_role, nama from users where username=?"		
 			)
 			.authoritiesByUsernameQuery(
-			"SELECT a.username, b.nama_role FROM users as a, roles as b WHERE a.username=? AND a.id_role = b.id"		
+			"select a.username, b.nama_role from users as a, roles as b where a.username=? and a.id_role = b.id"		
 			);
 	}
 }

@@ -40,7 +40,7 @@ public class SIKurikulumController {
 	@Autowired
 	KurikulumService kurikulumDAO;
 	@Autowired
-	MataKuliahKurikulumService mataKuliahKurikulumDAO;
+	MataKuliahKurikulumService matkulKurikulumDAO;
 	@Autowired
 	UniversitasService universitasDAO;
 	
@@ -62,14 +62,37 @@ public class SIKurikulumController {
 
 	// akses halaman hasil cari kurikulum
 	@RequestMapping("/kurikulum/result")
-	public String resultKurikulum() {
-		return "kurikulum-result";
+	public String resultKurikulum(Model model, @RequestParam(value = "id_fakultas") int id_fakultas,
+			@RequestParam(value = "id_prodi") int id_prodi) {
+		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyParam(id_fakultas, id_prodi);
+
+		if (kurikulum != null) {
+			model.addAttribute("kurkulum", kurikulum);
+			return "kurikulum-result";
+		} else {
+			model.addAttribute("id_fakultas", id_fakultas);
+			model.addAttribute("id_prodi", id_prodi);
+			return "not-found";
+		}
+
 	}
 
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view")
-	public String viewKurikulum() {
-		return "kurikulum-view";
+	public String viewKurikulum(Model model, @RequestParam(value = "id") int id) {
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+		MataKuliahKurikulumModel matkulKurikulum = kurikulumDAO.selectMatkulbyId(kurikulum.getId_kurikulum());
+		List<MataKuliahKurikulumModel> listMatkul = kurikulumDAO.selectListMatkul(matkul.getId_kurikulum());
+		
+		if (kurikulum != null) {
+			model.addAttribute("kurikulum", kurikulum);
+			model.addAttribute("matkulKurikulum", matkulKurikulum);
+			model.addAttribute("matkul", matkul);
+			return "kurikulum-view";
+		} else {
+			model.addAttribute("id", id);
+			return "not-found";
+		}
 	}
 
 	// akses halaman lihat kurikulum
