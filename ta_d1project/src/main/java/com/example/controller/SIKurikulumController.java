@@ -107,7 +107,8 @@ public class SIKurikulumController {
 
 	// halaman tambah kurikulum
 	@RequestMapping("/kurikulum/add")
-	public String addKurikulum() {
+	public String addKurikulum(Model model) {
+		model.addAttribute("kurikulum", new KurikulumModel());
 		return "kurikulum-add";
 	}
 	
