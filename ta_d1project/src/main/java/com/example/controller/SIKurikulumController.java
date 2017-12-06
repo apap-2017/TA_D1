@@ -175,14 +175,32 @@ public class SIKurikulumController {
 	}
 
 	// halaman hapus matkul kurikulum
-	@RequestMapping("/matkul-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
-	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
-		matkulKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
+	@RequestMapping("/matkul-kurikulum/delete/{id_kurikulum}/{id_matkul_kurikulum}")
+	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_matkul_kurikulum") int id_matkul_kurikulum) {
+		matkulKurikulumDAO.deleteMataKuliahKurikulum(id_matkul_kurikulum);
 		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 	
 	//halaman update matkul kurikulum
+	@RequestMapping("/matkul-kurikulum/update/{id_kurikulum}/{id_matkul_kurikulum}")
+	public String updateMatkulKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_matkul_kurikulum") int id_matkul_kurikulum) {
+		MataKuliahKurikulumModel matkulKurikulum = matkulKurikulumDAO.selectMataKuliahKurikulum(id_matkul_kurikulum);		
+		String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_kurikulum).getKode_kurikulum();
+		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
+		
+		model.addAttribute("matkulKurikulum", matkulKurikulum);
+		model.addAttribute("kodeKurikulum", kodeKurikulum);
+		model.addAttribute("matkuls", matkuls);
+		return "matkul-kurikulum-update";
+	}
 	
+	// akses halaman submit ubah kurikulum
+	@RequestMapping(value = "/matkul-kurikulum/update/submit", method = RequestMethod.POST)
+	public String updateSubmitKurikulum(MataKuliahKurikulumModel matkulKurikulum) {
+		matkulKurikulumDAO.updateMataKuliahKurikulum(matkulKurikulum, matkulKurikulum.getId());
+
+		return "redirect:/kurikulum/view/" + matkulKurikulum.getId_kurikulum();
+	}
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")

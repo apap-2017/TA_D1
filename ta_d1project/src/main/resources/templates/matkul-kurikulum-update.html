@@ -32,7 +32,7 @@
 				<center>
 					<h3>Ubah Matkul Kurikulum</h3>
 				</center>
-				<form action="/matkul-kurikulum/update" method="post"
+				<form action="/matkul-kurikulum/update/submit" method="post"
 					th:object="${matkulKurikulum}">
 					<table>
 						<tbody>
@@ -84,7 +84,7 @@
 					<input type="hidden" name="id" th:value="${matkulKurikulum.id}" />
 					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
 						<a th:href="'/kurikulum/view/' + ${matkulKurikulum.id_kurikulum}" class="btn btn-danger">Batal</a>
-						<button type="submit" class="btn btn-success">Selanjutnya</button>
+						<button type="submit" class="btn btn-success">Simpan</button>
 					</div>
 				</form>
 			</div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.dao.KurikulumMapper;
 //import com.example.dao.KurikulumMapper;
 import com.example.model.KurikulumModel;
+import com.example.model.MataKuliahModel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,5 +64,10 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	@Override
 	public void addKurikulum(KurikulumModel kurikulum) {
 		kurikulumMapper.addKurikulum(kurikulum);
+	}
+	
+	@Override
+	public List<MataKuliahModel> selectMataKuliah(int id_kurikulum) {
+		return kurikulumMapper.selectMataKuliah(id_kurikulum);
 	}
 }
