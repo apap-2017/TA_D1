@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiModel {
+public class ApiModel<T> {
 	private int status;
 	private String msg;
-	private ResultModel result;
+	private T result;
 }
