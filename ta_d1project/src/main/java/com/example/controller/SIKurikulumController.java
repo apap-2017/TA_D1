@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,7 @@ public class SIKurikulumController {
 			model.addAttribute("id", id);
 			return "not-found";
 		}
+		return null;
 	}
 
 	// akses halaman lihat kurikulum
@@ -114,11 +116,11 @@ public class SIKurikulumController {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
 
 		if (kurikulum != null) {
-			//String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
-			//String prodiBefore = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
+			String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
+			String prodiBefore = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
 			List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(kurikulum.getId_univ()).getResult().getFakultasList();
 			
-			//model.addAttribute("fakultas", fakultas);
+			model.addAttribute("fakultas", fakultas);
 			model.addAttribute("fakultases", fakultases);
 			model.addAttribute("kurikulum", kurikulum);
 			return "kurikulum-update";
@@ -176,52 +178,21 @@ public class SIKurikulumController {
 	// halaman hapus mata kuliah kurikulum
 	@RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
 	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
-		mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
+		matkulKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
 		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model,
-			@RequestParam(value = "fakultas", required = false) String fakultas,
-			@RequestParam(value = "prodi", required = false) String prodi) {
-		String halaman = "angkatan-pilihFakultas";
+	public String viewKurikulumAngkatan(Model model) {
+		
+		FakultasModel fakultas = universitasDAO.selectFakultas(1,1);
+		ProdiModel prodi = universitasDAO.selectProdi(1, 1, 1);
 
-		if (fakultas != null) {
-			int id_fakultas = Integer.parseInt(fakultas);
-			if (prodi != null) {
-				int id_prodi = Integer.parseInt(prodi);
-				ApiModel apiSatu = universitasDAO.selectProdi(1, id_fakultas, id_prodi);
-				ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
-				
-				FakultasModel fkl = apiDua.getResult().getFakultas();
-				ProdiModel prd = apiSatu.getResult().getProdi();
-				
-				model.addAttribute("fakultas", fkl);
-				model.addAttribute("prodi", prd);
-				
-				halaman="angkatan-view";
-			} else {
-				ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
-				ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
-				List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
-				FakultasModel fkl = apiDua.getResult().getFakultas();
+		model.addAttribute("fakultas", fakultas);
+		model.addAttribute("prodi", prodi);
 
-				model.addAttribute("fakultas", fkl);
-				model.addAttribute("listProdi", listProdi);
-
-				halaman = "angkatan-pilihProdi";
-			}
-			
-		}
-		else {
-			ApiModel api = universitasDAO.selectAllFakultas(1);
-			ResultModel result = api.getResult();
-			List<FakultasModel> listFakultas = result.getFakultasList();
-
-			model.addAttribute("listFakultas", listFakultas);
-		}
-		return halaman;
+		return "angkatan-view";
 	}
 	
 	@RequestMapping("/matkul/edit/{id}")
