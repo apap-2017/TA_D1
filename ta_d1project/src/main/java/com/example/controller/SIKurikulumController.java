@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
+import com.example.model.MataKuliahModel;
 import com.example.model.ProdiModel;
 import com.example.model.ResultModel;
+
+import com.example.model.UniversitasModel;
 import com.example.service.KurikulumService;
+import com.example.service.MataKuliahService;
 import com.example.service.UniversitasService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +33,8 @@ public class SIKurikulumController {
 	KurikulumService kurikulumDAO;
 	@Autowired
 	UniversitasService universitasDAO;
+	@Autowired
+	MataKuliahService matakuliahDAO;
 
 	@RequestMapping("/")
 	public String index() {
@@ -87,13 +93,13 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + kurikulum.getId();
 	}
-	
-	//halaman konfirmasi hapus kurikulum
+
+	// halaman konfirmasi hapus kurikulum
 	@RequestMapping(value = "/kurikulum/delete", method = RequestMethod.POST)
 	public String deleteKurikulumConfirmation(Model model, KurikulumModel kurikulum) {
 		int id = kurikulum.getId();
 		String nama_kurikulum = kurikulum.getNama_kurikulum();
-		
+
 		model.addAttribute("id", id);
 		model.addAttribute("nama_kurikulum", nama_kurikulum);
 		return "kurikulum-delete-confirmation";
@@ -115,28 +121,100 @@ public class SIKurikulumController {
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model, @RequestParam(value = "fakultas", required = false) String fakultas) {
-		String halaman= "angkatan-pilihFakultas";
-		
-		if (fakultas !=null) {
+	public String viewKurikulumAngkatan(Model model,
+			@RequestParam(value = "fakultas", required = false) String fakultas) {
+		String halaman = "angkatan-pilihFakultas";
+
+		if (fakultas != null) {
 			int id_fakultas = Integer.parseInt(fakultas);
 			ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
 			ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
 			List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
 			FakultasModel fkl = apiDua.getResult().getFakultas();
-			
+
 			model.addAttribute("fakultas", fkl);
 			model.addAttribute("listProdi", listProdi);
-			
+
 			halaman = "angkatan-pilihProdi";
 		} else {
 			ApiModel api = universitasDAO.selectAllFakultas(1);
 			ResultModel result = api.getResult();
 			List<FakultasModel> listFakultas = result.getFakultasList();
-			
+
 			model.addAttribute("listFakultas", listFakultas);
-			
+
 		}
 		return halaman;
+	}
+
+	// // akses halaman cari mata kuliah
+	// @RequestMapping("/matakuliah")
+	// public String matakuliah(Model model, @RequestParam(value="fakultas",
+	// required=false)
+	// String id_fakultas, @RequestParam(value="prodi", required=false)
+	// String id_prodi ) {
+	// if(id_fakultas != null){
+	// if(id_prodi != null){
+	// return "matakuliah-view";
+	// } else {
+	// int id_fakultas2 = Integer.parseInt(id_fakultas);
+	// ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas2);
+	// ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas2);
+	// List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
+	// FakultasModel fkl = apiDua.getResult().getFakultas();
+	// fkl.setListProdi(listProdi);
+	//
+	// model.addAttribute("fakultas", fkl);
+	//
+	// return "matakuliah-cariprodi";
+	// }
+	// } else {
+	// ApiModel api = universitasDAO.selectAllFakultas(1);
+	// ResultModel result = api.getResult();
+	// List<FakultasModel> listFakultas = result.getFakultasList();
+	// UniversitasModel univ = new UniversitasModel(1,"A", listFakultas);
+	// model.addAttribute("universitas",univ);
+	// return "matakuliah";
+	// }
+	// }
+
+	// akses halaman lihat mata kuliah
+	@RequestMapping("/matakuliah-result")
+	public String viewMataKuliah(Model model, @RequestParam(value = "fakultas", required = false) String id_fakultas,
+			@RequestParam(value = "prodi", required = false) String id_prodi) {
+		int id_prodi2 = Integer.parseInt(id_prodi);
+		int id_fakultas2 = Integer.parseInt(id_fakultas);
+		List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(id_fakultas2, id_prodi2);
+		model.addAttribute("matkuls", matkuls);
+		return "matakuliah-result";
+	}
+
+	// akses halaman tambah mata kuliah
+	@RequestMapping("/matakuliah/add")
+	public String addMataKuliah() {
+		return "matakuliah-add";
+	}
+
+	// akses submit tambah mata kuliah
+	@RequestMapping("/matakuliah/add/submit")
+	public String addMataKuliah(
+			@RequestParam(value = "kode_matkul", required = false) String kode_matkul,
+			@RequestParam(value = "nama_matkul", required = false) String nama_matkul,
+			@RequestParam(value = "jumlah_sks", required = false) int jumlah_sks,
+			@RequestParam(value = "prasyarat_sks", required = false) int prasyarat_sks) {
+//		int jumlah_sks2 = Integer.parseInt(jumlah_sks);
+//		int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+		//MataKuliahModel matkul = new MataKuliahModel(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks);
+		System.out.println(jumlah_sks);
+		matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, 1,1,1);
+
+		return "matakuliah-submit-success";
+	}
+
+	// akses halaman lihat mata kuliah
+	@RequestMapping("/matakuliah/view/{id}")
+	public String viewPathMataKuliah() {
+
+		return "matakuliah-view";
 	}
 }

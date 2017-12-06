@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tambah Mata Kuliah</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
+			<li class="breadcrumb-item"><a href="#">Mata Kuliah</a></li>
+			<li class="breadcrumb-item"><a href="#">Tambah Mata Kuliah</a></li>
+		</ol>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<center>
+					<h3>Tambah Mata Kuliah</h3>
+				</center>
+				<form action="/matakuliah/add/submit" method="GET"
+					th:object="${matakuliah}">
+					<div class="form-group row">
+						<label for="kode_matkul" class="col-sm-3 col-form-label">Kode
+							Mata kuliah</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="kode_matkul"></input>
+							<small id="passwordHelpBlock" class="form-text text-muted">
+								Masukkan MTK111 + 2 digit angka. Contoh : MTK11130 </small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="nama_matkul" class="col-sm-3 col-form-label">Nama
+							Mata kuliah</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="nama_matkul"></input>
+							<small id="passwordHelpBlock" class="form-text text-muted">
+								Masukkan nama jelas untuk Mata Kuliah</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="jumlah_sks" class="col-sm-3 col-form-label">Jumlah
+							SKS</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="jumlah_sks">
+							</input> <small id="passwordHelpBlock" class="form-text text-muted">
+								Masukkan Jumlah SKS untuk Mata Kuliah hanya dalam angka
+								(contoh:6) </small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="prasyarat_sks" class="col-sm-3 col-form-label">Prasyarat
+							SKS</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="prasyarat_sks"></input>
+							<small id="passwordHelpBlock" class="form-text text-muted">
+								Masukkan Jumlah SKS untuk Prasyarat dari Mata Kuliah hanya dalam
+								angka (contoh:100) </small>
+						</div>
+					</div>
+
+
+
+					<!-- <table>
+						<tbody>
+
+							<tr>
+								<td class="col-sm-2"><label for="kode_matkul">Kode
+										Mata Kuliah</label></td>
+								<td class="col-sm-4"><input class="form-control"
+									type="text" name="kode_matkul" /></td>
+							</tr>
+							<tr>
+								<td class="col-sm-2"><label for="nama_matkul">Nama
+										Mata Kuliah</label></td>
+								<td class="col-sm-4"><input class="form-control"
+									type="text" name="nama_matkul" /></td>
+							</tr>
+							<tr>
+								<td class="col-sm-2"><label for="jumlah_sks">Jumlah
+										SKS</label></td>
+								<td class="col-sm-4"><input class="form-control"
+									type="text" name="jumlah_sks" /></td>
+							</tr>
+							<tr>
+								<td class="col-sm-2"><label for="prasyarat_sks">Prasyarat SKS</label></td>
+								<td class="col-sm-4"><input class="form-control"
+									type="text" name="prasyarat_sks" /></td>
+							</tr>
+						</tbody>
+					</table> -->
+				</form>
+				<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+					<a th:href="'/matakuliah-result'" class="btn btn-danger">Batal</a>
+					<a th:href="'/matakuliah/add/'" class="btn btn-success">Tambah</a>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

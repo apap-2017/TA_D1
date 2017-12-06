@@ -19,4 +19,5 @@ public class MataKuliahModel {
 	private int jumlah_sks;
 	private int prasyarat_sks;
 	private List<MataKuliahModel> listPrasyarat;
+	private List<MataKuliahModel> listMataKuliah;
 }

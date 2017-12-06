@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.dao.MataKuliahMapper;
 //import com.example.dao.MataKuliahMapper;
 import com.example.model.MataKuliahModel;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MataKuliahServiceDatabase implements MataKuliahService {
 	
-	//@Autowired
-    //private MataKuliahMapper mataKuliahMapper;
+	@Autowired
+    private MataKuliahMapper mataKuliahMapper;
 
 	@Override
 	public MataKuliahModel selectMataKuliah(int id) {
@@ -25,18 +27,13 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 	}
 
 	@Override
-	public List<MataKuliahModel> selectMataKuliahProdi(int id_prodi) {
+	public List<MataKuliahModel> selectMataKuliahProdi(int id_fakultas,int id_prodi) {
 		log.info ("select mata kuliah with id prodi {}", id_prodi);
-		//return mataKuliahMapper.selectMataKuliahProdi(id_prodi);
-		return null;
+		return mataKuliahMapper.selectMatakuliahProdi(id_fakultas,id_prodi);
 	}
 
-	@Override
-	public String addMataKuliah(MataKuliahModel mata_kuliah) {
-        //return mataKuliahMapper.addMataKuliah(mata_kuliah);
-        return null;
-	}
 
+	
 	@Override
 	public String updateMataKuliah(MataKuliahModel mata_kuliah, int id) {
 		log.info ("update mata kuliah with id {}", id);
@@ -48,6 +45,13 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 	public void deleteMataKuliah(int id) {
 		log.info ("delete mata kuliah with id {}", id);
         //return mataKuliahMapper.deleteMataKuliah(id);
+	}
+
+	@Override
+	public void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ, int id_fakultas,
+			int id_prodi) {
+		
+	mataKuliahMapper.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi);
 	}
 
 }
