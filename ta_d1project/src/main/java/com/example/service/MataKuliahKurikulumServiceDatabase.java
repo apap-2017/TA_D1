@@ -32,4 +32,10 @@ public class MataKuliahKurikulumServiceDatabase implements MataKuliahKurikulumSe
 		mataKuliahKurikulumMapper.deleteMataKuliahKurikulum(id);
 	}
 
+	// add matkul kurikulum
+	@Override
+	public void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum) {
+		log.info("insert mata kuliah kurikulum");
+		mataKuliahKurikulumMapper.addMataKuliahKurikulum(matkul_kurikulum);
+	}
 }

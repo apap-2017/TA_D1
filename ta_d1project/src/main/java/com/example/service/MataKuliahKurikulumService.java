@@ -12,4 +12,6 @@ public interface MataKuliahKurikulumService {
 	void updateMataKuliahKurikulum (MataKuliahKurikulumModel mataKuliahKurikulum, int id);
 	
 	void deleteMataKuliahKurikulum (int id);
+
+	void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum);
 }

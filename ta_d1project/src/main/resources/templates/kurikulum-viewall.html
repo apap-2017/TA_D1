@@ -32,16 +32,12 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-9">
-				<h1
-					th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_fakultas}">Kurikulum
-					Fakultas Ilmu Komputer</h1>
+				<!--<h1 th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_prodi}">Kurikulum Fakultas Ilmu Komputer</h1>-->
 				<div class="pull-right" style="margin-bottom: 20px">
-					<a th:href="'/kurikulum/add/'" class="btn btn-primary">Tambah
-						Kurikulum</a>
+					<a th:href="'/kurikulum/add/'" class="btn btn-primary">Tambah Kurikulum</a>
 				</div>
-				<table class="table table-bordered"
-					style="text-align: center; width: 100%">
-					<thead style="margin-top: 30px; width: 100%">
+				<table class="table table-bordered" style="text-align:center; width:100%">
+					<thead style="margin-top:30px; width:100%">
 						<tr>
 							<td>No</td>
 							<td>Kode Kurikulum</td>
@@ -49,14 +45,12 @@
 							<td>Action</td>
 						</tr>
 					</thead>
-					<tbody style="margin-top: 30px; width: 100%">
-						<tr th:each="kurikulum,iterationStatus:${kurikulum}">
+					<tbody style="margin-top:30px; width: 100%">
+						<tr th:each="kurikulum,iterationStatus:${kurikulums}">
 							<td th:text="${iterationStatus.count}">1</td>
 							<td th:text="${kurikulum.kode_kurikulum}">Kode Kurikulum</td>
-							<td th:text="${kurikulum.nama}">Nama</td>
-							<td><a th:href="'/kurikulum/view/'"><i class="fa fa-eye"
-									aria-hidden="true"></i></a> <a href="#"><i
-									class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+							<td th:text="${kurikulum.nama_kurikulum}">Nama</td>
+							<td><a th:href="'/kurikulum/view/' + ${kurikulum.id}"><i class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
