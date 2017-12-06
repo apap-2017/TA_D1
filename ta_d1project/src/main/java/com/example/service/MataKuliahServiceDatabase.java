@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.example.dao.MataKuliahMapper;
 //import com.example.dao.MataKuliahMapper;
+=======
+import com.example.dao.MatkulMapper;
+>>>>>>> 100da9389c9b4850857706a759e6be8a82c2c58e
 import com.example.model.MataKuliahModel;
 
 
@@ -17,13 +21,16 @@ import lombok.extern.slf4j.Slf4j;
 public class MataKuliahServiceDatabase implements MataKuliahService {
 	
 	@Autowired
+<<<<<<< HEAD
     private MataKuliahMapper mataKuliahMapper;
+=======
+    private MatkulMapper mataKuliahMapper;
+>>>>>>> 100da9389c9b4850857706a759e6be8a82c2c58e
 
 	@Override
 	public MataKuliahModel selectMataKuliah(int id) {
 		log.info ("select mata kuliah with id {}", id);
-        //return mataKuliahMapper.selectMataKuliah (id);
-        return null;
+        return mataKuliahMapper.selectMataKuliah (id);
 	}
 
 	@Override

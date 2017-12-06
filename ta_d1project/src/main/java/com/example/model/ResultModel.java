@@ -15,5 +15,5 @@ public class ResultModel {
 	private FakultasModel fakultas;
 	private List<ProdiModel> prodiList;
 	private ProdiModel prodi;
-	
+	private MataKuliahModel matkul;	
 }

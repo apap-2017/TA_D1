@@ -30,9 +30,9 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<center>
-					<h3>Tambah Kurikulum</h3>
+					<h3>Ubah Kurikulum</h3>
 				</center>
-				<form action="/kurikulum/add/submit" method="post"
+				<form action="/kurikulum/update/submit" method="post"
 					th:object="${kurikulum}">
 					<table>
 						<tbody>
@@ -40,31 +40,36 @@
 								<td><label for="kode_kurikulum">Kode
 										Kurikulum</label></td>
 								<td><input class="form-control"
-									type="text" name="kode_kurikulum" th:field="*{kode_kurikulum}" /></td>
+									type="text" name="kode_kurikulum" th:field="*{kode_kurikulum}" th:value="${kurikulum.kode_kurikulum}" /></td>
 							</tr>
 							<tr>
 								<td><label for="nama_kurikulum">Nama
 										Kurikulum</label></td>
 								<td><input class="form-control"
-									type="text" name="nama_kurikulum" th:field="*{nama_kurikulum}" /></td>
+									type="text" name="nama_kurikulum" th:field="*{nama_kurikulum}" th:value="${kurikulum.nama_kurikulum}" /></td>
 							</tr>
 							<tr>
 								<td><label for="jumlah_sks_wajib">Jumlah
 										SKS Wajib</label></td>
 								<td><input class="form-control"
 									type="text" name="jumlah_sks_wajib"
-									th:field="*{jumlah_sks_wajib}" /></td>
+									th:field="*{jumlah_sks_wajib}" th:value="${kurikulum.jumlah_sks_wajib}" /></td>
 							</tr>
 							<tr>
 								<td><label for="jumlah_sks_pilihan">Jumlah
 										SKS Pilihan</label></td>
 								<td><input class="form-control"
 									type="text" name="jumlah_sks_pilihan"
-									th:field="*{jumlah_sks_pilihan}" /></td>
+									th:field="*{jumlah_sks_pilihan}" th:value="${kurikulum.jumlah_sks_pilihan}" /></td>
 							</tr>
 						</tbody>
 					</table>
+					<input type="hidden" name="id_univ" th:value="${kurikulum.id_univ}" />
+					<input type="hidden" name="id_fakultas" th:value="${kurikulum.id_fakultas}" />
+					<input type="hidden" name="id_prodi" th:value="${kurikulum.id_prodi}" />
+					<input type="hidden" name="id" th:value="${kurikulum.id}" />
 					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+						<a th:href="'/kurikulum/view/' + ${kurikulum.id}" class="btn btn-danger">Batal</a>
 						<button type="submit" class="btn btn-success">Simpan</button>
 					</div>
 				</form>

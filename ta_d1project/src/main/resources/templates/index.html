@@ -18,6 +18,7 @@
 <body>
 	<div th:replace="fragments/fragment :: header"></div>
 	<div class="container" style="margin-top: 50px">
+
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8 text-center">
@@ -30,9 +31,8 @@
 						<form class="form-group" action="/kurikulum/view" method="GET">
 							<div
 								style="margin-left: 25px; margin-right: 25px; margin-bottom: 15px;">
-								<input class="form-control" type="text"
-									name="kode_kurikulum" placeholder="Masukkan kode kurikulum"
-									required="true" />
+								<input class="form-control" type="text" name="kode_kurikulum"
+									placeholder="Masukkan kode kurikulum" required="true" />
 							</div>
 							<div>
 								<button class="btn btn-primary"
@@ -45,9 +45,8 @@
 						<form class="form-group" action="/matakuliah/view" method="GET">
 							<div
 								style="margin-left: 25px; margin-right: 25px; margin-bottom: 15px;">
-								<input class="form-control" type="text"
-									name="kode_matkul" placeholder="Masukkan kode mata kuliah"
-									required="true" />
+								<input class="form-control" type="text" name="kode_matkul"
+									placeholder="Masukkan kode mata kuliah" required="true" />
 							</div>
 							<div>
 								<button class="btn btn-primary"
