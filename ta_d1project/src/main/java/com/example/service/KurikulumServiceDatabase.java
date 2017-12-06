@@ -62,7 +62,11 @@ public class KurikulumServiceDatabase implements KurikulumService {
 
 	// tambah kurikulum
 	@Override
-	public void addKurikulum(KurikulumModel kurikulum) {
+	public void addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi) {
+		kurikulum.getId_univ();
+		kurikulum.setId_fakultas(id_fakultas);
+		kurikulum.setId_prodi(id_prodi);
+		
 		kurikulumMapper.addKurikulum(kurikulum);
 	}
 	

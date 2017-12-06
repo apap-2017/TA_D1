@@ -24,7 +24,7 @@ public interface KurikulumService {
 	KurikulumModel selectKurikulumR(int id);
 
 	// tambah kurikulum
-	void addKurikulum(KurikulumModel kurikulum);
+	void addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi);
 	
-	List<MataKuliahModel> selectMataKuliah(int id_kurikulum)
+	List<MataKuliahModel> selectMataKuliah(int id_kurikulum);
 }

@@ -108,6 +108,14 @@ public class SIKurikulumController {
 	public String addKurikulum() {
 		return "kurikulum-add";
 	}
+	
+	// akses halaman submit tambah kurikulum
+	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
+	public String addSubmitKurikulum(KurikulumModel kurikulum) {
+		//kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
+
+		return "redirect:/kurikulum/view/" + kurikulum.getId();
+	}
 
 	// halaman ubah kurikulum
 	@RequestMapping("/kurikulum/update/{id}")
@@ -115,12 +123,6 @@ public class SIKurikulumController {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
 
 		if (kurikulum != null) {
-			//String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
-			//String prodiBefore = universitasDAO.selectProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas(), kurikulum.getId_prodi()).getResult().getProdi().getNama_prodi();
-			//List<FakultasModel> fakultases = universitasDAO.selectAllFakultas(kurikulum.getId_univ()).getResult().getFakultasList();
-			
-			//model.addAttribute("fakultas", fakultas);
-			//model.addAttribute("fakultases", fakultases);
 			model.addAttribute("kurikulum", kurikulum);
 			return "kurikulum-update";
 		} else {
@@ -128,18 +130,6 @@ public class SIKurikulumController {
 			return "kurikulum-not-found";
 		}
 	}
-	
-//	// akses halaman submit ubah kurikulum part 2
-//	@RequestMapping(value = "/kurikulum/update/prodi", method = RequestMethod.POST)
-//	public String updateKurikulumPart2(Model model, KurikulumModel kurikulum) {
-//		String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
-//		List<ProdiModel> prodis = universitasDAO.selectAllProdi(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getProdiList();
-//		
-//		model.addAttribute("prodis", prodis);
-//		model.addAttribute("fakultas", fakultas);
-//		model.addAttribute("kurikulum", kurikulum);
-//		return "kurikulum-update-final";
-//	}
 
 	// akses halaman submit ubah kurikulum
 	@RequestMapping(value = "/kurikulum/update/submit", method = RequestMethod.POST)

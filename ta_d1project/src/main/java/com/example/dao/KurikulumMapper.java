@@ -77,6 +77,6 @@ public interface KurikulumMapper {
 	
 	// tambah kurikulum
 	@Insert("insert into kurikulum (id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan)"
-			+ "values (#{id_univ}, #{id_fakultas}, #{id_prodi}, #{kode_kurikulum}, #{nama_kurikulum}, #{jumlah_sks_wajib}, #{jumlah_sks_pilihan})")
-	void addKurikulum(KurikulumModel kurikulum);
+			+ "values (#{kurikulum.id_univ}, #{kurikulum.id_fakultas}, #{kurikulum.id_prodi}, #{kurikulum.kode_kurikulum}, #{kurikulum.nama_kurikulum}, #{kurikulum.jumlah_sks_wajib}, #{kurikulum.jumlah_sks_pilihan})")
+	void addKurikulum(@Param(value = "kurikulum") KurikulumModel kurikulum);
 }
