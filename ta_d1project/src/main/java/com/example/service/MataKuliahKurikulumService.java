@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.model.MataKuliahKurikulumModel;
@@ -12,4 +14,6 @@ public interface MataKuliahKurikulumService {
 	void updateMataKuliahKurikulum (MataKuliahKurikulumModel mataKuliahKurikulum, int id);
 	
 	void deleteMataKuliahKurikulum (int id);
+	
+	List<MataKuliahKurikulumModel> selectMatkulTerm(int term);
 }

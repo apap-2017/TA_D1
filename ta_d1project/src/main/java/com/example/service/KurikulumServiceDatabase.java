@@ -74,4 +74,10 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	public List<MataKuliahModel> selectMataKuliah(int id_kurikulum) {
 		return kurikulumMapper.selectMataKuliah(id_kurikulum);
 	}
+
+
+	@Override
+	public KurikulumModel selectKurikulumAPI(int id) {
+		return kurikulumMapper.selectKurikulumAPI(id);
+	}
 }

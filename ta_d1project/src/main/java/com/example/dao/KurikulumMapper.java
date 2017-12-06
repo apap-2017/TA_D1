@@ -30,7 +30,19 @@ public interface KurikulumMapper {
 			@Result(property = "listMataKuliah", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliah")),
 			@Result(property = "listMataKuliahKurikulum", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliahKurikulumR")) })
 	KurikulumModel selectKurikulumR(@Param(value = "id") int id);
-
+	
+	@Select("select id, id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan "
+			+ "from kurikulum where id = #{id}")
+	@Results(value = { @Result(property = "id", column = "id"),
+			@Result(property = "kode_kurikulum", column = "kode_kurikulum"),
+			@Result(property = "nama_kurikulum", column = "nama_kurikulum"),
+			@Result(property = "jumlah_sks_wajib", column = "jumlah_sks_wajib"),
+			@Result(property = "jumlah_sks_pilihan", column = "jumlah_sks_pilihan"),
+			@Result(property = "id_univ", column = "id_univ"), @Result(property = "id_prodi", column = "id_prodi"),
+			@Result(property = "id_fakultas", column = "id_fakultas"),
+			@Result(property = "listMataKuliah", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliah")) })
+	KurikulumModel selectKurikulumAPI(@Param(value = "id") int id);
+	
 	// ubah kurikulum
 	@Update("UPDATE kurikulum SET id_fakultas = #{kurikulum.id_fakultas}, id_prodi = #{kurikulum.id_prodi},"
 			+ " kode_kurikulum = #{kurikulum.kode_kurikulum}, nama_kurikulum = #{kurikulum.nama_kurikulum}, "

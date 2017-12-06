@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,4 +22,7 @@ public interface MataKuliahKurikulumMapper {
 	
 	@Delete("delete from mata_kuliah_kurikulum where id = #{id}")
 	void deleteMataKuliahKurikulum(@Param(value = "id") int id);
+	
+	@Select("select * from mata_kuliah_kurikulum where term= #{term}")
+	List<MataKuliahKurikulumModel> selectMatkulTerm(@Param("term") int term);
 }
