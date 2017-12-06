@@ -28,8 +28,8 @@ public interface KurikulumMapper {
 			@Result(property = "id_univ", column = "id_univ"), @Result(property = "id_prodi", column = "id_prodi"),
 			@Result(property = "id_fakultas", column = "id_fakultas"),
 			@Result(property = "listMataKuliah", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliah")),
-			@Result(property = "listMataKuliahKurikulum", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliahKurikulum")) })
-//	KurikulumModel selectKurikulum(@Param(value = "id") int id);
+			@Result(property = "listMataKuliahKurikulum", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliahKurikulumR")) })
+	KurikulumModel selectKurikulumR(@Param(value = "id") int id);
 
 	// ubah kurikulum
 	@Update("UPDATE kurikulum SET id_fakultas = #{kurikulum.id_fakultas}, id_prodi = #{kurikulum.id_prodi},"
@@ -43,10 +43,10 @@ public interface KurikulumMapper {
 	void deleteKurikulum(@Param("id") int id);
 
 	// 
-//	@Select("select mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
-//			+ "mata_kuliah_kurikulum.status_matkul, mata_kuliah_kurikulum.term from mata_kuliah_kurikulum join kurikulum"
-//			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
-//	List<MataKuliahKurikulumModel> selectMataKuliahKurikulum(@Param(value = "id") int id);
+	@Select("select mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
+			+ "mata_kuliah_kurikulum.status_matkul, mata_kuliah_kurikulum.term from mata_kuliah_kurikulum join kurikulum"
+			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
+	List<MataKuliahKurikulumModel> selectMataKuliahKurikulumR(@Param(value = "id") int id);
 
 	// 
 	@Select("SELECT mata_kuliah.id, mata_kuliah.id_univ, mata_kuliah.id_fakultas, mata_kuliah.id_prodi,"
@@ -66,7 +66,7 @@ public interface KurikulumMapper {
 	// lihat detail kurikulum
 	@Select("select distinct k.kode_kurikulum, k.nama_kurikulum, k.jumlah_sks_wajib, k.jumlah_sks_pilihan"
 			+ "from kurikulum k, mata_kuliah_kurikulum mk where k.id=mk.id_kurikulum"
-			+ "and mk.id_kurikulum=#{id}")
+			+ "and k.id_kurikulum=#{id}")
 	KurikulumModel selectKurikulum(@Param(value="id") int id);
 
 	// lihat list mata kuliah dalam kurikulum tertentu

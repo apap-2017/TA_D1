@@ -80,19 +80,20 @@ public class SIKurikulumController {
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view")
 	public String viewKurikulum(Model model, @RequestParam(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
-		MataKuliahKurikulumModel matkulKurikulum = kurikulumDAO.selectMatkulbyId(kurikulum.getId_kurikulum());
-		List<MataKuliahKurikulumModel> listMatkul = kurikulumDAO.selectListMatkul(matkul.getId_kurikulum());
-		
-		if (kurikulum != null) {
-			model.addAttribute("kurikulum", kurikulum);
-			model.addAttribute("matkulKurikulum", matkulKurikulum);
-			model.addAttribute("matkul", matkul);
-			return "kurikulum-view";
-		} else {
-			model.addAttribute("id", id);
-			return "not-found";
-		}
+//		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+//		MataKuliahKurikulumModel matkulKurikulum = kurikulumDAO.selectMatkulbyId(kurikulum.getId_kurikulum());
+//		List<MataKuliahKurikulumModel> listMatkul = kurikulumDAO.selectListMatkul(matkul.getId_kurikulum());
+//		
+//		if (kurikulum != null) {
+//			model.addAttribute("kurikulum", kurikulum);
+//			model.addAttribute("matkulKurikulum", matkulKurikulum);
+//			model.addAttribute("matkul", matkul);
+//			return "kurikulum-view";
+//		} else {
+//			model.addAttribute("id", id);
+//			return "not-found";
+//		}
+		return null;
 	}
 
 	// akses halaman lihat kurikulum
@@ -111,7 +112,7 @@ public class SIKurikulumController {
 	// halaman ubah kurikulum part 1
 	@RequestMapping("/kurikulum/update/{id}")
 	public String updateKurikulum(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
 
 		if (kurikulum != null) {
 			//String fakultas = universitasDAO.selectFakultas(kurikulum.getId_univ(), kurikulum.getId_fakultas()).getResult().getFakultas().getNama_fakultas();
@@ -162,7 +163,7 @@ public class SIKurikulumController {
 	// halaman hapus kurikulum
 	@RequestMapping("/kurikulum/delete/{id}")
 	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
 
 		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
@@ -176,7 +177,7 @@ public class SIKurikulumController {
 	// halaman hapus mata kuliah kurikulum
 	@RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
 	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
-		mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
+		matkulKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
 		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
