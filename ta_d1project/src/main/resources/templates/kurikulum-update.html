@@ -65,6 +65,8 @@
 						</tbody>
 					</table>
 					<input type="hidden" name="id_univ" th:value="${kurikulum.id_univ}" />
+					<input type="hidden" name="id_fakultas" th:value="${kurikulum.id_fakultas}" />
+					<input type="hidden" name="id_prodi" th:value="${kurikulum.id_prodi}" />
 					<input type="hidden" name="id" th:value="${kurikulum.id}" />
 					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
 						<a th:href="'/kurikulum/view/' + ${kurikulum.id}" class="btn btn-danger">Batal</a>
