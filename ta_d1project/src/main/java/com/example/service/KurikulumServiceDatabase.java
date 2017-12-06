@@ -24,8 +24,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	@Override
 	public List<KurikulumModel> selectKurikulumProdi(int id_prodi) {
 		log.info("select kurikulum with id prodi {}", id_prodi);
-		// return kurikulumMapper.selectKurikulumProdi(id_prodi);
-		return null;
+		return kurikulumMapper.selectKurikulumProdi(id_prodi);
 	}
 
 	@Override
