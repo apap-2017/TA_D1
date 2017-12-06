@@ -18,22 +18,16 @@ import com.example.service.MataKuliahService;
 import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
-<<<<<<< HEAD
 import com.example.model.MataKuliahModel;
-=======
 import com.example.model.MataKuliahKurikulumModel;
->>>>>>> 100da9389c9b4850857706a759e6be8a82c2c58e
 import com.example.model.ProdiModel;
 import com.example.model.ResultModel;
 
 import com.example.model.UniversitasModel;
 import com.example.service.KurikulumService;
-<<<<<<< HEAD
 import com.example.service.MataKuliahService;
-=======
 import com.example.service.KurikulumServiceDatabase;
 import com.example.service.MataKuliahKurikulumService;
->>>>>>> 100da9389c9b4850857706a759e6be8a82c2c58e
 import com.example.service.UniversitasService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -288,30 +282,6 @@ public class SIKurikulumController {
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
-<<<<<<< HEAD
-	public String viewKurikulumAngkatan(Model model,
-			@RequestParam(value = "fakultas", required = false) String fakultas) {
-		String halaman = "angkatan-pilihFakultas";
-
-		if (fakultas != null) {
-			int id_fakultas = Integer.parseInt(fakultas);
-			ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas);
-			ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas);
-			List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
-			FakultasModel fkl = apiDua.getResult().getFakultas();
-
-			model.addAttribute("fakultas", fkl);
-			model.addAttribute("listProdi", listProdi);
-
-			halaman = "angkatan-pilihProdi";
-		} else {
-			ApiModel api = universitasDAO.selectAllFakultas(1);
-			ResultModel result = api.getResult();
-			List<FakultasModel> listFakultas = result.getFakultasList();
-
-			model.addAttribute("listFakultas", listFakultas);
-
-=======
 	public String viewKurikulumAngkatan(Model model) {
 		
 		FakultasModel fakultas = universitasDAO.selectFakultas(1,1);
@@ -345,7 +315,6 @@ public class SIKurikulumController {
 			return "form-add-prasyarat";
 		} else {
 			return "matkul-not-found";
->>>>>>> 100da9389c9b4850857706a759e6be8a82c2c58e
 		}
 	}
 
