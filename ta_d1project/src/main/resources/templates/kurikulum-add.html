@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Tambah Kurikulum</title>
+<title>Ubah Kurikulum</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
@@ -23,84 +23,51 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
 			<li class="breadcrumb-item"><a href="#">Kurikulum</a></li>
-			<li class="breadcrumb-item"><a href="#">FASILKOM</a></li>
-			<li class="breadcrumb-item"><a href="#">Sistem Informasi</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Term 1</li>
 		</ol>
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-9">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
 				<center>
 					<h3>Tambah Kurikulum</h3>
 				</center>
-				<form action="/kurikulum/add/submit" method="GET"
+				<form action="/kurikulum/add/submit" method="post"
 					th:object="${kurikulum}">
 					<table>
 						<tbody>
-							<!-- <tr>
-								<td class="col-sm-2"><label for="term">Term</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="term" th:field="*{term}" /></td>
-							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="kode_kurikulum">Kode Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="kode_kurikulum" th:field="*{kode_kurikulum}"/></td>
-							</tr>
-							<tr>
-								<td class="col-sm-2"><label for="nama_kurikulum">Nama Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="nama_kurikulum" th:field="*{nama_kurikulum}"/></td>
-							</tr>
-							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_wajib">Jumlah SKS Wajib</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="jumlah_sks_wajib" th:field="*{jumlah_sks_wajib}"/></td>
-							</tr>
-							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_pilihan">Jumlah SKS Pilihan</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="jumlah_sks_pilihan" th:field="*{jumlah_sks_pilihan}"/></td>
-							</tr> -->
-
-							<tr>
-								<td class="col-sm-2"><label for="term">Term</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="term" /></td>
-							</tr>
-							<tr>
-								<td class="col-sm-2"><label for="kode_kurikulum">Kode
+								<td><label for="kode_kurikulum">Kode
 										Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="kode_kurikulum" /></td>
+								<td><input class="form-control"
+									type="text" name="kode_kurikulum" th:field="*{kode_kurikulum}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="nama_kurikulum">Nama
+								<td><label for="nama_kurikulum">Nama
 										Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="nama_kurikulum" /></td>
+								<td><input class="form-control"
+									type="text" name="nama_kurikulum" th:field="*{nama_kurikulum}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_wajib">Jumlah
+								<td><label for="jumlah_sks_wajib">Jumlah
 										SKS Wajib</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="jumlah_sks_wajib" /></td>
+								<td><input class="form-control"
+									type="text" name="jumlah_sks_wajib"
+									th:field="*{jumlah_sks_wajib}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_pilihan">Jumlah
+								<td><label for="jumlah_sks_pilihan">Jumlah
 										SKS Pilihan</label></td>
-								<td class="col-sm-4"><input class="form-control"
-									type="text" name="jumlah_sks_pilihan" /></td>
+								<td><input class="form-control"
+									type="text" name="jumlah_sks_pilihan"
+									th:field="*{jumlah_sks_pilihan}" /></td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+						<button type="submit" class="btn btn-success">Simpan</button>
+					</div>
 				</form>
-				<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
-					<a th:href="'/kurikulum/add/'" class="btn btn-danger">Batal</a> <a
-						th:href="'/kurikulum/add/'" class="btn btn-success">Tambah</a>
-				</div>
 			</div>
 			<div class="col-md-2"></div>
 		</div>

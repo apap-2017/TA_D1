@@ -27,8 +27,9 @@ public interface KurikulumService {
 	// lihat detail kurikulum
 	KurikulumModel selectKurikulum(int id);
 
+
 	// tambah kurikulum
-	void addKurikulum(KurikulumModel kurikulum);
+	void addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi);
 
 	// select fakultas
 	FakultasModel selectFakultasbyId(int id_fakultas, int id_univ);
@@ -36,4 +37,8 @@ public interface KurikulumService {
 	List<MataKuliahModel> getMataKuliahByTerm(KurikulumModel kurikulum, int term);
 	
 	List<MataKuliahKurikulumModel> getMatkulKurikulumByTerm(KurikulumModel kurikulum, int term);
+
+	
+	
+	KurikulumModel selectKurikulumAPI(int id);
 }

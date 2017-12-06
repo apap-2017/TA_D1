@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,8 +26,13 @@ public interface MataKuliahKurikulumMapper {
 	@Delete("delete from mata_kuliah_kurikulum where id = #{id}")
 	void deleteMataKuliahKurikulum(@Param(value = "id") int id);
 
+
 	// add matkul kurikulum
 	@Insert("insert into mata_kuliah_kurikulum (id_kurikulum, id_matkul, status_matkul, term)"
 			+ "values (#{id_kurikulum}, #{id_matkul}, #{status_matkul}, #{term})")
 	void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum);
+
+	
+	@Select("select * from mata_kuliah_kurikulum where term= #{term}")
+	List<MataKuliahKurikulumModel> selectMatkulTerm(@Param("term") int term);
 }

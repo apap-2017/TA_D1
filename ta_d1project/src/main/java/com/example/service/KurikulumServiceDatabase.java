@@ -56,12 +56,6 @@ public class KurikulumServiceDatabase implements KurikulumService {
 		return kurikulumMapper.selectKurikulum(id);
 	}
 
-	// tambah kurikulum
-	@Override
-	public void addKurikulum(KurikulumModel kurikulum) {
-		kurikulumMapper.addKurikulum(kurikulum);
-	}
-
 	@Override
 	public FakultasModel selectFakultasbyId(int id_fakultas, int id_univ) {
 		log.info("select fakultas with id_fakultas {}", id_fakultas);
@@ -77,6 +71,15 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	@Override
 	public List<MataKuliahModel> selectMataKuliah(int id_kurikulum) {
 		return kurikulumMapper.selectMataKuliah(id_kurikulum);
+	}
+	
+	@Override
+	public void addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi) {
+		kurikulum.getId_univ();
+		kurikulum.setId_fakultas(id_fakultas);
+		kurikulum.setId_prodi(id_prodi);
+		
+		kurikulumMapper.addKurikulum(kurikulum);
 	}
 	
 	@Override
@@ -113,5 +116,11 @@ public class KurikulumServiceDatabase implements KurikulumService {
 		}
 		
 		return listMatkulKurikulum;
+	}
+
+
+	@Override
+	public KurikulumModel selectKurikulumAPI(int id) {
+		return kurikulumMapper.selectKurikulumAPI(id);
 	}
 }
