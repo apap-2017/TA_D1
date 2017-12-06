@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.model.KurikulumModel;
+import com.example.model.MataKuliahModel;
 
 @Service
 public interface KurikulumService {
@@ -19,7 +20,11 @@ public interface KurikulumService {
 
 	// lihat detail kurikulum
 	KurikulumModel selectKurikulum(int id);
+	
+	KurikulumModel selectKurikulumR(int id);
 
 	// tambah kurikulum
 	void addKurikulum(KurikulumModel kurikulum);
+	
+	List<MataKuliahModel> selectMataKuliah(int id_kurikulum);
 }
