@@ -82,4 +82,36 @@ public class KurikulumRestController {
 			}
 		return api;
 	}
+	
+	@RequestMapping("/getAllKurikulum/{id}")
+	public ApiModel<Map <String, List<KurikulumModel>>> getAllKurikulum (@PathVariable (value= "id") String id) {
+		int id_prodi = 0;
+		boolean tes = true;
+		ApiModel<Map <String, List<KurikulumModel>>> api = new ApiModel<Map <String, List<KurikulumModel>>>();
+		
+		try {
+			id_prodi = Integer.parseInt(id);
+		} 
+		catch(NumberFormatException e){
+	        tes = false;
+	    }
+		if (tes) {
+			List<KurikulumModel> kurikulum = kurikulumService.selectKurikulumProdi(id_prodi);
+			Map <String, List<KurikulumModel>> map = new HashMap<>();
+			map.put("kurikulum", kurikulum);
+			
+			if(kurikulum != null) {
+				api.setResult(map);
+				api.setMsg("success");
+				api.setStatus(200);
+			} else {
+				tes = false;
+			}
+		}
+		 if (!tes) {
+				api.setMsg("Kurikulum tidak ditemukan");
+				api.setStatus(404);
+			}
+		return api;
+	}
 }

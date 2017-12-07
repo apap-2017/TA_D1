@@ -37,7 +37,8 @@ public interface KurikulumService {
 	List<MataKuliahModel> getMataKuliahByTerm(KurikulumModel kurikulum, int term);
 	
 	List<MataKuliahKurikulumModel> getMatkulKurikulumByTerm(KurikulumModel kurikulum, int term);
-
+	
+	List<KurikulumModel> selectAllKurikulum(int id_prodi);
 	
 	
 	KurikulumModel selectKurikulumAPI(int id);

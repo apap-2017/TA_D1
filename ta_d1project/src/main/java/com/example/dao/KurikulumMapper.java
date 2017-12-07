@@ -102,4 +102,6 @@ public interface KurikulumMapper {
 			@Param(value = "id_univ") int id_univ);
 	
 	
+	@Select("select * from kurikulum where id_prodi=#{id_prodi}")
+	List<KurikulumModel> selectAllKurikulum(@Param(value = "id_prodi") int id_prodi);
 }

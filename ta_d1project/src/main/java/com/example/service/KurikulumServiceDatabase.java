@@ -42,7 +42,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 
 	// lihat hasil cari kurikulum
-	@Override
+	@Override	
 	public List<KurikulumModel> selectKurikulumbyParam(int id_univ, int id_fakultas, int id_prodi) {
 		log.info("select kurikulum with id_fakultas, id_prodi {}", id_fakultas, id_prodi);
 		return kurikulumMapper.selectKurikulumbyParam(id_univ, id_fakultas, id_prodi);
@@ -121,5 +121,11 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	@Override
 	public KurikulumModel selectKurikulumAPI(int id) {
 		return kurikulumMapper.selectKurikulumAPI(id);
+	}
+
+	@Override
+	public List<KurikulumModel> selectAllKurikulum(int id_prodi) {
+		// TODO Auto-generated method stub
+		return kurikulumMapper.selectAllKurikulum(id_prodi);
 	}
 }
