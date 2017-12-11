@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Add Prasyarat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+</head>
+
+<body>
+
+	<h1 class="page-header" th:text="'Add Prasyarat - ' + ${matkul.nama_matkul}"></h1>
+	<h2>Prasyarat : </h2>
+	<ul th:each="prasyarats,iterationStatus: ${matkul.listPrasyarat}">
+		<li
+			th:text="${prasyarats.nama_matkul} + ' - SKS : ' + ${prasyarats.jumlah_sks}">
+			Nama Matkul - SKS :-X</li>
+	</ul>
+
+	<form action="/matkul/add-prasyarat/submit" method="post">
+		<div>
+			<label for="id_prasyarat">Pilih Prasyarat</label> <select
+				name="id_prasyarat">
+				<div th:each="matkuls, iterationStatus:${listMatkul}">
+					<option th:value="${matkuls.id}"
+						th:text="${matkuls.nama_matkul}">Pilih Prasyarat</option>
+				</div>
+			</select>
+		</div>
+		<div>
+			<input type="hidden" th:value="${matkul.id}" name="id_matkul"/>
+		</div>
+		<div>
+			<button type="submit">Save</button>
+		</div>
+	</form>
+
+		
+</body>
+</html>
+

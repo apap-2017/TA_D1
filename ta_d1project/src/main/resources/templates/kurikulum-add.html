@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Ubah Kurikulum</title>
+<title>Tambah Kurikulum</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
@@ -34,7 +34,7 @@
 				</center>
 				<form action="/kurikulum/add/submit" method="post"
 					th:object="${kurikulum}">
-					<table>
+					<table class="table-condensed" style="margin-top: 30px; width: 70%">
 						<tbody>
 							<tr>
 								<td><label for="kode_kurikulum">Kode
@@ -62,11 +62,12 @@
 									type="text" name="jumlah_sks_pilihan"
 									th:field="*{jumlah_sks_pilihan}" /></td>
 							</tr>
+							<tr>
+								<td></td>
+								<td><button type="submit" class="btn btn-success pull-right">Simpan</button></td>
+							</tr>
 						</tbody>
 					</table>
-					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
-						<button type="submit" class="btn btn-success">Simpan</button>
-					</div>
 				</form>
 			</div>
 			<div class="col-md-2"></div>

@@ -19,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http
 			.authorizeRequests()
+			.antMatchers("/api/**").permitAll()
 			.antMatchers("/**").hasRole("KAPRODI")
 			.anyRequest().authenticated()
 			.and()

@@ -19,6 +19,9 @@
 
 	<form action="/matkul/update/submit" th:object="${matkul}" method="post">
 		<div>
+			<label for="kode_matkul">Kode Matkul</label> <input type="text" name="kode_matkul" th:field="*{kode_matkul}" readonly="true"/>
+		</div>
+		<div>
 			<label for="nama_matkul">Nama Matkul</label> <input type="text" name="nama_matkul" th:field="*{nama_matkul}"/>
 		</div>
 		<div>
@@ -31,11 +34,11 @@
     		<li th:text="${prasyarats.nama_matkul} + ' - SKS : ' + ${prasyarats.jumlah_sks}">
     			Nama Matkul - SKS :-X
     		</li>
-    		<a th:href="'/matkul/delete-prasyarat/' + ${prasyarats.id}"> Delete Prasyarat </a><br/>
+    		<a th:href="'/matkul/delete-prasyarat?id_prasyarat=' + ${prasyarats.id} + '&amp;id_matkul=' + ${matkul.id}"> Delete Prasyarat </a><br/>
     	</ul>
 		<a th:href="'/matkul/add-prasyarat/' + ${matkul.id}"> Add Prasyarat </a><br/>
 		<div>
-			<button type="submit" name="action" value="save">Save</button>
+			<button type="submit">Save</button>
 		</div>
 	</form>
 
