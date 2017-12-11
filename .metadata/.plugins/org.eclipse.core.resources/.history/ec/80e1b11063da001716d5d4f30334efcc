@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Mata Kuliah</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Mata
+				Kuliah</li>
+		</ol>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<h3>Cari Mata Kuliah</h3>
+				<form class="form-group" action="/matakuliah/find/submit"
+					method="GET" th:object="${matakuliah}">
+					<label for="id_univ">Fakultas</label> <select class="form-control"
+						name="fakultas" id="fakultas" readonly="true">
+						<div
+							th:each="fakultas, iterationStatus:${universitas.listFakultas}">
+
+							<option th:value="${fakultas.id_fakultas}"
+								th:text="${fakultas.nama_fakultas}"></option>
+						</div>
+					</select> 
+					<label for="id_fakultas">Prodi</label> <select class="form-control"
+						name="prodi" id="prodi">
+						<div
+							th:each="prodi, iterationStatus:${fakultas.listProdi}">
+
+							<option th:value="${prodi.id_prodi}"
+								th:text="${prodi.nama_prodi}"></option>
+						</div>
+					</select> <br />
+
+					<tr>
+						<td class="col-md-2"></td>
+						<td class="col-md-4"><button class="btn btn-success"
+								type="submit" name="action" value="save">Cari</button></td>
+					</tr>
+				</form>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,19 @@ public class MataKuliahKurikulumServiceDatabase implements MataKuliahKurikulumSe
 	public void deleteMataKuliahKurikulum(int id) {
 		log.info("delete mata kuliah kurikulum with id {}", id);
 		mataKuliahKurikulumMapper.deleteMataKuliahKurikulum(id);
+	}
+
+
+	// add matkul kurikulum
+	@Override
+	public void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum) {
+		log.info("insert mata kuliah kurikulum");
+		mataKuliahKurikulumMapper.addMataKuliahKurikulum(matkul_kurikulum);
+	}
+
+	@Override
+	public List<MataKuliahKurikulumModel> selectMatkulTerm(int term) {
+		return mataKuliahKurikulumMapper.selectMatkulTerm(term);
 	}
 
 }

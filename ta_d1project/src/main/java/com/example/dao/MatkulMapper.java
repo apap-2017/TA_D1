@@ -36,7 +36,6 @@ public interface MatkulMapper {
 	@Select("select * from mata_kuliah where kode_matkul IN (select kode_prasyarat_matkul from prasyarat_mata_kuliah where kode_matkul = #{kode_matkul})")
 	List<MataKuliahModel> selectPrasyarat (@Param("kode_matkul") String kode_matkul);
 	
-	
 	 @Select("select id, id_univ, id_fakultas, id_prodi, kode_matkul, nama_matkul, jumlah_sks, "
 	   + "prasyarat_sks from mata_kuliah where id_univ = #{id_univ} AND id_fakultas = #{id_fakultas} AND id_prodi=#{id_prodi}")
 	 List<MataKuliahModel> selectMataKuliahProdi(@Param (value = "id_univ") int id_univ,
@@ -75,5 +74,14 @@ public interface MatkulMapper {
 
 	 @Delete("delete from mata_kuliah where id = #{id2}")
 	 void deleteMatkul(@Param("id2") int id2); 
+
+	@Select("select id, id_univ, id_fakultas, id_prodi, kode_matkul, nama_matkul, jumlah_sks, "
+			+ "prasyarat_sks from mata_kuliah where id_fakultas = #{id_fakultas} AND id_prodi=#{id_prodi}")
+	List<MataKuliahModel> selectMatakuliahProdi(@Param(value = "id_fakultas") int id_fakultas,
+			@Param(value = "id_prodi") int id_prodi);
+
+	@Insert("INSERT INTO mata_kuliah (kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi) VALUES (#{kode_matkul}, #{nama_matkul}, #{jumlah_sks}, #{prasyarat_sks}, #{id_univ}, #{id_fakultas}, #{id_prodi})")
+	void addMataKuliah(@Param(value = "kode_matkul") String kode_matkul, @Param(value = "nama_matkul") String nama_matkul, @Param(value = "jumlah_sks") int jumlah_sks, @Param(value = "prasyarat_sks") int prasyarat_sks, @Param(value = "id_univ") int id_univ,
+			@Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi);
 
 }

@@ -37,42 +37,42 @@
 					<table>
 						<tbody>
 							<tr>
-								<td class="col-sm-2"><label for="kode_kurikulum">Kode
+								<td><label for="kode_kurikulum">Kode
 										Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
+								<td><input class="form-control"
 									type="text" name="kode_kurikulum" th:field="*{kode_kurikulum}" th:value="${kurikulum.kode_kurikulum}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="nama_kurikulum">Nama
+								<td><label for="nama_kurikulum">Nama
 										Kurikulum</label></td>
-								<td class="col-sm-4"><input class="form-control"
+								<td><input class="form-control"
 									type="text" name="nama_kurikulum" th:field="*{nama_kurikulum}" th:value="${kurikulum.nama_kurikulum}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_wajib">Jumlah
+								<td><label for="jumlah_sks_wajib">Jumlah
 										SKS Wajib</label></td>
-								<td class="col-sm-4"><input class="form-control"
+								<td><input class="form-control"
 									type="text" name="jumlah_sks_wajib"
 									th:field="*{jumlah_sks_wajib}" th:value="${kurikulum.jumlah_sks_wajib}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="jumlah_sks_pilihan">Jumlah
+								<td><label for="jumlah_sks_pilihan">Jumlah
 										SKS Pilihan</label></td>
-								<td class="col-sm-4"><input class="form-control"
+								<td><input class="form-control"
 									type="text" name="jumlah_sks_pilihan"
 									th:field="*{jumlah_sks_pilihan}" th:value="${kurikulum.jumlah_sks_pilihan}" /></td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="fakultas">Fakultas</label></td>
-								<td class="col-sm-4">
+								<td><label for="fakultas">Fakultas</label></td>
+								<td>
 									<select class="form-control" id="fakultas" name="fakultas" disabled="disabled">
 										<option th:value="${fakultas}" th:text="${fakultas}">Fakultas</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td class="col-sm-2"><label for="prodi">Prodi</label></td>
-								<td class="col-sm-4">
+								<td><label for="prodi">Prodi</label></td>
+								<td>
 									<select th:field="${kurikulum.id_prodi}" class="form-control" id="prodi" name="prodi">
 										<option th:each="eachProdi,iterationStatus: ${prodis}" th:value="${eachProdi.id_prodi}" th:text="${eachProdi.nama_prodi}">Prodi</option>
 									</select>
@@ -84,7 +84,7 @@
 					<input type="hidden" name="id_univ" th:value="${kurikulum.id_univ}" />
 					<input type="hidden" name="id" th:value="${kurikulum.id}" />
 					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
-						<a th:href="'/kurikulum/add/'" class="btn btn-danger">Batal</a>
+						<a th:href="'/kurikulum/view/' + ${kurikulum.id}" class="btn btn-danger">Batal</a>
 						<button type="submit" class="btn btn-success">Selanjutnya</button>
 					</div>
 				</form>

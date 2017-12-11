@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.dao.MatkulMapper;
 import com.example.model.MataKuliahModel;
 
@@ -30,9 +29,15 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 	}
 
 	@Override
-	public String addMataKuliah(MataKuliahModel mata_kuliah) {
-        //return mataKuliahMapper.addMataKuliah(mata_kuliah);
-        return null;
+//	public void addMataKuliah(MataKuliahModel mata_kuliah) {
+//        //return mataKuliahMapper.addMataKuliah(mata_kuliah);
+//        //return null;
+//	}
+//	
+	public List<MataKuliahModel> selectMataKuliahProdi(int id_fakultas,int id_prodi) {
+		log.info ("select mata kuliah with id prodi {}", id_prodi);
+		return mataKuliahMapper.selectMatakuliahProdi(id_fakultas,id_prodi);
+
 	}
 
 	@Override
@@ -88,5 +93,12 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 	}
 
 	
+
+
+	public void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ, int id_fakultas,
+			int id_prodi) {
+		
+	mataKuliahMapper.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi);
+	}
 
 }
