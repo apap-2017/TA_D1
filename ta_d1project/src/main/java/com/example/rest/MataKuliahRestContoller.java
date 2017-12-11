@@ -73,7 +73,7 @@ public class MataKuliahRestContoller {
 			Map <String, List<MataKuliahKurikulumModel>> map = new HashMap<>();
 			map.put("matkul", matkul);
 				
-			if(matkul != null) {
+			if(matkul.size() > 0) {
 				api.setResult(map);
 				api.setMsg("success");
 				api.setStatus(200);

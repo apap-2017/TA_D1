@@ -11,7 +11,7 @@ import com.example.model.MataKuliahModel;
 
 @Service
 public interface KurikulumService {
-	List<KurikulumModel> selectKurikulumProdi(int id_prodi);
+	List<KurikulumModel> selectKurikulumProdi(int id_univ, int id_fakultas, int id_prodi);
 
 	KurikulumModel selectKurikulumR(int id);
 
@@ -39,7 +39,6 @@ public interface KurikulumService {
 	List<MataKuliahKurikulumModel> getMatkulKurikulumByTerm(KurikulumModel kurikulum, int term);
 	
 	List<KurikulumModel> selectAllKurikulum(int id_prodi);
-	
 	
 	KurikulumModel selectKurikulumAPI(int id);
 }

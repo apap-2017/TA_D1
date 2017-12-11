@@ -22,9 +22,9 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	private KurikulumMapper kurikulumMapper;
 
 	@Override
-	public List<KurikulumModel> selectKurikulumProdi(int id_prodi) {
+	public List<KurikulumModel> selectKurikulumProdi(int id_univ, int id_fakultas, int id_prodi) {
 		log.info("select kurikulum with id prodi {}", id_prodi);
-		return kurikulumMapper.selectKurikulumProdi(id_prodi);
+		return kurikulumMapper.selectKurikulumProdi(id_univ, id_fakultas, id_prodi);
 	}
 
 	@Override

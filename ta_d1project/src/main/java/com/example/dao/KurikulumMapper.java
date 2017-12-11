@@ -76,8 +76,8 @@ public interface KurikulumMapper {
 	List<KurikulumModel> selectKurikulumbyParam(@Param(value = "id_univ") int id_univ,
 			@Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi);
 	
-	@Select("select * from kurikulum where id_prodi = #{id_prodi}")
-	List<KurikulumModel> selectKurikulumProdi(@Param(value = "id_prodi") int id_prodi);
+	@Select("select * from kurikulum where id_prodi = #{id_prodi} and id_fakultas = #{id_fakultas} and id_univ = #{id_univ}")
+	List<KurikulumModel> selectKurikulumProdi(@Param(value = "id_univ") int id_univ, @Param(value = "id_fakultas") int id_fakultas , @Param(value = "id_prodi") int id_prodi);
 
 	// lihat detail kurikulum
 	@Select("select distinct k.kode_kurikulum, k.nama_kurikulum, k.jumlah_sks_wajib, k.jumlah_sks_pilihan"
