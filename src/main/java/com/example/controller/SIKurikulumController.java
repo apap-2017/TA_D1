@@ -262,7 +262,7 @@ public class SIKurikulumController {
 			return "kurikulum-not-found";
 		}
 	}
-
+	//test
 	// halaman hapus matkul kurikulum
 	@RequestMapping("/matkul-kurikulum/delete/{id_kurikulum}/{id_matkul_kurikulum}")
 	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum,
