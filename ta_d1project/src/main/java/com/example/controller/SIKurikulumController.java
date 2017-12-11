@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.MataKuliahModel;
 import com.example.service.MataKuliahService;
@@ -78,22 +79,22 @@ public class SIKurikulumController {
 	}
 
 	// akses halaman lihat kurikulum
-	@RequestMapping("/kurikulum/view")
-	public String viewKurikulum(Model model, @RequestParam(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
-		MataKuliahKurikulumModel matkulKurikulum = kurikulumDAO.selectMatkulbyId(kurikulum.getId_kurikulum());
-		List<MataKuliahKurikulumModel> listMatkul = kurikulumDAO.selectListMatkul(matkul.getId_kurikulum());
-		
-		if (kurikulum != null) {
-			model.addAttribute("kurikulum", kurikulum);
-			model.addAttribute("matkulKurikulum", matkulKurikulum);
-			model.addAttribute("matkul", matkul);
-			return "kurikulum-view";
-		} else {
-			model.addAttribute("id", id);
-			return "not-found";
-		}
-	}
+//	@RequestMapping("/kurikulum/view")
+//	public String viewKurikulum(Model model, @RequestParam(value = "id") int id) {
+//		KurikulumModel kurikulum = kurikulumDAO.selectKurikulum(id);
+//		MataKuliahKurikulumModel matkulKurikulum = kurikulumDAO.selectMatkulbyId(kurikulum.getId() );
+//		List<MataKuliahKurikulumModel> listMatkul = kurikulumDAO.selectListMatkul(matkul.getId_kurikulum());
+//		
+//		if (kurikulum != null) {
+//			model.addAttribute("kurikulum", kurikulum);
+//			model.addAttribute("matkulKurikulum", matkulKurikulum);
+//			model.addAttribute("matkul", matkul);
+//			return "kurikulum-view";
+//		} else {
+//			model.addAttribute("id", id);
+//			return "not-found";
+//		}
+//	}
 
 	// akses halaman lihat kurikulum
 	@RequestMapping("/kurikulum/view/{id}")
@@ -173,12 +174,12 @@ public class SIKurikulumController {
 		}
 	}
 
-	// halaman hapus mata kuliah kurikulum
-	@RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
-	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
-		mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
-		return "redirect:/kurikulum/view/" + id_kurikulum;
-	}
+//	// halaman hapus mata kuliah kurikulum
+//	@RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
+//	public String deleteMataKuliahKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum, @PathVariable(value = "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
+//		mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
+//		return "redirect:/kurikulum/view/" + id_kurikulum;
+//	}
 
 	// akses halaman lihat kurikulum angkatan
 	@RequestMapping("/kurikulum/angkatan")
@@ -240,12 +241,93 @@ public class SIKurikulumController {
 	public String addPrasyarat(Model model, @PathVariable(value="id") String id) {
 		int id2 = Integer.parseInt(id);
 		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		
 		if(matkul != null) {
+			int id_univ = matkul.getId_univ();
+			int id_fakultas = matkul.getId_fakultas();
+			int id_prodi = matkul.getId_prodi();
+			System.out.println(id_univ + " " + id_fakultas + " " + id_prodi + " " + matkul.getNama_matkul() );
+			List<MataKuliahModel> listMatkul = matkulDAO.selectMataKuliahProdi(id_univ,id_fakultas,id_prodi);
+			System.out.println(listMatkul.get(1).getNama_matkul());
 			model.addAttribute("matkul",matkul);
-			
+			model.addAttribute("listMatkul",listMatkul);
 			return "form-add-prasyarat";
 		} else {
 			return "matkul-not-found";
 		}
 	}
+
+	@RequestMapping(value = "/matkul/add-prasyarat/submit", method = RequestMethod.POST)
+	public String submitPrasyarat(Model model, 
+								  @RequestParam(value="id_prasyarat") int id_prasyarat,
+								  @RequestParam(value="id_matkul") int id_matkul
+			)
+	{
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_matkul);
+		if(!matkulDAO.cekPrasyarat(matkul.getListPrasyarat(),id_prasyarat)) {
+			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+			int idtable = matkulDAO.getIdPrasyarat();
+			idtable = idtable + 1;
+			matkulDAO.addPrasyarat(idtable,matkul.getKode_matkul(), matpras.getKode_matkul());
+			return "redirect:/matkul/edit/" + matkul.getId();
+		} else {
+			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+			model.addAttribute("matkul",matkul);
+			model.addAttribute("matpras", matpras);
+			return "failed-add-prasyarat";
+		}
+	}
+	
+	@RequestMapping(value = "/matkul/delete-prasyarat", method = RequestMethod.GET)
+	public String deletePrasyarat(Model model, 
+								  @RequestParam(value="id_prasyarat") int id_prasyarat,
+								  @RequestParam(value="id_matkul") int id_matkul
+	) {
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_matkul);
+		MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+		System.out.println(matkul.getNama_matkul() + " " + matpras.getNama_matkul());
+		matkulDAO.deletePrasyarat(matkul.getKode_matkul(),matpras.getKode_matkul());
+		return "redirect:/matkul/edit/" + matkul.getId();
+	}
+	
+	@RequestMapping(value = "/matkul/update/submit", method = RequestMethod.POST)
+	public String updateMatkul(
+							   @RequestParam(value="kode_matkul", required=false) String kode_matkul,
+							   @RequestParam(value="nama_matkul", required=false) String nama_matkul,
+							   @RequestParam(value="jumlah_sks", required=false) String jumlah_sks,
+							   @RequestParam(value="prasyarat_sks", required=false) String prasyarat_sks) {
+		int jumlah_sks2 = Integer.parseInt(jumlah_sks);
+		int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+		matkulDAO.updateMataKuliah(kode_matkul,jumlah_sks2,prasyarat_sks2,nama_matkul );
+		return "redirect:/";
+	}
+	
+	
+	@RequestMapping(value = "/username", method = RequestMethod.GET)
+	@ResponseBody
+	public String currentUserName(Principal principal) {
+		return principal.getName();
+	}
+	
+	@RequestMapping("/matkul/delete/{id}")
+	public String deleteMatkul (Model model, @PathVariable(value = "id") String id)
+	{
+		int id2 = Integer.parseInt(id);
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		model.addAttribute("matkul",matkul);
+		return "matkul-delete";
+
+	}
+	
+	@RequestMapping("/matkul/delete/submit/{id}")
+	public String deleteMatkulSubmit (Model model, @PathVariable(value = "id") String id)
+	{
+		int id2 = Integer.parseInt(id);
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		model.addAttribute("matkul",matkul);
+		matkulDAO.deleteMatkul (id2);
+		return "redirect:/";
+
+	}
+
 }
