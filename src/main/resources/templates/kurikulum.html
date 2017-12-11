@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kurikulum</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Kurikulum</li>
+		</ol>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<h3>Cari Kurikulum</h3>
+				<form class="form-group" action="/kurikulum/viewall"
+					method="GET" th:object="${kurikulum}">
+					<table class="table-condensed" style="margin-top: 30px; width: 70%">
+						<tbody>
+							<tr>
+								<td><label for="id_univ">Universitas</label></td>
+								<td><select class="form-control"
+									name="id_univ">
+										<option selected="true" disabled="disabled" value="''">Pilih Universitas</option>
+										<option th:value="1">Universitas A</option>
+										<option th:value="2">Universitas B</option>
+										<option th:value="3">Universitas C</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><label for="id_fakultas">Fakultas</label></td>
+								<td><select class="form-control"
+									name="id_fakultas">
+										<option selected="true" disabled="disabled" value="''">Pilih Fakultas</option>
+										<option th:value="1">Fakultas A</option>
+										<option th:value="2">Fakultas B</option>
+										<option th:value="3">Fakultas C</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><label for="id_prodi">Prodi</label></td>
+								<td><select class="form-control"
+									name="id_prodi" required="true">
+										<option selected="true" disabled="disabled" value="''">Pilih Prodi</option>
+										<option th:value="1">Program Studi A1X</option>
+										<option th:value="2">Program Studi A1Y</option>
+										<option th:value="3">Program Studi A1Z</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><button class="btn btn-success pull-right"
+										type="submit" name="action" value="save">Cari</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>
