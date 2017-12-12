@@ -1,47 +1,100 @@
-<!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-
 <title>Add Prasyarat</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-
-	<h1 class="page-header" th:text="'Add Prasyarat - ' + ${matkul.nama_matkul}"></h1>
-	<h2>Prasyarat : </h2>
-	<ul th:each="prasyarats,iterationStatus: ${matkul.listPrasyarat}">
-		<li
-			th:text="${prasyarats.nama_matkul} + ' - SKS : ' + ${prasyarats.jumlah_sks}">
-			Nama Matkul - SKS :-X</li>
-	</ul>
-
-	<form action="/matkul/add-prasyarat/submit" method="post">
-		<div>
-			<label for="id_prasyarat">Pilih Prasyarat</label> <select
-				name="id_prasyarat">
-				<div th:each="matkuls, iterationStatus:${listMatkul}">
-					<option th:value="${matkuls.id}"
-						th:text="${matkuls.nama_matkul}">Pilih Prasyarat</option>
+	<div th:replace="fragments/fragment :: header"></div>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
+			<li class="breadcrumb-item"><a href="#">Mata Kuliah</a></li>
+			<li class="breadcrumb-item"><a href="#">Edit Mata Kuliah</a></li>
+			<li class="breadcrumb-item"><a><b>Add Prasyarat</b></a></li>
+		</ol>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<br />
+				<center>
+					<h3 th:text="'Add Prasyarat - ' + ${matkul.nama_matkul}"></h3>
+				</center>
+				<br/>
+				<div th:if="${msg!=null}">
+					<div class="alert alert-danger alert-dismissable" >
+					    <a class="close" data-dismiss="alert" aria-label="close">×</a>
+					    <strong>Error!</strong> Mata Kuliah sudah memiliki prasyarat tersebut
+					</div>
 				</div>
-			</select>
+				<br />
+				<h5>Prasyarat yang sudah ada</h5>
+				<table class="table table-striped"
+					style="text-align: left; width: 100%">
+					<br />
+					<thead>
+						<tr style="text-align: center; width: 100%">
+							<th>Nama Prasyarat Matkul</th>
+							<th>Jumlah SKS</th>
+						</tr>
+					</thead>
+					<tbody style="margin-top: 30px; width: 100%">
+						<tr th:each="prasyarats,iterationStatus: ${matkul.listPrasyarat}"
+							style="text-align: center; width: 100%">
+							<td th:text="${prasyarats.nama_matkul}">Nama Matkul</td>
+							<td th:text="${prasyarats.jumlah_sks}">Jumlah SKS Matkul</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+					<form action="/matkul/add-prasyarat/submit" method="post">
+						<div class="form-group row">
+							<label for="id_prasyarat" class="col-form-label">Pilih Prasyarat</label> <select
+								name="id_prasyarat" class="form-control">
+								<div th:each="matkuls, iterationStatus:${listMatkul}">
+									<option th:value="${matkuls.id}"
+										th:text="${matkuls.nama_matkul}">Pilih Prasyarat</option>
+								</div>
+							</select>
+						</div>
+						<div>
+							<input type="hidden" th:value="${matkul.id}" name="id_matkul" />
+						</div>
+						
+						<div class="col-sm-3 pull-right">
+							<div>
+								<button type="submit" class="btn btn-success btn-sm">
+									<i class="fa fa-check-square-o" aria-hidden="true"></i> Save
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-		<div>
-			<input type="hidden" th:value="${matkul.id}" name="id_matkul"/>
+	</div>
+	<footer class="footer-fluid text-center" style="position: relative; bottom: 0">
+		<div class="container">
+			<br/>
+			<hr/>
+			<span class="text-muted">Sistem Informasi Kurikulum -
+				Universitas Indonesia created by D-Kurikulum &copy; 2017</span>
 		</div>
-		<div>
-			<button type="submit">Save</button>
-		</div>
-	</form>
-
-		
+	</footer>
 </body>
 </html>
 

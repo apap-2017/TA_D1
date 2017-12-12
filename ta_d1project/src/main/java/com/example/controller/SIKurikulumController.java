@@ -351,6 +351,8 @@ public class SIKurikulumController {
 			System.out.println(id_univ + " " + id_fakultas + " " + id_prodi + " " + matkul.getNama_matkul() );
 			List<MataKuliahModel> listMatkul = matkulDAO.selectMataKuliahProdi(id_univ,id_fakultas,id_prodi);
 			System.out.println(listMatkul.get(1).getNama_matkul());
+			String msg = null;
+			model.addAttribute("msg", msg);
 			model.addAttribute("matkul",matkul);
 			model.addAttribute("listMatkul",listMatkul);
 			return "form-add-prasyarat";
@@ -374,10 +376,33 @@ public class SIKurikulumController {
 			matkulDAO.addPrasyarat(idtable,matkul.getKode_matkul(), matpras.getKode_matkul());
 			return "redirect:/matkul/edit/" + matkul.getId();
 		} else {
-			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+//			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+//			model.addAttribute("matkul",matkul);
+//			model.addAttribute("matpras", matpras);
+//			return "failed-add-prasyarat";
+			return "redirect:/matkul/add-prasyarat/error/" + id_matkul;
+		}
+	}
+	
+	@RequestMapping("/matkul/add-prasyarat/error/{id}")
+	public String addPrasyaratError(Model model, @PathVariable(value = "id") String id) {
+		int id2 = Integer.parseInt(id);
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		
+		if(matkul != null) {
+			int id_univ = matkul.getId_univ();
+			int id_fakultas = matkul.getId_fakultas();
+			int id_prodi = matkul.getId_prodi();
+			System.out.println(id_univ + " " + id_fakultas + " " + id_prodi + " " + matkul.getNama_matkul() );
+			List<MataKuliahModel> listMatkul = matkulDAO.selectMataKuliahProdi(id_univ,id_fakultas,id_prodi);
+			System.out.println(listMatkul.get(1).getNama_matkul());
+			String msg = "error";
+			model.addAttribute("msg", msg);
 			model.addAttribute("matkul",matkul);
-			model.addAttribute("matpras", matpras);
-			return "failed-add-prasyarat";
+			model.addAttribute("listMatkul",listMatkul);
+			return "form-add-prasyarat";
+		} else {
+			return "matkul-not-found";
 		}
 	}
 	
