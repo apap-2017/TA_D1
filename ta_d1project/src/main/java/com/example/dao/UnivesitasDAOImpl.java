@@ -37,9 +37,9 @@ public class UnivesitasDAOImpl implements UniversitasDAO {
 
 	@Override
 	public List<FakultasModel> selectAngkatan(int id_univ, int id_fakultas, int id_prodi) {
-		ApiModel<Map <String, List<FakultasModel>>> prodi = restTemplate.getForObject("https://apap2017-univ-apps.herokuapp.com/getFakultasList/1", ApiModel.class);
-		List<FakultasModel> a = prodi.getResult().get("fakultasList");
-		return a;
+		ApiModel<Map <String, List<FakultasModel>>> angkatanAPI = restTemplate.getForObject("https://apap2017-univ-apps.herokuapp.com/getFakultasList/1", ApiModel.class);
+		List<FakultasModel> list = angkatanAPI.getResult().get("fakultasList");
+		return list;
 	}
 
 }
