@@ -55,7 +55,7 @@ public class SIKurikulumController {
 	@Autowired
 	MataKuliahService matakuliahDAO;
 	@Autowired
-	UserService userDao;
+	UserService userDAO;
 
 	@RequestMapping("/")
 	public String index() {
@@ -198,10 +198,16 @@ public class SIKurikulumController {
 
 	// akses halaman submit tambah kurikulum
 	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
-	public String addSubmitKurikulum(KurikulumModel kurikulum) {
-		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
+	public String addSubmitKurikulum(KurikulumModel kurikulum, Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDao.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		
+		int id_kurikulum = kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
 
-		return "redirect:/kurikulum/view/" + kurikulum.getId();
+		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
 	// halaman tambah matkul kurikulum
@@ -246,8 +252,8 @@ public class SIKurikulumController {
 	}
 
 	// halaman konfirmasi hapus kurikulum
-	@RequestMapping(value = "/kurikulum/delete/{id}/{nama_kurikulum}", method = RequestMethod.POST)
-	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id, @PathVariable(value = "nama_kurikulum") int nama_kurikulum) {
+	@RequestMapping(value = "/kurikulum/delete-kurikulum/{id}")
+	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
 		
 		if (kurikulum != null) {
@@ -307,13 +313,13 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + matkulKurikulum.getId_kurikulum();
 	}
-
-	// akses halaman lihat kurikulum angkatan
+	
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model) {
-
-		FakultasModel fakultas = universitasDAO.selectFakultas(1, 1);
-		ProdiModel prodi = universitasDAO.selectProdi(1, 1, 1);
+	public String viewKurikulumAngkatan(Model model, Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		FakultasModel fakultas = universitasDAO.selectFakultas(user.getId_univ(), user.getId_fakultas());
+		ProdiModel prodi = universitasDAO.selectProdi(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
 
 		model.addAttribute("fakultas", fakultas);
 		model.addAttribute("prodi", prodi);
@@ -435,7 +441,7 @@ public class SIKurikulumController {
 	@ResponseBody
 	public String contoh(Principal principal) {
 		String usernameUser = principal.getName();
-		UserModel user = userDao.selectUser(usernameUser);
+		UserModel user = userDAO.selectUser(usernameUser);
 		return "" + user.getNama() + " " + user.getPassword() + " " + user.getUsername();
 	}
 	
@@ -534,7 +540,7 @@ public class SIKurikulumController {
 	@RequestMapping(value="/view-profile", method = RequestMethod.GET)
 	public String viewProfile(Principal principal, Model model) {
 		String usernameUser = principal.getName();
-		UserModel user = userDao.selectUser(usernameUser);
+		UserModel user = userDAO.selectUser(usernameUser);
 		FakultasModel fakultas = universitasDAO.selectFakultas(1, user.getId_fakultas());
 		ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
 		model.addAttribute("fakultas",fakultas);

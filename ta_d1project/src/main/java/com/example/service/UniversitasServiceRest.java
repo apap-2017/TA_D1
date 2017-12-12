@@ -31,6 +31,12 @@ public class UniversitasServiceRest implements UniversitasService {
 		
 		return prodi;
 	}
+
+	@Override
+	public List<FakultasModel> selectAngkatan(int id_univ, int id_fakultas, int id_prodi) {
+		List<FakultasModel> aa = universitasDAO.selectAngkatan(1,1,1);
+		return aa;
+	}
 	
 
 }
