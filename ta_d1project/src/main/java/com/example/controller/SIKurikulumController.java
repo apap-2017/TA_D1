@@ -27,11 +27,13 @@ import com.example.model.ProdiModel;
 import com.example.model.ResultModel;
 
 import com.example.model.UniversitasModel;
+import com.example.model.UserModel;
 import com.example.service.KurikulumService;
 import com.example.service.MataKuliahService;
 import com.example.service.KurikulumServiceDatabase;
 import com.example.service.MataKuliahKurikulumService;
 import com.example.service.UniversitasService;
+import com.example.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +54,8 @@ public class SIKurikulumController {
 	UniversitasService universitasDAO;
 	@Autowired
 	MataKuliahService matakuliahDAO;
+	@Autowired
+	UserService userDao;
 
 	@RequestMapping("/")
 	public String index() {
@@ -402,6 +406,14 @@ public class SIKurikulumController {
 		return principal.getName();
 	}
 	
+	@RequestMapping(value="/contoh", method = RequestMethod.GET)
+	@ResponseBody
+	public String contoh(Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDao.selectUser(usernameUser);
+		return "" + user.getNama() + " " + user.getPassword() + " " + user.getUsername();
+	}
+	
 	@RequestMapping("/matkul/delete/{id}")
 	public String deleteMatkul (Model model, @PathVariable(value = "id") String id)
 	{
@@ -492,6 +504,18 @@ public class SIKurikulumController {
 	@RequestMapping("/matakuliah/view/{id}")
 	public String viewPathMataKuliah() {
 		return "matakuliah-view";
+	}
+	
+	@RequestMapping(value="/view-profile", method = RequestMethod.GET)
+	public String viewProfile(Principal principal, Model model) {
+		String usernameUser = principal.getName();
+		UserModel user = userDao.selectUser(usernameUser);
+		FakultasModel fakultas = universitasDAO.selectFakultas(1, user.getId_fakultas());
+		ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
+		model.addAttribute("fakultas",fakultas);
+		model.addAttribute("prodi", prodi);
+		model.addAttribute("user", user);
+		return "view-profile";
 	}
 
 }
