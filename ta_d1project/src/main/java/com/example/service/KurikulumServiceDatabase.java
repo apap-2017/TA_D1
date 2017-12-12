@@ -99,6 +99,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 				for(int j = 0; j < matkuls.size(); j++) {
 					if(matkuls.get(j).getId() == id_matkul) {
 						listMataKuliah.add(matkuls.get(j));
+						log.info("{}", matkuls.get(j).getNama_matkul());
 					}
 				}
 			}
