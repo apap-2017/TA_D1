@@ -16,8 +16,8 @@ public class MataKuliahModel {
 	private int id_prodi;
 	private String kode_matkul;
 	private String nama_matkul;
-	private Integer jumlah_sks;
-	private Integer prasyarat_sks;
+	private int jumlah_sks;
+	private int prasyarat_sks;
 	private List<MataKuliahModel> listPrasyarat;
 	private List<MataKuliahModel> listMataKuliah;
 }

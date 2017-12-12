@@ -39,7 +39,7 @@ public interface MatkulMapper {
 	List<MataKuliahModel> selectMatakuliahProdi(@Param(value = "id_fakultas") int id_fakultas,
 			@Param(value = "id_prodi") int id_prodi);
 
-	@Insert("INSERT INTO mata_kuliah (kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi) VALUES (#{kode_matkul}, #{nama_matkul}, #{jumlah_sks}, #{prasyarat_sks}, #{id_univ}, #{id_fakultas}, #{id_prodi})")
+	@Insert("INSERT INTO mata_kuliah (id, kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi) VALUES (#{id}, #{kode_matkul}, #{nama_matkul}, #{jumlah_sks}, #{prasyarat_sks}, #{id_univ}, #{id_fakultas}, #{id_prodi})")
 	void addMataKuliah(@Param(value = "kode_matkul") String kode_matkul, @Param(value = "nama_matkul") String nama_matkul, @Param(value = "jumlah_sks") int jumlah_sks, @Param(value = "prasyarat_sks") int prasyarat_sks, @Param(value = "id_univ") int id_univ,
-			@Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi);
+			@Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi, @Param("id") int id);
 }

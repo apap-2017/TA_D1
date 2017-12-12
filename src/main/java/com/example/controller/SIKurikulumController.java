@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.MataKuliahModel;
 import com.example.service.MataKuliahService;
@@ -164,20 +165,20 @@ public class SIKurikulumController {
 	// return "redirect:/kurikulum/view/" + kurikulum.getId();
 	// }
 
-	// halaman tambah kurikulum
-	@RequestMapping("/kurikulum/add")
-	public String addKurikulum(Model model) {
-		model.addAttribute("kurikulum", new KurikulumModel());
-		return "kurikulum-add";
-	}
-
-	// akses halaman submit tambah kurikulum
-	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
-	public String addSubmitKurikulum(KurikulumModel kurikulum) {
-		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
-
-		return "redirect:/kurikulum/view/" + kurikulum.getId();
-	}
+//	// halaman tambah kurikulum
+//	@RequestMapping("/kurikulum/add")
+//	public String addKurikulum(Model model) {
+//		model.addAttribute("kurikulum", new KurikulumModel());
+//		return "kurikulum-add";
+//	}
+//
+//	// akses halaman submit tambah kurikulum
+//	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
+//	public String addSubmitKurikulum(KurikulumModel kurikulum) {
+//		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
+//
+//		return "redirect:/kurikulum/view/" + kurikulum.getId();
+//	}
 
 	// halaman tambah matkul kurikulum
 	@RequestMapping("/matkul-kurikulum/add/{id_kurikulum}")
@@ -197,24 +198,21 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + matkul_kurikulum.getId_kurikulum();
 	}
-//<<<<<<< HEAD
-//
-//	// halaman tambah kurikulum
-//	@RequestMapping("/kurikulum/add")
-//	public String addKurikulum(Model model) {
-//		model.addAttribute("kurikulum", new KurikulumModel());
-//		return "kurikulum-add";
-//	}
-//
-//	// akses halaman submit tambah kurikulum
-//	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
-//	public String addSubmitKurikulum(KurikulumModel kurikulum) {
-//		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
-//
-//		return "redirect:/kurikulum/view/" + kurikulum.getId();
-//	}
-//=======
-//>>>>>>> origin/master
+
+	// halaman tambah kurikulum
+	@RequestMapping("/kurikulum/add")
+	public String addKurikulum(Model model) {
+		model.addAttribute("kurikulum", new KurikulumModel());		
+		return "kurikulum-add";
+	}
+
+	// akses halaman submit tambah kurikulum
+	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
+	public String addSubmitKurikulum(KurikulumModel kurikulum) {
+		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
+
+		return "redirect:/kurikulum/view/" + kurikulum.getId();
+	}
 
 	// halaman ubah kurikulum
 	@RequestMapping("/kurikulum/update/{id}")
@@ -380,18 +378,19 @@ public class SIKurikulumController {
 	}
 
 	// akses submit tambah mata kuliah
-	@RequestMapping("/matakuliah/add/submit")
+	@RequestMapping(value="/matakuliah/add/submit" , method = RequestMethod.POST)
 
-	public String addMataKuliah(@RequestParam(value = "kode_matkul", required = false) String kode_matkul,
+	public @ResponseBody String addMataKuliah(@RequestParam(value = "kode_matkul", required = false) String kode_matkul,
 			@RequestParam(value = "nama_matkul", required = false) String nama_matkul,
-			@RequestParam(value = "jumlah_sks", required = false) int jumlah_sks,
-			@RequestParam(value = "prasyarat_sks", required = false) int prasyarat_sks) {
-		// int jumlah_sks2 = Integer.parseInt(jumlah_sks);
-		// int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
-		// MataKuliahModel matkul = new MataKuliahModel(kode_matkul, nama_matkul,
-		// jumlah_sks, prasyarat_sks);
+			@RequestParam(value = "jumlah_sks", required = false) String jumlah_sks,
+			@RequestParam(value = "prasyarat_sks", required = false) String prasyarat_sks) {
+		 int jumlah_sks2 = Integer.parseInt(jumlah_sks);
+		 int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+//		 MataKuliahModel matkul = new MataKuliahModel(kode_matkul, nama_matkul,
+//		 jumlah_sks2, prasyarat_sks2);
 		System.out.println(jumlah_sks);
-		matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, 1, 1, 1);
+		int id = 361;
+		matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks2, prasyarat_sks2, 1, 1, 1, id);
 
 		return "matakuliah-submit-success";
 	}

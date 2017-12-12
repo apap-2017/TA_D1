@@ -16,5 +16,5 @@ public interface MataKuliahService
 
     void deleteMataKuliah (int id);
 
-	void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ, int id_fakultas, int id_prodi);
+	void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ, int id_fakultas, int id_prodi, int id);
 }

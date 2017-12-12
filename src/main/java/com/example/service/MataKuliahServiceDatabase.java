@@ -43,9 +43,9 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 
 	@Override
 	public void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ, int id_fakultas,
-			int id_prodi) {
+			int id_prodi, int id) {
 		
-	mataKuliahMapper.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi);
+	mataKuliahMapper.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_univ, id_fakultas, id_prodi, id);
 	}
 
 }
