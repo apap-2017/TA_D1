@@ -246,21 +246,10 @@ public class SIKurikulumController {
 	}
 
 	// halaman konfirmasi hapus kurikulum
-	@RequestMapping(value = "/kurikulum/delete", method = RequestMethod.POST)
-	public String deleteKurikulumConfirmation(Model model, KurikulumModel kurikulum) {
-		int id = kurikulum.getId();
-		String nama_kurikulum = kurikulum.getNama_kurikulum();
-
-		model.addAttribute("id", id);
-		model.addAttribute("nama_kurikulum", nama_kurikulum);
-		return "kurikulum-delete-confirmation";
-	}
-
-	// halaman hapus kurikulum
-	@RequestMapping("/kurikulum/delete/{id}")
-	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
+	@RequestMapping(value = "/kurikulum/delete/{id}/{nama_kurikulum}", method = RequestMethod.POST)
+	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id, @PathVariable(value = "nama_kurikulum") int nama_kurikulum) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
-
+		
 		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
 			return "redirect:/kurikulum/result";
@@ -268,6 +257,17 @@ public class SIKurikulumController {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";
 		}
+	}
+
+	// halaman hapus kurikulum
+	@RequestMapping("/kurikulum/delete/{id}")
+	public String deleteKurikulumConfirmation(Model model, @PathVariable(value = "id") int id) {
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
+		String nama_kurikulum = kurikulum.getNama_kurikulum();
+		
+		model.addAttribute("id", id);
+		model.addAttribute("nama_kurikulum", nama_kurikulum);
+		return "kurikulum-delete-confirmation";
 	}
 
 
