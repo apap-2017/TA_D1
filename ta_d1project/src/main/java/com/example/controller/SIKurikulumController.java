@@ -55,7 +55,7 @@ public class SIKurikulumController {
 	@Autowired
 	MataKuliahService matakuliahDAO;
 	@Autowired
-	UserService userDao;
+	UserService userDAO;
 
 	@RequestMapping("/")
 	public String index() {
@@ -307,13 +307,13 @@ public class SIKurikulumController {
 
 		return "redirect:/kurikulum/view/" + matkulKurikulum.getId_kurikulum();
 	}
-
-	// akses halaman lihat kurikulum angkatan
+	
 	@RequestMapping("/kurikulum/angkatan")
-	public String viewKurikulumAngkatan(Model model) {
-
-		FakultasModel fakultas = universitasDAO.selectFakultas(1, 1);
-		ProdiModel prodi = universitasDAO.selectProdi(1, 1, 1);
+	public String viewKurikulumAngkatan(Model model, Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		FakultasModel fakultas = universitasDAO.selectFakultas(user.getId_univ(), user.getId_fakultas());
+		ProdiModel prodi = universitasDAO.selectProdi(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
 
 		model.addAttribute("fakultas", fakultas);
 		model.addAttribute("prodi", prodi);
@@ -410,7 +410,7 @@ public class SIKurikulumController {
 	@ResponseBody
 	public String contoh(Principal principal) {
 		String usernameUser = principal.getName();
-		UserModel user = userDao.selectUser(usernameUser);
+		UserModel user = userDAO.selectUser(usernameUser);
 		return "" + user.getNama() + " " + user.getPassword() + " " + user.getUsername();
 	}
 	
@@ -509,7 +509,7 @@ public class SIKurikulumController {
 	@RequestMapping(value="/view-profile", method = RequestMethod.GET)
 	public String viewProfile(Principal principal, Model model) {
 		String usernameUser = principal.getName();
-		UserModel user = userDao.selectUser(usernameUser);
+		UserModel user = userDAO.selectUser(usernameUser);
 		FakultasModel fakultas = universitasDAO.selectFakultas(1, user.getId_fakultas());
 		ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
 		model.addAttribute("fakultas",fakultas);
