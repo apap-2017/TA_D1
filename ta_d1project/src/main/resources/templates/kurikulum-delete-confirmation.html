@@ -24,12 +24,10 @@
 				<image src="images/logo.png" />
 				<center>
 				<h5 th:text="'Apakah anda yakin ingin menghapus ' + ${nama_kurikulum} + '?'">Apakah anda yakin ingin menghapus {nama kurikulum}?</h5>
-				<form th:action="@{/kurikulum/delete/} + ${id} + @{/} + ${nama_kurikulum}">
-					<div style="margin-top: 40px;">
-						<a th:href="'/kurikulum/viewall/'" class="btn btn-danger" style="margin-right: 40px">Tidak</a>
-						<button type="submit" class="btn btn-success">Ya</button>
-					</div>
-				</form>
+				<div style="margin-top: 40px;">
+					<a th:href="'/kurikulum/viewall/'" class="btn btn-danger" style="margin-right: 40px; width: 70px">Tidak</a>
+					<a th:href="'/kurikulum/delete-kurikulum/' + ${id}" class="btn btn-success" style="width: 70px">Ya</a>
+				</div>
 				</center>
 				<hr />
 			</div>

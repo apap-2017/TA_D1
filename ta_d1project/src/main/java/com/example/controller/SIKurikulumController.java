@@ -246,8 +246,8 @@ public class SIKurikulumController {
 	}
 
 	// halaman konfirmasi hapus kurikulum
-	@RequestMapping(value = "/kurikulum/delete/{id}/{nama_kurikulum}", method = RequestMethod.POST)
-	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id, @PathVariable(value = "nama_kurikulum") int nama_kurikulum) {
+	@RequestMapping(value = "/kurikulum/delete-kurikulum/{id}")
+	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
 		
 		if (kurikulum != null) {
