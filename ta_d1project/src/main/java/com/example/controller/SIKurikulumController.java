@@ -75,16 +75,19 @@ public class SIKurikulumController {
 
 	// akses halaman hasil cari kurikulum
 	@RequestMapping("/kurikulum/viewall")
-	public String resultKurikulum(Model model, @RequestParam(value = "id_univ") int id_univ,
-			@RequestParam(value = "id_fakultas") int id_fakultas, @RequestParam(value = "id_prodi") int id_prodi) {
-		// FakultasModel fakultas = universitasDAO.
+	public String resultKurikulum(Model model, Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		
 		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyParam(id_univ, id_fakultas, id_prodi);
-		// FakultasModel fakultas = kurikulumDAO.selectFakultasbyId(id_fakultas,
-		// id_univ);
+		FakultasModel fakultas = universitasDAO.selectFakultas(id_univ, id_fakultas);
 
 		if (kurikulum != null) {
 			model.addAttribute("kurikulums", kurikulum);
-			// model.addAttribute("fakultas", fakultas);
+			model.addAttribute("fakultas", fakultas);
 			return "kurikulum-viewall";
 		} else {
 			model.addAttribute("id_fakultas", id_fakultas);
@@ -216,17 +219,20 @@ public class SIKurikulumController {
 		String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_kurikulum).getKode_kurikulum();
 		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
 
+		model.addAttribute("id_kurikulum", id_kurikulum);
 		model.addAttribute("kodeKurikulum", kodeKurikulum);
 		model.addAttribute("matkuls", matkuls);
+		model.addAttribute("matkulKurikulum", new MataKuliahKurikulumModel());
 		return "matkul-kurikulum-add";
 	}
 
 	// akses halaman submit add matkul kurikulum
-	@RequestMapping(value = "/matkul-kurikulum/add/submit", method = RequestMethod.POST)
-	public String addSubmitKurikulum(MataKuliahKurikulumModel matkul_kurikulum) {
-		matkulKurikulumDAO.addMataKuliahKurikulum(matkul_kurikulum);
-
-		return "redirect:/kurikulum/view/" + matkul_kurikulum.getId_kurikulum();
+	@RequestMapping(value = "/matkul-kurikulum/add/submit/{id_kurikulum}", method = RequestMethod.POST)
+	public String addSubmitKurikulum(MataKuliahKurikulumModel matkul_kurikulum, @PathVariable(value = "id_kurikulum") int id_kurikulum) {
+		matkulKurikulumDAO.addMataKuliahKurikulum(matkul_kurikulum, id_kurikulum);
+		
+		log.info("controller id kurikulum {}", id_kurikulum);
+		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
 	// halaman ubah kurikulum
@@ -258,7 +264,7 @@ public class SIKurikulumController {
 		
 		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
-			return "redirect:/kurikulum/result";
+			return "redirect:/kurikulum/viewall";
 		} else {
 			model.addAttribute("id", id);
 			return "kurikulum-not-found";

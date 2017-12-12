@@ -37,9 +37,13 @@ public class MataKuliahKurikulumServiceDatabase implements MataKuliahKurikulumSe
 
 	// add matkul kurikulum
 	@Override
-	public void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum) {
-		log.info("insert mata kuliah kurikulum");
+	public int addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum, int id_kurikulum) {
+		matkul_kurikulum.setId_kurikulum(id_kurikulum);
 		mataKuliahKurikulumMapper.addMataKuliahKurikulum(matkul_kurikulum);
+		
+		log.info("insert mata kuliah kurikulum with id_kurikulum {}", id_kurikulum);
+		
+		return id_kurikulum;
 	}
 
 	@Override

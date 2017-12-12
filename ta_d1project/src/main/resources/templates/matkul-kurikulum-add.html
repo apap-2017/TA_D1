@@ -30,12 +30,12 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<center>
-					<h3>Tambah Kurikulum</h3>
-				</center>
-				<form action="/matkul-kurikulum/add/submit" method="post"
-					th:object="${matkul_kurikulum}">
+					<h3 style="margin-bottom: 50px">Ubah Matkul Kurikulum</h3>
+				<form th:action="@{/matkul-kurikulum/add/submit/} + ${id_kurikulum}" method="post"
+					th:object="${matkulKurikulum}">
 					<table>
-						<tr>
+						<tbody>
+							<tr>
 								<td><label for="kode_kurikulum">Kode
 										Kurikulum</label></td>
 								<td><input class="form-control"
@@ -46,7 +46,7 @@
 										Mata Kuliah</label></td>
 								<td>
 									<select th:field="*{id_matkul}" class="form-control" id="matkul" name="matkul">
-										<option th:each="eachMatkul,iterationStatus: ${matkuls}" th:value="${eachMatkul.id}" th:text="${eachMatkul.nama_matkul}">Mata Kuliah</option>
+										<option th:each="eachMatkul,iterationStatus: ${matkuls}" th:value="${eachMatkul.id}" th:text="${eachMatkul.nama_matkul}">Matkul</option>
 									</select>
 								</td>
 							</tr>
@@ -76,11 +76,14 @@
 									</select>
 								</td>
 							</tr>
+						</tbody>
 					</table>
-					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+					<div class="pull-right" style="margin-top: 40px; margin-right: 200px">
+						<a th:href="'/kurikulum/view/' + ${id_kurikulum}" class="btn btn-danger">Batal</a>
 						<button type="submit" class="btn btn-success">Simpan</button>
 					</div>
 				</form>
+				</center>
 			</div>
 			<div class="col-md-2"></div>
 		</div>

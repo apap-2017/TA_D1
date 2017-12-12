@@ -129,7 +129,6 @@ public class KurikulumServiceDatabase implements KurikulumService {
 
 	@Override
 	public List<KurikulumModel> selectAllKurikulum(int id_prodi) {
-		// TODO Auto-generated method stub
 		return kurikulumMapper.selectAllKurikulum(id_prodi);
 	}
 }

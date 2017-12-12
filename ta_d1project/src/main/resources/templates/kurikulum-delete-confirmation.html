@@ -25,7 +25,7 @@
 				<center>
 				<h5 th:text="'Apakah anda yakin ingin menghapus ' + ${nama_kurikulum} + '?'">Apakah anda yakin ingin menghapus {nama kurikulum}?</h5>
 				<div style="margin-top: 40px;">
-					<a th:href="'/kurikulum/viewall/'" class="btn btn-danger" style="margin-right: 40px; width: 70px">Tidak</a>
+					<a th:href="'/kurikulum/view/' + ${id}" class="btn btn-danger" style="margin-right: 40px; width: 70px">Tidak</a>
 					<a th:href="'/kurikulum/delete-kurikulum/' + ${id}" class="btn btn-success" style="width: 70px">Ya</a>
 				</div>
 				</center>
