@@ -29,7 +29,7 @@ public interface KurikulumService {
 
 
 	// tambah kurikulum
-	void addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi);
+	int addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi);
 
 	// select fakultas
 	FakultasModel selectFakultasbyId(int id_fakultas, int id_univ);

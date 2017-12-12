@@ -198,10 +198,16 @@ public class SIKurikulumController {
 
 	// akses halaman submit tambah kurikulum
 	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
-	public String addSubmitKurikulum(KurikulumModel kurikulum) {
-		// kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
+	public String addSubmitKurikulum(KurikulumModel kurikulum, Principal principal) {
+		String usernameUser = principal.getName();
+		UserModel user = userDao.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		
+		int id_kurikulum = kurikulumDAO.addKurikulum(kurikulum, id_univ, id_fakultas, id_prodi);
 
-		return "redirect:/kurikulum/view/" + kurikulum.getId();
+		return "redirect:/kurikulum/view/" + id_kurikulum;
 	}
 
 	// halaman tambah matkul kurikulum
