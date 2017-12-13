@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Angkatan - Pilih Prodi</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
@@ -14,12 +13,47 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"></link>
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$('#table_id').DataTable();
+	});
+</script>
 </head>
 <body>
 	<div th:replace="fragments/fragment :: header"></div>
 	<div class="container">
-		<h3 class="text-center" style="margin-top: 25px;" th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_prodi}"></h3>
+		<h3 class="text-center" style="margin-top: 25px;"
+			th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_prodi}"></h3>
+		<br />
 		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<table class="table table-bordered" id="table_id">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Angkatan</th>
+							<th>Nama Kurikulum</th>
+							<th>Kode Kurikulum</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="angkatan,iterationStatus: ${angkatans}">
+							<td th:text="${iterationStatus.count}">Count</td>
+							<td th:text="${angkatan.namaAngkatan}">Nama Angkatan</td>
+							<td th:text="${angkatan.nama_kurikulum}">Nama Kurikulum</td>
+							<td th:text="${angkatan.kode_kurikulum}">Kode Kurikulum</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-1"></div>
 		</div>
 	</div>
 	<div th:replace="fragments/fragment :: footer"></div>

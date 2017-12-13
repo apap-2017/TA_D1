@@ -56,7 +56,7 @@ public interface KurikulumMapper {
 	void deleteKurikulum(@Param("id") int id);
 
 	//
-	@Select("select mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
+	@Select("select distinct mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
 			+ "mata_kuliah_kurikulum.status_matkul, mata_kuliah_kurikulum.term from mata_kuliah_kurikulum join kurikulum"
 			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
 	List<MataKuliahKurikulumModel> selectMataKuliahKurikulumR(@Param(value = "id") int id);
@@ -107,4 +107,7 @@ public interface KurikulumMapper {
 	
 	@Select("select id from kurikulum order by id desc limit 1")
 	KurikulumModel getLastKurikulum();
+	
+	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
+	KurikulumModel getNamaKurikulum(@Param(value= "id") int id);
 }

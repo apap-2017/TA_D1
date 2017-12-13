@@ -50,7 +50,7 @@
 							<td th:text="${iterationStatus.count}">1</td>
 							<td th:text="${kurikulum.kode_kurikulum}">Kode Kurikulum</td>
 							<td th:text="${kurikulum.nama_kurikulum}">Nama</td>
-							<td><a th:href="'/kurikulum/view/' + ${kurikulum.id}"><i class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+							<td><a th:href="'/kurikulum/view/' + ${kurikulum.id}"><i class="fa fa-eye" aria-hidden="true"></i></a> <a th:href="'/kurikulum/delete/' + ${kurikulum.id}"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
