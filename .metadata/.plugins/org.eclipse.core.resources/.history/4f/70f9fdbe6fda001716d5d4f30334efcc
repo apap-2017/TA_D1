@@ -1,0 +1,30 @@
+package com.example.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+
+import com.example.model.MataKuliahModel;
+
+@Mapper
+public interface MataKuliahMapper {
+	@Select("select id, id_univ, id_fakultas, id_prodi, kode_matkul, nama_matkul, jumlah_sks, "
+			+ "prasyarat_sks from mata_kuliah where id_fakultas = #{id_fakultas} AND id_prodi=#{id_prodi}")
+	@Results(value= {
+			@Result(property="id", column="id"),
+			@Result(property="id_univ", column="id_univ"),
+			@Result(property="id_fakultas", column="id_fakultas"),
+			@Result(property="id_prodi", column="id_prodi"),
+			@Result(property="kode_matkul", column="kode_matkul"),
+			@Result(property="nama_matkul", column="nama_matkul"),
+			@Result(property="jumlah_sks", column="jumlah_sks"),
+			@Result(property="prasyarat_sks", column="prasyarat_sks")
+			
+	})
+	List<MataKuliahModel> selectMatakuliahProdi(@Param (value = "id_fakultas") int id_fakultas, @Param (value = "id_prodi") int id_prodi );	
+}

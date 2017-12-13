@@ -1,0 +1,25 @@
+package com.example.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+
+import com.example.model.MataKuliahModel;
+
+@Mapper
+public interface MataKuliahMapper {
+	@Select("select id, id_univ, id_fakultas, id_prodi, kode_matkul, nama_matkul, jumlah_sks, "
+			+ "prasyarat_sks from mata_kuliah where id_fakultas = #{id_fakultas} AND id_prodi=#{id_prodi}")
+	List<MataKuliahModel> selectMatakuliahProdi(@Param(value = "id_fakultas") int id_fakultas,
+			@Param(value = "id_prodi") int id_prodi);
+
+	@Insert("INSERT INTO mata_kuliah (kode_matkul, nama_matkul, prasyarat_sks, id_univ, id_fakultas, id_prodi) VALUES (#{kode_matkul}, #{nama_matkul}, #{prasyarat_sks}, #{id_univ}, #{id_fakultas}, #{id_prodi})")
+	void addMataKuliah(String kode_matkul, String nama_matkul, int jumlah_sks, int prasyarat_sks, int id_univ,
+			int id_fakultas, int id_prodi);
+}
