@@ -54,7 +54,7 @@
 							<td th:text="${matkuls.kode_matkul}">Kode Mata Kuliah</td>
 							<td th:text="${matkuls.nama_matkul}">Nama Mata Kuliah</td>
 							<td><a th:href="'/matakuliah/view/' + ${matkuls.id}"><i
-									class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"><i
+									class="fa fa-eye" aria-hidden="true"></i></a> <a th:href="'/matkul/delete/' + ${matkuls.id}"><i
 									class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 						</tr>
 					</tbody>

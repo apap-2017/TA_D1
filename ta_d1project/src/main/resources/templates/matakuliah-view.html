@@ -87,9 +87,9 @@ div.tab button.active {
 				<h1 th:text="'Mata Kuliah - ' + ${matkul1.nama_matkul}">Mata
 					Kuliah XXXX</h1>
 				<div class="pull-right">
-					<a th:href="'/matakuliah/update/'"><i
+					<a th:href="'/matkul/edit/' + ${matkul1.id}"><i
 						class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-					<form th:object="${matkul1}" action="/matakuliah/delete"
+					<!-- <form th:object="${matkul1}" action="/matkul/delete/"
 						method="post">
 						<div class="form-group">
 							<input type="hidden" name="id" th:value="${matkul1.id}" /> <input
@@ -98,7 +98,9 @@ div.tab button.active {
 								name="nama_matkul" th:value="${matkul1.nama_matkul}" /> <a
 								type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 						</div>
-					</form>
+					</form> -->
+					<a th:href="'/matkul/delete/' + ${matkul1.id}"><i
+						class="fa fa-trash-o" aria-hidden="true"></i></a>
 				</div>
 				<br />
 
