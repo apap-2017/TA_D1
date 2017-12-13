@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.MataKuliahModel;
 import com.example.service.MataKuliahService;
-
+import com.example.model.AngkatanModel;
 import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
@@ -320,9 +320,11 @@ public class SIKurikulumController {
 		UserModel user = userDAO.selectUser(usernameUser);
 		FakultasModel fakultas = universitasDAO.selectFakultas(user.getId_univ(), user.getId_fakultas());
 		ProdiModel prodi = universitasDAO.selectProdi(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
-
+		List<AngkatanModel> angkatans = universitasDAO.selectAngkatan(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
+		
 		model.addAttribute("fakultas", fakultas);
 		model.addAttribute("prodi", prodi);
+		model.addAttribute("angkatans", angkatans);
 
 		return "angkatan-view";
 	}

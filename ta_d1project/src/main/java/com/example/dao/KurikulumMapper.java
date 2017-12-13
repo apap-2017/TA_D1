@@ -107,4 +107,7 @@ public interface KurikulumMapper {
 	
 	@Select("select id from kurikulum order by id desc limit 1")
 	KurikulumModel getLastKurikulum();
+	
+	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
+	KurikulumModel getNamaKurikulum(@Param(value= "id") int id);
 }
