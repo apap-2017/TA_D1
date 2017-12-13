@@ -17,13 +17,15 @@ import com.example.model.*;
 @Mapper
 public interface MatkulMapper {
 
-	@Select("select id, kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_prodi from mata_kuliah where id = #{id}")
+	@Select("select id, id_fakultas,id_univ,kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_prodi from mata_kuliah where id = #{id}")
     @Results(value = {
     		@Result(property="id", column="id"),
     		@Result(property="kode_matkul", column="kode_matkul"),
     		@Result(property="nama_matkul", column="nama_matkul"),
     		@Result(property="jumlah_sks", column="jumlah_sks"),
     		@Result(property="prasyarat_sks", column="prasyarat_sks"),
+    		@Result(property="id_fakultas", column="id_fakultas"),
+    		@Result(property="id_univ", column="id_univ"),
     		@Result(property="id_prodi", column="id_prodi"),
     		@Result(property="listPrasyarat", column="kode_matkul",
     		javaType = List.class,
