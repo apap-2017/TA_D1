@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Lihat Kurikulum</title>
+<title>Detail Mata Kuliah</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 <link rel="stylesheet"
@@ -14,8 +15,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<style>
+<!-- <style>
 * {
 	box-sizing: border-box
 }
@@ -67,7 +67,7 @@ div.tab button.active {
 	border-left: none;
 	height: 300px;
 }
-</style>
+</style> -->
 </head>
 <body>
 	<div th:replace="fragments/fragment :: header"></div>
@@ -82,81 +82,82 @@ div.tab button.active {
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
-				<div id="term_1" class="tabcontent">
-					<h1
-						th:text="'Mata Kuliah ' + ${mata_kuliah.nama_matkul}">Mata Kuliah
-						XXXX</h1>
-					<div class="pull-right" style="margin-bottom: 20px">
-						<a th:href="'/matakuliah/update/'"><i
-							class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-						<form th:object="${matakuliah}" action="/matakuliah/delete" method="post">
-							<div class="form-group">
-								<input type="hidden" name="id" th:value="${mata_kuliah.id}" />
-								<input type="hidden" name="kode_matkul" th:value="${mata_kuliah.kode_matkul}" />
-								<input type="hidden" name="nama_matkul" th:value="${mata_kuliah.nama_matkul}" />
-								
-								<a type="submit"><i
-								class="fa fa-trash-o" aria-hidden="true"></i></a>			
-							</div>
-						</form>							
-					</div>
-					<table class="table table-bordered"
-						style="text-align: center; width: 100%">
-						<thead style="margin-top: 30px; width: 100%">
-							<tr>
-								<td>No</td>
-								<td>Kode Mata Kuliah</td>
-								<td>Nama Mata Kuliah</td>
-								<td>SKS</td>
-								<td>Status</td>
-							</tr>
-						</thead>
-						<tbody style="margin-top: 30px; width: 100%">
-							<tr th:each="mata_kuliah,iterationStatus:${mata_kuliah}">
-								<td th:text="${iterationStatus.count}">1</td>
-								<td th:text="${mata_kuliah.kode_matkul}">Kode Mata Kuliah</td>
-								<td th:text="${mata_kuliah.nama_matkul}">Nama Mata Kuliah</td>
-								<td th:text="${mata_kuliah.jumlah_sks}">SKS</td>
-								<td th:text="${mata_kuliah.status}">Status</td>
-							</tr>
-						</tbody>
-					</table>
+
+			<div class="col-md-12">
+				<h1 th:text="'Mata Kuliah - ' + ${matkul1.nama_matkul}">Mata
+					Kuliah XXXX</h1>
+				<div class="pull-right">
+					<a th:href="'/matakuliah/update/'"><i
+						class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<form th:object="${matkul1}" action="/matakuliah/delete"
+						method="post">
+						<div class="form-group">
+							<input type="hidden" name="id" th:value="${matkul1.id}" /> <input
+								type="hidden" name="kode_matkul"
+								th:value="${matkul1.kode_matkul}" /> <input type="hidden"
+								name="nama_matkul" th:value="${matkul1.nama_matkul}" /> <a
+								type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+						</div>
+					</form>
 				</div>
+				<br />
 
-				<div id="term_2" class="tabcontent">
-					<h3>Term 2</h3>
-					<p>Term 2 is the capital of France.</p>
-				</div>
+				<table class="col-md-4">
+					<tr>
+						<td>Kode Mata Kuliah</td>
+						<td th:text="': '+${matkul1.kode_matkul}"></td>
+					</tr>
+					<!-- <div class="col-sm-10" th:text="${matkul1.kode_matkul}"> -->
+					<tr>
+						<td>Nama Mata Kuliah</td>
+						<td th:text="': '+${matkul1.nama_matkul}"></td>
+					</tr>
+					<tr>
+						<td>Jumlah SKS</td>
+						<td th:text="': '+${matkul1.jumlah_sks}+' SKS'"></td>
+					</tr>
 
-				<div id="term_3" class="tabcontent">
-					<h3>Term 3</h3>
-					<p>Term 3 is the capital of Japan.</p>
-				</div>
+				</table>
+				<br />
+				<h5>Prasyarat Mata Kuliah</h5>
 
-				<script>
-					function openTerm(evt, term) {
-						var i, tabcontent, tablinks;
-						tabcontent = document
-								.getElementsByClassName("tabcontent");
-						for (i = 0; i &lt; tabcontent.length; i++) {
-							tabcontent[i].style.display = "none";
-						}
-						tablinks = document.getElementsByClassName("tablinks");
-						for (i = 0; i &lt; tablinks.length; i++) {
-							tablinks[i].className = tablinks[i].className
-									.replace("active", "");
-						}
-						document.getElementById(term).style.display = "block";
-						evt.currentTarget.className += " active";
-					}
+				<table id="prasyaratMataKuliah"
+					class="table table-striped table-bordered dt-responsive nowrap"
+					style="text-align: center; width: 100%">
+					<thead style="margin-top: 30px; width: 100%">
+						<tr>
+							<td>No</td>
+							<td>Kode Mata Kuliah</td>
+							<td>Nama Mata Kuliah</td>
+							<td>SKS</td>
 
-					// Get the element with id="defaultOpen" and click on it
-					document.getElementById("defaultOpen").click();
-				</script>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="matkuls,iterationStatus:${matkul1.listPrasyarat}">
+							<td th:text="${iterationStatus.count}">1</td>
+							<td th:text="${matkuls.kode_matkul}">Kode Mata Kuliah</td>
+							<td th:text="${matkuls.nama_matkul}">Nama Mata Kuliah</td>
+							<td th:text="${matkuls.jumlah_sks}">SKS</td>
+						</tr>
+					</tbody>
+				</table>
+				<a
+					th:href="'/matakuliah-result?fakultas=' + ${matkul1.id_fakultas} + '&amp;prodi=' + ${matkul1.id_prodi}"
+					class="btn btn-danger1" style="float: right">Kembali</a>
 			</div>
+
 		</div>
+
 	</div>
+
 	<div th:replace="fragments/fragment :: footer"></div>
+	<script>
+		$(document).ready(function() {
+			$('#prasyaratMataKuliah').DataTable({
+				responsive : true
+			});
+		})
+	</script>
 </body>
 </html>

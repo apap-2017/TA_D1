@@ -505,43 +505,79 @@ public class SIKurikulumController {
 	// }
 
 	// akses halaman lihat mata kuliah
-	@RequestMapping("/matakuliah-result")
-	public String viewMataKuliah(Model model, @RequestParam(value = "fakultas", required = false) String id_fakultas,
-			@RequestParam(value = "prodi", required = false) String id_prodi) {
-		int id_prodi2 = Integer.parseInt(id_prodi);
-		int id_fakultas2 = Integer.parseInt(id_fakultas);
-		List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(id_fakultas2, id_prodi2);
-		model.addAttribute("matkuls", matkuls);
-		return "matakuliah-result";
-	}
+		@RequestMapping("/matakuliah-result")
+		public String viewMataKuliah(Model model, @RequestParam(value = "fakultas", required = false) String id_fakultas,
+				@RequestParam(value = "prodi", required = false) String id_prodi) {
+			int id_fakultas2 = Integer.parseInt(id_fakultas);
+			int id_prodi2 = Integer.parseInt(id_prodi);
+			List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(id_fakultas2, id_prodi2);
+			model.addAttribute("matkuls", matkuls);
+			return "matakuliah-result";
+		}
 
-	// akses halaman tambah mata kuliah
-	@RequestMapping("/matakuliah/add")
-	public String addMataKuliah() {
-		return "matakuliah-add";
-	}
+		// akses halaman tambah mata kuliah
+		@RequestMapping("/matakuliah/add")
+		public String addMataKuliah(Principal principal, Model model) {
+			String usernameUser = principal.getName();
+			 UserModel user = userDAO.selectUser(usernameUser);
+			 
+			 ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
+			 model.addAttribute("prodi", prodi);
+			return "matakuliah-add";
+		}
 
-	// akses submit tambah mata kuliah
-	@RequestMapping("/matakuliah/add/submit")
-	public String addMataKuliah(@RequestParam(value = "kode_matkul", required = false) String kode_matkul,
-			@RequestParam(value = "nama_matkul", required = false) String nama_matkul,
-			@RequestParam(value = "jumlah_sks", required = false) int jumlah_sks,
-			@RequestParam(value = "prasyarat_sks", required = false) int prasyarat_sks) {
-		// int jumlah_sks2 = Integer.parseInt(jumlah_sks);
-		// int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
-		// MataKuliahModel matkul = new MataKuliahModel(kode_matkul, nama_matkul,
-		// jumlah_sks, prasyarat_sks);
-		System.out.println(jumlah_sks);
-		matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, 1, 1, 1);
+		// akses submit tambah mata kuliah
+		@RequestMapping(value="/matakuliah/add/submit" , method = RequestMethod.POST)
+		public String addMataKuliah(Model model, Principal principal, @RequestParam(value = "kode_matkul", required = false) String kode_matkul,
+				@RequestParam(value = "nama_matkul", required = false) String nama_matkul,
+				@RequestParam(value = "jumlah_sks", required = false) String jumlah_sks,
+				@RequestParam(value = "prasyarat_sks", required = false) String prasyarat_sks) {
+			 int jumlah_sks2 = Integer.parseInt(jumlah_sks);
+			 int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+//			 MataKuliahModel matkul = new MataKuliahModel(kode_matkul, nama_matkul,
+//			 jumlah_sks2, prasyarat_sks2);
+			 String usernameUser = principal.getName();
+			 UserModel user = userDAO.selectUser(usernameUser);
+			 
+			 ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
+			 model.addAttribute("prodi", prodi);
+			System.out.println(jumlah_sks);
+			
+			matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks2, prasyarat_sks2, prodi.getId_univ(), prodi.getId_fakultas(), prodi.getId_prodi());
 
-		return "matakuliah-submit-success";
-	}
+			return "matakuliah-submit-success";
+		}
 
 	// akses halaman lihat mata kuliah
-	@RequestMapping("/matakuliah/view/{id}")
-	public String viewPathMataKuliah() {
-		return "matakuliah-view";
-	}
+		@RequestMapping("/matakuliah/view/{id}")
+
+		public String viewPathMataKuliah(Model model, @PathVariable(value = "id") String id) {
+			int id3 = Integer.parseInt(id);
+			MataKuliahModel matkul1 = matkulDAO.selectMataKuliah(id3);
+
+			if (matkul1 != null) {
+				model.addAttribute("matkul1", matkul1);
+				return "matakuliah-view";
+			} else {
+				model.addAttribute("id", id);
+				return "matakuliah-not-found";
+			}
+		}
+		
+		@RequestMapping("/matakuliah/viewkode")
+
+		public String viewPathMataKuliahKode(Model model, @RequestParam(value = "kode") String kode) {
+			
+			MataKuliahModel matkul1 = matkulDAO.selectMataKuliahByKode(kode);
+
+			if (matkul1 != null) {
+				model.addAttribute("matkul1", matkul1);
+				return "matakuliah-view";
+			} else {
+				model.addAttribute("kode", kode);
+				return "matakuliah-not-found";
+			}
+		}
 	
 	@RequestMapping(value="/view-profile", method = RequestMethod.GET)
 	public String viewProfile(Principal principal, Model model) {

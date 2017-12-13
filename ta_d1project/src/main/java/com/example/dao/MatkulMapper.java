@@ -66,7 +66,7 @@ public interface MatkulMapper {
 			 javaType = List.class,
 			 many=@Many(select="selectPrasyarat"))
 	 })
-	 MataKuliahModel selectMataKuliahByKode(@Param("kode_matkul2") int kode_matkul2);
+	 MataKuliahModel selectMataKuliahByKode(@Param("kode_matkul2") String kode_matkul2);
 
 	 @Update("update mata_kuliah set nama_matkul = #{nama_matkul} , jumlah_sks = #{jumlah_sks2} , prasyarat_sks = #{prasyarat_sks2}"
 		 		+ " where kode_matkul = #{kode_matkul2} ")

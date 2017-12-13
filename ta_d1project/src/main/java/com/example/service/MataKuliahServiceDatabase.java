@@ -76,7 +76,7 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
 	}
 
 	@Override
-	public MataKuliahModel selectMataKuliahByKode(int kode_matkul2) {
+	public MataKuliahModel selectMataKuliahByKode(String kode_matkul2) {
 		return mataKuliahMapper.selectMataKuliahByKode(kode_matkul2);
 	}
 
