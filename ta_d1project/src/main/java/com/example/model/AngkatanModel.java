@@ -10,7 +10,14 @@ import lombok.NoArgsConstructor;
 public class AngkatanModel
 {
     private int id;
-    private String nama;
-    private int id_prodi;
-    private int id_kurikulum;
+    private String namaAngkatan;
+    private int idUniversitas;
+    private int idFakultas;
+    private int idProdi;
+    private int idKurikulum;
+    private boolean aktif;
+    private boolean terhapus;
+    private String nama_kurikulum;
+    private String kode_kurikulum;
+    
 }
