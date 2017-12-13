@@ -21,4 +21,6 @@ public interface MataKuliahKurikulumService {
 	
 	List<MataKuliahKurikulumModel> selectMatkulTerm(int term);
 
+	List<MataKuliahKurikulumModel> selectListMataKuliahKurikulum(int id_kurikulum);
+
 }

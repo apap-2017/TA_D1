@@ -84,4 +84,38 @@ public class MataKuliahKurikulumRestController {
 		
 		return api;
 	}
+	
+	@RequestMapping("/getListMataKuliahKurikulum/{id_krk}")
+	public ApiModel<Map <String, List<MataKuliahKurikulumModel>>> getMataKuliahKurikulum (@PathVariable (value= "id_krk") String id_krk) {
+		int id_kurikulum = 0;
+		boolean tes = true;
+		ApiModel<Map <String, List<MataKuliahKurikulumModel>>> api = new ApiModel<Map <String, List<MataKuliahKurikulumModel>>>();
+		
+		try {
+			id_kurikulum = Integer.parseInt(id_krk);
+		} 
+		catch(NumberFormatException e){
+	        tes = false;
+	    }
+		if (tes) {
+			List<MataKuliahKurikulumModel> matkul = matkulKurikulumService.selectListMataKuliahKurikulum(id_kurikulum);
+			Map <String, List<MataKuliahKurikulumModel>> map = new HashMap<>();
+			map.put("matkul", matkul);
+				
+			if(matkul.size() > 0) {
+				api.setResult(map);
+				api.setMsg("success");
+				api.setStatus(200);
+			} else {
+				tes = false;
+			}
+		}
+		 if (!tes) {
+			api.setMsg("Mata Kuliah Kurikulum tidak ditemukan");
+			api.setStatus(404);
+		}
+		
+		return api;
+	}
+	
 }

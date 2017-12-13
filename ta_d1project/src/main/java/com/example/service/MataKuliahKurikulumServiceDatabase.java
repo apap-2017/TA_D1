@@ -50,5 +50,10 @@ public class MataKuliahKurikulumServiceDatabase implements MataKuliahKurikulumSe
 	public List<MataKuliahKurikulumModel> selectMatkulTerm(int term) {
 		return mataKuliahKurikulumMapper.selectMatkulTerm(term);
 	}
+	
+	@Override
+	public List<MataKuliahKurikulumModel> selectListMataKuliahKurikulum(int id_kurikulum) {
+		return mataKuliahKurikulumMapper.selectListMataKuliahKurikulum(id_kurikulum);
+	}
 
 }

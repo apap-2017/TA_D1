@@ -36,6 +36,9 @@ public interface MataKuliahKurikulumMapper {
 	@Select("select * from mata_kuliah_kurikulum where term= #{term}")
 	List<MataKuliahKurikulumModel> selectMatkulTerm(@Param("term") int term);
 	
+	@Select("select * from mata_kuliah_kurikulum where id_kurikulum= #{id_kurikulum}")
+	List<MataKuliahKurikulumModel> selectListMataKuliahKurikulum(@Param("id_kurikulum") int id_kurikulum);
+	
 	@Select("select id_kurikulum from mata_kuliah_kurikulum order by id desc limit 1")
 	MataKuliahKurikulumModel getLastMatkulKurikulum();
 }
