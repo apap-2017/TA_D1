@@ -99,6 +99,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 				for(int j = 0; j < matkuls.size(); j++) {
 					if(matkuls.get(j).getId() == id_matkul) {
 						listMataKuliah.add(matkuls.get(j));
+						log.info("{}", matkuls.get(j).getNama_matkul());
 					}
 				}
 			}
@@ -129,7 +130,6 @@ public class KurikulumServiceDatabase implements KurikulumService {
 
 	@Override
 	public List<KurikulumModel> selectAllKurikulum(int id_prodi) {
-		// TODO Auto-generated method stub
 		return kurikulumMapper.selectAllKurikulum(id_prodi);
 	}
 }

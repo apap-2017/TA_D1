@@ -29,10 +29,13 @@ public interface MataKuliahKurikulumMapper {
 
 	// add matkul kurikulum
 	@Insert("insert into mata_kuliah_kurikulum (id_kurikulum, id_matkul, status_matkul, term)"
-			+ "values (#{id_kurikulum}, #{id_matkul}, #{status_matkul}, #{term})")
-	void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum);
+			+ "values (#{matkulKurikulum.id_kurikulum}, #{matkulKurikulum.id_matkul}, #{matkulKurikulum.status_matkul}, #{matkulKurikulum.term})")
+	void addMataKuliahKurikulum(@Param(value = "matkulKurikulum") MataKuliahKurikulumModel matkulKurikulum);
 
 	
 	@Select("select * from mata_kuliah_kurikulum where term= #{term}")
 	List<MataKuliahKurikulumModel> selectMatkulTerm(@Param("term") int term);
+	
+	@Select("select id_kurikulum from mata_kuliah_kurikulum order by id desc limit 1")
+	MataKuliahKurikulumModel getLastMatkulKurikulum();
 }
