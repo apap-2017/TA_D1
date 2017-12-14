@@ -295,7 +295,7 @@ public class KurikulumController {
 
 		if(kurikulum != null) {
 			String kodeKurikulum = kurikulum.getKode_kurikulum();
-			List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
+			List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi);
 			MataKuliahKurikulumModel matkulKurikulum = matkulKurikulumDAO.selectMataKuliahKurikulum(id_matkul_kurikulum);
 
 			model.addAttribute("matkulKurikulum", matkulKurikulum);
