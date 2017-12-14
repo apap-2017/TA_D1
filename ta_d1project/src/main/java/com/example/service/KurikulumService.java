@@ -41,4 +41,6 @@ public interface KurikulumService {
 	List<KurikulumModel> selectAllKurikulum(int id_prodi);
 	
 	KurikulumModel selectKurikulumAPI(int id);
+
+	List<KurikulumModel> selectKurikulumbyKode(String kode_kurikulum);
 }

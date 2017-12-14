@@ -132,4 +132,10 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	public List<KurikulumModel> selectAllKurikulum(int id_prodi) {
 		return kurikulumMapper.selectAllKurikulum(id_prodi);
 	}
+
+	@Override
+	public List<KurikulumModel> selectKurikulumbyKode(String kode_kurikulum) {
+		log.info("select kurikulum with kode_kurikulum {}", kode_kurikulum);
+		return kurikulumMapper.selectKurikulumbyKode(kode_kurikulum);
+	}
 }

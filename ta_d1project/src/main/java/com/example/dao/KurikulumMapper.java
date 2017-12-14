@@ -110,4 +110,7 @@ public interface KurikulumMapper {
 	
 	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
 	KurikulumModel getNamaKurikulum(@Param(value= "id") int id);
+	
+	@Select("select id, kode_kurikulum, nama_kurikulum from kurikulum where kode_kurikulum = #{kode_kurikulum}")
+	List<KurikulumModel> selectKurikulumbyKode(@Param(value = "kode_kurikulum") String kode_kurikulum);
 }
