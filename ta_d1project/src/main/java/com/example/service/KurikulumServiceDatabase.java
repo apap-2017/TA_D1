@@ -68,8 +68,8 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 
 	@Override
-	public List<MataKuliahModel> selectMataKuliah(int id_kurikulum) {
-		return kurikulumMapper.selectMataKuliah(id_kurikulum);
+	public List<MataKuliahModel> selectMataKuliah(int id_univ, int id_fakultas, int id_prodi) {
+		return kurikulumMapper.selectMataKuliah(id_univ, id_fakultas, id_prodi);
 	}
 	
 	@Override

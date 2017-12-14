@@ -31,22 +31,12 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8" style="margin-right: 0px; padding-right: 0px;">
 				<h1 th:text="${kurikulum.nama_kurikulum}">Kurikulum XXXX</h1>
-<<<<<<< HEAD
-				<div class="pull-right"
-					style="margin-top: 30px; margin-bottom: 30px;">
-					<a th:href="'/matkul-kurikulum/add/' + ${kurikulum.id}"><i
-						class="fa fa-plus-square-o" aria-hidden="true"></i></a> <a
-						th:href="'/kurikulum/update/' + ${kurikulum.id}"><i
-						class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a
-						th:href="'/kurikulum/delete/' + ${kurikulum.id}"><i
-						class="fa fa-trash-o" aria-hidden="true"></i></a>
-=======
+
 				<div class="pull-right" style="margin-top:30px; margin-bottom:30px;">
 					<a th:href="'/kurikulum/view?kode_kurikulum=' + ${kurikulum.kode_kurikulum}"><i class="fa fa-caret-square-o-left" aria-hidden="true" style="font-size:24px"></i></a>
 					<a th:href="'/matkul-kurikulum/add/' + ${kurikulum.id}"><i class="fa fa-plus-square-o" aria-hidden="true" style="font-size:24px"></i></a>
 					<a th:href="'/kurikulum/update/' + ${kurikulum.id}"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:24px"></i></a>
 					<a th:href="'/kurikulum/delete/' + ${kurikulum.id}"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:24px"></i></a>
->>>>>>> 9b6b698207b1976dd9710ed05077fecd133d158a
 				</div>
 				<table class="table" style="font-size: 125%;">
 					<tbody>

@@ -178,7 +178,7 @@ public class KurikulumController {
 		int id_fakultas = user.getId_fakultas();
 		int id_prodi = user.getId_prodi();
 		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id_kurikulum);
-		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
+		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi);
 		
 		if(kurikulum != null) {
 			String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id_kurikulum).getKode_kurikulum();

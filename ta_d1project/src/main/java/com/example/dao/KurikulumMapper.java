@@ -67,7 +67,12 @@ public interface KurikulumMapper {
 			+ "mata_kuliah.prasyarat_sks from mata_kuliah join mata_kuliah_kurikulum on "
 			+ "mata_kuliah.id = mata_kuliah_kurikulum.id_matkul JOIN kurikulum on kurikulum.id = "
 			+ "mata_kuliah_kurikulum.id_kurikulum WHERE kurikulum.id = #{id}")
-	List<MataKuliahModel> selectMataKuliah(@Param(value = "id") int id);
+	List<MataKuliahModel> selectMataKuliahR(@Param(value = "id") int id);
+	
+	@Select("SELECT  mata_kuliah.id, mata_kuliah.id_univ, mata_kuliah.id_fakultas, mata_kuliah.id_prodi,"
+			+ "mata_kuliah.kode_matkul, mata_kuliah.nama_matkul, mata_kuliah.jumlah_sks, "
+			+ "mata_kuliah.prasyarat_sks from mata_kuliah where id_prodi = #{id_prodi} and id_fakultas = #{id_fakultas} and id_univ = #{id_univ}")
+	List<MataKuliahModel> selectMataKuliah(@Param(value = "id_univ") int id_univ, @Param(value = "id_fakultas") int id_fakultas , @Param(value = "id_prodi") int id_prodi);
 
 	// lihat hasil cari kurikulum milih prodi tertentu dengan fakultas tertentu di
 	// universitas tertentu
@@ -105,7 +110,7 @@ public interface KurikulumMapper {
 	@Select("select * from kurikulum where id_prodi=#{id_prodi}")
 	List<KurikulumModel> selectAllKurikulum(@Param(value = "id_prodi") int id_prodi);
 	
-	@Select("select id, kode_kurikulum from kurikulum order by id desc limit 1")
+	@Select("select id from kurikulum order by id desc limit 1")
 	KurikulumModel getLastKurikulum();
 	
 	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
