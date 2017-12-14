@@ -200,7 +200,7 @@ public class SIKurikulumController {
 	@RequestMapping(value = "/kurikulum/add/submit", method = RequestMethod.POST)
 	public String addSubmitKurikulum(KurikulumModel kurikulum, Principal principal) {
 		String usernameUser = principal.getName();
-		UserModel user = userDao.selectUser(usernameUser);
+		UserModel user = userDAO.selectUser(usernameUser);
 		int id_univ = user.getId_univ();
 		int id_fakultas = user.getId_fakultas();
 		int id_prodi = user.getId_prodi();
