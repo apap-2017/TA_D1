@@ -62,9 +62,9 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 
 	@Override
-	public KurikulumModel selectKurikulumR(int id) {
+	public KurikulumModel selectKurikulumR(int id_univ, int id_fakultas, int id_prodi, int id) {
 		log.info("select kurikulum with id {}", id);
-		return kurikulumMapper.selectKurikulumR(id);
+		return kurikulumMapper.selectKurikulumR(id_univ, id_fakultas, id_prodi, id);
 	}
 
 	@Override
@@ -98,37 +98,47 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	public List<MataKuliahModel> getMataKuliahByTerm(KurikulumModel kurikulum, int term) {
 		List<MataKuliahModel> listMataKuliah = new ArrayList<>();
 		
-		int size = kurikulum.getListMataKuliahKurikulum().size();
-		
-		for(int i = 0; i < size; i++) {
-			if(kurikulum.getListMataKuliahKurikulum().get(i).getTerm() == term) {
-				List<MataKuliahModel> matkuls = kurikulum.getListMataKuliah();
-				int id_matkul = kurikulum.getListMataKuliahKurikulum().get(i).getId_matkul();
-				
-				for(int j = 0; j < matkuls.size(); j++) {
-					if(matkuls.get(j).getId() == id_matkul) {
-						listMataKuliah.add(matkuls.get(j));
-						log.info("{}", matkuls.get(j).getNama_matkul());
+		if(kurikulum != null) {
+			int size = kurikulum.getListMataKuliahKurikulum().size();
+			for(int i = 0; i < size; i++) {
+				if(kurikulum.getListMataKuliahKurikulum().get(i).getTerm() == term) {
+					List<MataKuliahModel> matkuls = kurikulum.getListMataKuliah();
+					int id_matkul = kurikulum.getListMataKuliahKurikulum().get(i).getId_matkul();
+					
+					for(int j = 0; j < matkuls.size(); j++) {
+						if(matkuls.get(j).getId() == id_matkul) {
+							listMataKuliah.add(matkuls.get(j));
+							log.info("{}", matkuls.get(j).getNama_matkul());
+						}
 					}
 				}
 			}
+			return listMataKuliah;
+		} else {
+			return null;
 		}
-		return listMataKuliah;
+		
+		
 	}
 	
 	@Override
 	public List<MataKuliahKurikulumModel> getMatkulKurikulumByTerm(KurikulumModel kurikulum, int term) {
 		List<MataKuliahKurikulumModel> listMatkulKurikulum = new ArrayList<>();
 		
-		int size = kurikulum.getListMataKuliahKurikulum().size();
-		
-		for(int i = 0; i < size; i++) {
-			if(kurikulum.getListMataKuliahKurikulum().get(i).getTerm() == term) {
-				listMatkulKurikulum.add(kurikulum.getListMataKuliahKurikulum().get(i));
+		if(kurikulum != null) {
+			int size = kurikulum.getListMataKuliahKurikulum().size();
+			
+			for(int i = 0; i < size; i++) {
+				if(kurikulum.getListMataKuliahKurikulum().get(i).getTerm() == term) {
+					listMatkulKurikulum.add(kurikulum.getListMataKuliahKurikulum().get(i));
+				}
 			}
+			
+			return listMatkulKurikulum;
+		} else {
+			return null;
 		}
 		
-		return listMatkulKurikulum;
 	}
 
 
@@ -143,8 +153,8 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 
 	@Override
-	public List<KurikulumModel> selectKurikulumbyKode(String kode_kurikulum) {
+	public List<KurikulumModel> selectKurikulumbyKode(int id_univ, int id_fakultas, int id_prodi, String kode_kurikulum) {
 		log.info("select kurikulum with kode_kurikulum {}", kode_kurikulum);
-		return kurikulumMapper.selectKurikulumbyKode(kode_kurikulum);
+		return kurikulumMapper.selectKurikulumbyKode(id_univ, id_fakultas, id_prodi, kode_kurikulum);
 	}
 }

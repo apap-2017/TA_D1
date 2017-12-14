@@ -13,7 +13,7 @@ import com.example.model.MataKuliahModel;
 public interface KurikulumService {
 	List<KurikulumModel> selectKurikulumProdi(int id_univ, int id_fakultas, int id_prodi);
 
-	KurikulumModel selectKurikulumR(int id);
+	KurikulumModel selectKurikulumR(int id_univ, int id_fakultas, int id_prodi, int id);
 
 	List<MataKuliahModel> selectMataKuliah(int id_kurikulum);
 
@@ -43,5 +43,5 @@ public interface KurikulumService {
 	
 	KurikulumModel selectKurikulumAPI(int id);
 
-	List<KurikulumModel> selectKurikulumbyKode(String kode_kurikulum);
+	List<KurikulumModel> selectKurikulumbyKode(int id_univ, int id_fakultas, int id_prodi, String kode_kurikulum);
 }

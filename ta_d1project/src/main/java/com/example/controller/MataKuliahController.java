@@ -1,8 +1,6 @@
 package com.example.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.example.model.MataKuliahModel;
 import com.example.service.MataKuliahService;
-import com.example.model.AngkatanModel;
-import com.example.model.ApiModel;
-import com.example.model.FakultasModel;
-import com.example.model.KurikulumModel;
-import com.example.model.MataKuliahModel;
-import com.example.model.MataKuliahKurikulumModel;
 import com.example.model.ProdiModel;
-import com.example.model.ResultModel;
 
-import com.example.model.UniversitasModel;
 import com.example.model.UserModel;
 import com.example.service.KurikulumService;
-import com.example.service.MataKuliahService;
-import com.example.service.KurikulumServiceDatabase;
 import com.example.service.MataKuliahKurikulumService;
 import com.example.service.UniversitasService;
 import com.example.service.UserService;
@@ -65,9 +51,15 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 	UserService userDAO;
 
 	@RequestMapping("/matkul/edit/{id}")
-	public String editMatkul(Model model, @PathVariable(value = "id") String id) {
+	public String editMatkul(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id2 = Integer.parseInt(id);
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id2);
 		if (matkul != null) {
 			model.addAttribute("matkul", matkul);
 			return "form-edit-matkul";
@@ -77,14 +69,17 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping("/matkul/add-prasyarat/{id}")
-	public String addPrasyarat(Model model, @PathVariable(value = "id") String id) {
+	public String addPrasyarat(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id2 = Integer.parseInt(id);
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id2);
 
 		if (matkul != null) {
-			int id_univ = matkul.getId_univ();
-			int id_fakultas = matkul.getId_fakultas();
-			int id_prodi = matkul.getId_prodi();
 			System.out.println(id_univ + " " + id_fakultas + " " + id_prodi + " " + matkul.getNama_matkul());
 			List<MataKuliahModel> listMatkul = matkulDAO.selectMataKuliahProdi(id_univ, id_fakultas, id_prodi);
 			System.out.println(listMatkul.get(1).getNama_matkul());
@@ -99,33 +94,37 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping(value = "/matkul/add-prasyarat/submit", method = RequestMethod.POST)
-	public String submitPrasyarat(Model model, @RequestParam(value = "id_prasyarat") int id_prasyarat,
-			@RequestParam(value = "id_matkul") int id_matkul) {
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_matkul);
+	public String submitPrasyarat(Principal principal, Model model,
+			@RequestParam(value = "id_prasyarat") int id_prasyarat, @RequestParam(value = "id_matkul") int id_matkul) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id_matkul);
 		if (!matkulDAO.cekPrasyarat(matkul.getListPrasyarat(), id_prasyarat)) {
-			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+			MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id_prasyarat);
 			int idtable = matkulDAO.getIdPrasyarat();
 			idtable = idtable + 1;
 			matkulDAO.addPrasyarat(idtable, matkul.getKode_matkul(), matpras.getKode_matkul());
 			return "redirect:/matkul/edit/" + matkul.getId();
 		} else {
-			// MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
-			// model.addAttribute("matkul",matkul);
-			// model.addAttribute("matpras", matpras);
-			// return "failed-add-prasyarat";
 			return "redirect:/matkul/add-prasyarat/error/" + id_matkul;
 		}
 	}
 
 	@RequestMapping("/matkul/add-prasyarat/error/{id}")
-	public String addPrasyaratError(Model model, @PathVariable(value = "id") String id) {
+	public String addPrasyaratError(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id2 = Integer.parseInt(id);
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id2);
 
 		if (matkul != null) {
-			int id_univ = matkul.getId_univ();
-			int id_fakultas = matkul.getId_fakultas();
-			int id_prodi = matkul.getId_prodi();
 			System.out.println(id_univ + " " + id_fakultas + " " + id_prodi + " " + matkul.getNama_matkul());
 			List<MataKuliahModel> listMatkul = matkulDAO.selectMataKuliahProdi(id_univ, id_fakultas, id_prodi);
 			System.out.println(listMatkul.get(1).getNama_matkul());
@@ -140,10 +139,16 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping(value = "/matkul/delete-prasyarat", method = RequestMethod.GET)
-	public String deletePrasyarat(Model model, @RequestParam(value = "id_prasyarat") int id_prasyarat,
-			@RequestParam(value = "id_matkul") int id_matkul) {
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_matkul);
-		MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_prasyarat);
+	public String deletePrasyarat(Principal principal, Model model,
+			@RequestParam(value = "id_prasyarat") int id_prasyarat, @RequestParam(value = "id_matkul") int id_matkul) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id_matkul);
+		MataKuliahModel matpras = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id_prasyarat);
 		System.out.println(matkul.getNama_matkul() + " " + matpras.getNama_matkul());
 		matkulDAO.deletePrasyarat(matkul.getKode_matkul(), matpras.getKode_matkul());
 		return "redirect:/matkul/edit/" + matkul.getId();
@@ -161,65 +166,55 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping("/matkul/delete/{id}")
-	public String deleteMatkul(Model model, @PathVariable(value = "id") String id) {
+	public String deleteMatkul(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id2 = Integer.parseInt(id);
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
-		model.addAttribute("matkul", matkul);
-		return "matkul-delete";
-
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id2);
+		if (matkul != null) {
+			model.addAttribute("matkul", matkul);
+			return "matkul-delete";
+		} else {
+			return "matkul-not-found";
+		}
 	}
 
 	@RequestMapping("/matkul/delete/submit/{id}")
-	public String deleteMatkulSubmit(Model model, @PathVariable(value = "id") String id) {
+	public String deleteMatkulSubmit(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id2 = Integer.parseInt(id);
-		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id2);
-		model.addAttribute("matkul", matkul);
-		matkulDAO.deleteMatkul(id2);
-		return "redirect:/";
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		MataKuliahModel matkul = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id2);
+		if (matkul != null) {
+			model.addAttribute("matkul", matkul);
+			matkulDAO.deleteMatkul(id2);
+			return "redirect:/";
+		} else {
+			return "matkul-not-found";
+		}
 
 	}
-
-	// // akses halaman cari mata kuliah
-	// @RequestMapping("/matakuliah")
-	// public String matakuliah(Model model, @RequestParam(value="fakultas",
-	// required=false)
-	// String id_fakultas, @RequestParam(value="prodi", required=false)
-	// String id_prodi ) {
-	// if(id_fakultas != null){
-	// if(id_prodi != null){
-	// return "matakuliah-view";
-	// } else {
-	// int id_fakultas2 = Integer.parseInt(id_fakultas);
-	// ApiModel apiSatu = universitasDAO.selectAllProdi(1, id_fakultas2);
-	// ApiModel apiDua = universitasDAO.selectFakultas(1, id_fakultas2);
-	// List<ProdiModel> listProdi = apiSatu.getResult().getProdiList();
-	// FakultasModel fkl = apiDua.getResult().getFakultas();
-	// fkl.setListProdi(listProdi);
-	//
-	// model.addAttribute("fakultas", fkl);
-	//
-	// return "matakuliah-cariprodi";
-	// }
-	// } else {
-	// ApiModel api = universitasDAO.selectAllFakultas(1);
-	// ResultModel result = api.getResult();
-	// List<FakultasModel> listFakultas = result.getFakultasList();
-	// UniversitasModel univ = new UniversitasModel(1,"A", listFakultas);
-	// model.addAttribute("universitas",univ);
-	// return "matakuliah";
-	// }
-	// }
 
 	// akses halaman lihat mata kuliah
 	@RequestMapping("/matakuliah-result")
-	public String viewMataKuliah(Model model, @RequestParam(value = "fakultas", required = false) String id_fakultas,
-			@RequestParam(value = "prodi", required = false) String id_prodi) {
-		int id_fakultas2 = Integer.parseInt(id_fakultas);
-		int id_prodi2 = Integer.parseInt(id_prodi);
-		List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(id_fakultas2, id_prodi2);
-		model.addAttribute("matkuls", matkuls);
-		return "matakuliah-result";
-	}
+	 public String viewMataKuliah(Model model, Principal principal) {
+	  String usernameUser = principal.getName();
+	  UserModel user = userDAO.selectUser(usernameUser); 
+	  List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(user.getId_univ() ,user.getId_fakultas(), user.getId_prodi());
+	  if(matkuls.size() > 0) {
+		  model.addAttribute("matkuls", matkuls);
+		  return "matakuliah-result";
+	  } else {
+		  return "matkul-not-found";
+	  }
+	  
+	 }
 
 	// akses halaman tambah mata kuliah
 	@RequestMapping("/matakuliah/add")
@@ -258,9 +253,14 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 
 	// akses halaman lihat mata kuliah
 	@RequestMapping("/matakuliah/view/{id}")
-	public String viewPathMataKuliah(Model model, @PathVariable(value = "id") String id) {
+	public String viewPathMataKuliah(Principal principal, Model model, @PathVariable(value = "id") String id) {
 		int id3 = Integer.parseInt(id);
-		MataKuliahModel matkul1 = matkulDAO.selectMataKuliah(id3);
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		MataKuliahModel matkul1 = matkulDAO.selectMataKuliah(id_univ, id_fakultas, id_prodi, id3);
 
 		if (matkul1 != null) {
 			model.addAttribute("matkul1", matkul1);

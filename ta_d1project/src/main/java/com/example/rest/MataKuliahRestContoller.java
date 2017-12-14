@@ -31,7 +31,7 @@ public class MataKuliahRestContoller {
 	        tes = false;
 	    }
 		if (tes) {
-			MataKuliahModel matkul = mataKuliahService.selectMataKuliah(id_matkul);
+			MataKuliahModel matkul = mataKuliahService.selectMataKuliahAPI(id_matkul);
 			Map <String, MataKuliahModel> map = new HashMap<>();
 			map.put("matkul", matkul);
 				

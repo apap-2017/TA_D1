@@ -33,7 +33,7 @@
 				<center>
 					<h3 style="margin-bottom: 50px">Tambah Matkul Kurikulum</h3>
 				<form th:action="@{/matkul-kurikulum/add/submit/} + ${id_kurikulum}" method="post"
-					th:object="${matkulKurikulum}">
+					th:object="${matkulKurikulum}" required="required">
 					<table class="table-condensed" style="margin-top: 30px; width: 90%">
 						<tbody>
 							<tr>

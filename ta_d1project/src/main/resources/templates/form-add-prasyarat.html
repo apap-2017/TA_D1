@@ -32,7 +32,7 @@
 			<div class="col-md-9">
 				<br />
 				<center>
-					<h3 th:text="'Add Prasyarat - ' + ${matkul.nama_matkul}"></h3>
+					<h3 th:text="'Tambah Prasyarat - ' + ${matkul.nama_matkul}"></h3>
 				</center>
 				<br/>
 				<div th:if="${msg!=null}">
@@ -55,8 +55,8 @@
 					<tbody style="margin-top: 30px; width: 100%">
 						<tr th:each="prasyarats,iterationStatus: ${matkul.listPrasyarat}"
 							style="text-align: center; width: 100%">
-							<td th:text="${prasyarats.nama_matkul}">Nama Matkul</td>
-							<td th:text="${prasyarats.jumlah_sks}">Jumlah SKS Matkul</td>
+							<td th:text="${prasyarats.nama_matkul}" required="required">Nama Matkul</td>
+							<td th:text="${prasyarats.jumlah_sks}" required="required">Jumlah SKS Matkul</td>
 						</tr>
 					</tbody>
 				</table>
@@ -67,7 +67,7 @@
 								name="id_prasyarat" class="form-control">
 								<div th:each="matkuls, iterationStatus:${listMatkul}">
 									<option th:value="${matkuls.id}"
-										th:text="${matkuls.nama_matkul}">Pilih Prasyarat</option>
+										th:text="${matkuls.nama_matkul}" required="required">Pilih Prasyarat</option>
 								</div>
 							</select>
 						</div>
@@ -75,11 +75,11 @@
 							<input type="hidden" th:value="${matkul.id}" name="id_matkul" />
 						</div>
 						
-						<div class="col-sm-3 pull-right">
+						<div class="pull-right" style="margin-top: 10px; margin-right: 0px;">
 							<div>
-								<button type="submit" class="btn btn-success btn-sm">
-									<i class="fa fa-check-square-o" aria-hidden="true"></i> Save
-								</button>
+								<a th:href="'/matakuliah/view/' + ${matkul.id}" class="btn btn-danger">Batal</a>
+								<button type="submit" class="btn btn-success btn-sm" style="margin-right: 0px;">
+									<i class="fa fa-check-square-o" aria-hidden="true"></i> Simpan</button>
 							</div>
 						</div>
 					</form>

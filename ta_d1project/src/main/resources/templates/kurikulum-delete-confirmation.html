@@ -21,14 +21,17 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8 text-center">
-				<image src="images/logo.png" />
-				<center>
-				<h5 th:text="'Apakah anda yakin ingin menghapus ' + ${nama_kurikulum} + '?'">Apakah anda yakin ingin menghapus {nama kurikulum}?</h5>
-				<div style="margin-top: 40px;">
-					<a th:href="'/kurikulum/view/' + ${id}" class="btn btn-danger" style="margin-right: 40px; width: 70px">Tidak</a>
-					<a th:href="'/kurikulum/delete-kurikulum/' + ${id}" class="btn btn-success" style="width: 70px">Ya</a>
+				<div class="alert alert-warning text-center">
+					<h5
+						th:text="'Apakah anda yakin ingin menghapus ' + ${nama_kurikulum} + '?'">Apakah
+						anda yakin ingin menghapus {nama kurikulum}?</h5>
+					<div style="margin-top: 40px;">
+						<a th:href="'/kurikulum/view/' + ${id}" class="btn btn-danger"
+							style="width: 70px">Tidak</a> <a
+							th:href="'/kurikulum/delete-kurikulum/' + ${id}"
+							class="btn btn-success" style="width: 70px">Ya</a>
+					</div>
 				</div>
-				</center>
 				<hr />
 			</div>
 			<div class="col-md-2"></div>

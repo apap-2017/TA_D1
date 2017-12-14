@@ -6,11 +6,10 @@ import com.example.model.MataKuliahModel;
 
 public interface MataKuliahService
 {
-    MataKuliahModel selectMataKuliah (int id);
-    
-    List<MataKuliahModel> selectMataKuliahProdi (int id_prodi, int id_fakultas, int id_prodi2);
+    MataKuliahModel selectMataKuliah (int id_univ, int id_fakultas, int id_prodi, int id);
+    MataKuliahModel selectMataKuliahAPI(int id);
 
-    List<MataKuliahModel> selectMataKuliahProdi (int id_fakultas,int id_prodi);
+    List<MataKuliahModel> selectMataKuliahProdi (int id_univ, int id_fakultas, int id_prodi);
 
     //void addMataKuliah (MataKuliahModel mata_kuliah);
 
