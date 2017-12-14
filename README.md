@@ -13,7 +13,7 @@ API List:
 
 [404 Error](#404-error)
 
-## getUniversitasList
+## getKurikulum/[id_kurikulum]
 
 Mengembalikan data kurikulum termasuk seluruh mata kuliah di kurikulum tersebut 
 
@@ -23,7 +23,7 @@ Mengembalikan data kurikulum termasuk seluruh mata kuliah di kurikulum tersebut
 
 ### Success Response
 
-**Contoh Request**: [/getKurikulum](https://localhost:5050/api/getKurikulum/1)
+**Contoh Request**: [/getKurikulum/1](http://localhost:5050/api/getKurikulum/1)
 
 ```json
 {  
@@ -62,6 +62,7 @@ Mengembalikan data kurikulum termasuk seluruh mata kuliah di kurikulum tersebut
           "prasyarat_sks": 0,
           "listPrasyarat": null
         }
+      ]
    }
 }
 ```
@@ -70,7 +71,7 @@ Mengembalikan data kurikulum termasuk seluruh mata kuliah di kurikulum tersebut
 
 **Condition** : Jika id_kurikulum tidak valid.
 
-**Contoh Request**: [/getKurikulum/123](https://localhost:5050/api/getKurikulum/123)
+**Contoh Request**: [/getKurikulum/123](http://localhost:5050/api/getKurikulum/123)
 
 ```json
 {
@@ -79,4 +80,63 @@ Mengembalikan data kurikulum termasuk seluruh mata kuliah di kurikulum tersebut
   "result": null
 }
 ```
+
+## getMataKuliahByTerm/[term]
+
+Mengembalikan list mata kuliah pada term tertentu
+
+**URL** : `/getMataKuliahByTerm/[term]`
+
+**Method** : `GET`
+
+### Success Response
+
+**Contoh Request**: [/getMataKuliahByTerm/1](http://localhost:5050/api/getMataKuliahByTerm/1)
+
+```json
+{
+  "status": 200,
+  "msg": "success",
+  "result": {
+    "matkul": [
+      {
+        "id": 1,
+        "id_kurikulum": 1,
+        "id_matkul": 1,
+        "status_matkul": "Wajib Univ",
+        "term": 1
+      },
+      {
+        "id": 2,
+        "id_kurikulum": 1,
+        "id_matkul": 2,
+        "status_matkul": "Wajib Fakultas",
+        "term": 1
+      },
+      {
+        "id": 3,
+        "id_kurikulum": 1,
+        "id_matkul": 3,
+        "status_matkul": "Wajib Fakultas",
+        "term": 1
+      },
+     ]
+   }
+}
+```
+
+### Error Response
+
+**Condition** : Jika term tidak valid.
+
+**Contoh Request**: [/getMataKuliahByTerm/13](http://localhost:5050/api/getMataKuliahByTerm/13)
+
+```json
+{
+  "status": 404,
+  "msg": "Mata Kuliah tidak ditemukan",
+  "result": null
+}
+```
+
 
