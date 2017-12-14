@@ -223,9 +223,13 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 		String usernameUser = principal.getName();
 		UserModel user = userDAO.selectUser(usernameUser);
 
-		ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
-		model.addAttribute("prodi", prodi);
-		return "matakuliah-add";
+		ProdiModel prodi = universitasDAO.selectProdi(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
+		if (prodi != null) {
+			model.addAttribute("prodi", prodi);
+			return "matakuliah-add";
+		} else {
+			return "matkul-not-found";
+		}
 	}
 	
 	// akses submit tambah mata kuliah
@@ -244,8 +248,7 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 
 		ProdiModel prodi = universitasDAO.selectProdi(1, user.getId_fakultas(), user.getId_prodi());
 		model.addAttribute("prodi", prodi);
-		System.out.println(jumlah_sks);
-
+		
 		matakuliahDAO.addMataKuliah(kode_matkul, nama_matkul, jumlah_sks2, prasyarat_sks2, prodi.getId_univ(),
 				prodi.getId_fakultas(), prodi.getId_prodi());
 
