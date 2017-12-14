@@ -568,15 +568,15 @@ public class SIKurikulumController {
 		
 		@RequestMapping("/matakuliah/viewkode")
 
-		public String viewPathMataKuliahKode(Model model, @RequestParam(value = "kode") String kode) {
+		public String viewPathMataKuliahKode(Model model, @RequestParam(value = "kode_matkul") String kode_matkul) {
 			
-			MataKuliahModel matkul1 = matkulDAO.selectMataKuliahByKode(kode);
+			MataKuliahModel matkul1 = matkulDAO.selectMataKuliahByKode(kode_matkul);
 
 			if (matkul1 != null) {
 				model.addAttribute("matkul1", matkul1);
 				return "matakuliah-view";
 			} else {
-				model.addAttribute("kode", kode);
+				model.addAttribute("kode_matkul", kode_matkul);
 				return "matakuliah-not-found";
 			}
 		}
