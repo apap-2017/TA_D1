@@ -26,7 +26,7 @@
 			<li class="breadcrumb-item"><a href="#">Tambah Mata Kuliah</a></li>
 		</ol>
 	</nav>
-	<div class="container">
+	<div class="container" style="margin-bottom:100px">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-9">
@@ -106,11 +106,14 @@
 							</tr>
 						</tbody>
 					</table> -->
-				</form>
-				<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
-					<a th:href="'/matakuliah-result'" class="btn btn-danger">Batal</a>
-					<a th:href="'/matakuliah/add/submit'" class="btn btn-success">Tambah</a>
+					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+					<!-- <a th:href="'/matakuliah-result'" class="btn btn-danger">Batal</a>
+					<a th:href="'/matakuliah/add/submit'" class="btn btn-success">Tambah</a> -->
+					<a th:href="'/matakuliah-result?fakultas=' + ${prodi.id_fakultas} + '&amp;prodi=' + ${prodi.id_prodi}" class="btn btn-danger">Batal</a>
+					<button type="submit" class="btn btn-success">Tambah</button>
 				</div>
+				</form>
+				
 			</div>
 			<div class="col-md-2"></div>
 		</div>

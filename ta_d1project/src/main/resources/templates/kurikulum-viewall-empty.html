@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Sukses Tambah Mata Kuliah</title>
+<title>Daftar Kurikulum</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet"
@@ -19,20 +19,28 @@
 </head>
 <body>
 	<div th:replace="fragments/fragment :: header"></div>
-	<div class="container">
-		<div class="alert alert-success col-md-10 col-md-offset-1"
-			role="alert" id="success_message">Sukses menambah mata kuliah!</div>
-
-		<!-- Button -->
-		<div class="form-group">
-			<label class="col-md-4 control-label"></label>
-			<div class="col-md-4 col-md-offset-7">
-				<br /> <a
-					th:href="'/matakuliah-result?fakultas=' + ${prodi.id_fakultas} + '&amp;prodi=' + ${prodi.id_prodi}"
-					class="btn btn-danger1">Kembali</a>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Beranda</a></li>
+			<li class="breadcrumb-item"><a href="/kurikulum">Kurikulum</a></li>
+			<li class="breadcrumb-item"><a href="#">FASILKOM</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Sistem
+				Informasi</li>
+		</ol>
+	</nav>
+	<div class="container" style="margin-bottom:100px">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<!--<h1 th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_prodi}">Kurikulum Fakultas Ilmu Komputer</h1>-->
+				<div class="pull-right" style="margin-bottom: 20px">
+					<a th:href="'/kurikulum/add/'" class="btn btn-primary">Tambah Kurikulum</a>
+				</div>
 			</div>
+			<div class="col-md-2"></div>
+			<center><h4>Tidak ada kurikulum yang dapat ditampilkan.</h4></center>
 		</div>
 	</div>
 	<div th:replace="fragments/fragment :: footer"></div>
-	</body>
-	</html>
+</body>
+</html>

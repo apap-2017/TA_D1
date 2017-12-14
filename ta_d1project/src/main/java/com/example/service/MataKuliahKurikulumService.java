@@ -16,9 +16,11 @@ public interface MataKuliahKurikulumService {
 	void deleteMataKuliahKurikulum (int id);
 
 
-	void addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum);
+	int addMataKuliahKurikulum(MataKuliahKurikulumModel matkul_kurikulum, int id_kurikulum);
 
 	
 	List<MataKuliahKurikulumModel> selectMatkulTerm(int term);
+
+	List<MataKuliahKurikulumModel> selectListMataKuliahKurikulum(int id_kurikulum);
 
 }

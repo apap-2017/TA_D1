@@ -74,7 +74,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	
 	@Override
 	public int addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi) {
-		kurikulum.getId_univ();
+		kurikulum.setId_univ(id_univ);
 		kurikulum.setId_fakultas(id_fakultas);
 		kurikulum.setId_prodi(id_prodi);
 		
@@ -83,6 +83,15 @@ public class KurikulumServiceDatabase implements KurikulumService {
 		int id = kurikulumMapper.getLastKurikulum().getId();
 		
 		return id;
+	}
+	
+	@Override
+	public String generateNewCode() {
+		String lastKode = kurikulumMapper.getLastKurikulum().getKode_kurikulum();
+		
+		String noKodeBaru = "KR" + (Integer.parseInt(lastKode.substring(2, lastKode.length())) + 1);
+		
+		return noKodeBaru;
 	}
 	
 	@Override
@@ -99,6 +108,7 @@ public class KurikulumServiceDatabase implements KurikulumService {
 				for(int j = 0; j < matkuls.size(); j++) {
 					if(matkuls.get(j).getId() == id_matkul) {
 						listMataKuliah.add(matkuls.get(j));
+						log.info("{}", matkuls.get(j).getNama_matkul());
 					}
 				}
 			}
@@ -129,7 +139,12 @@ public class KurikulumServiceDatabase implements KurikulumService {
 
 	@Override
 	public List<KurikulumModel> selectAllKurikulum(int id_prodi) {
-		// TODO Auto-generated method stub
 		return kurikulumMapper.selectAllKurikulum(id_prodi);
+	}
+
+	@Override
+	public List<KurikulumModel> selectKurikulumbyKode(String kode_kurikulum) {
+		log.info("select kurikulum with kode_kurikulum {}", kode_kurikulum);
+		return kurikulumMapper.selectKurikulumbyKode(kode_kurikulum);
 	}
 }

@@ -56,13 +56,13 @@ public interface KurikulumMapper {
 	void deleteKurikulum(@Param("id") int id);
 
 	//
-	@Select("select mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
+	@Select("select distinct mata_kuliah_kurikulum.id, mata_kuliah_kurikulum.id_kurikulum, mata_kuliah_kurikulum.id_matkul, "
 			+ "mata_kuliah_kurikulum.status_matkul, mata_kuliah_kurikulum.term from mata_kuliah_kurikulum join kurikulum"
 			+ " on mata_kuliah_kurikulum.id_kurikulum = kurikulum.id where kurikulum.id = #{id}")
 	List<MataKuliahKurikulumModel> selectMataKuliahKurikulumR(@Param(value = "id") int id);
 
 	//
-	@Select("SELECT mata_kuliah.id, mata_kuliah.id_univ, mata_kuliah.id_fakultas, mata_kuliah.id_prodi,"
+	@Select("SELECT distinct mata_kuliah.id, mata_kuliah.id_univ, mata_kuliah.id_fakultas, mata_kuliah.id_prodi,"
 			+ "mata_kuliah.kode_matkul, mata_kuliah.nama_matkul, mata_kuliah.jumlah_sks, "
 			+ "mata_kuliah.prasyarat_sks from mata_kuliah join mata_kuliah_kurikulum on "
 			+ "mata_kuliah.id = mata_kuliah_kurikulum.id_matkul JOIN kurikulum on kurikulum.id = "
@@ -105,6 +105,12 @@ public interface KurikulumMapper {
 	@Select("select * from kurikulum where id_prodi=#{id_prodi}")
 	List<KurikulumModel> selectAllKurikulum(@Param(value = "id_prodi") int id_prodi);
 	
-	@Select("select id from kurikulum order by id desc limit 1")
+	@Select("select id, kode_kurikulum from kurikulum order by id desc limit 1")
 	KurikulumModel getLastKurikulum();
+	
+	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
+	KurikulumModel getNamaKurikulum(@Param(value= "id") int id);
+	
+	@Select("select id, kode_kurikulum, nama_kurikulum from kurikulum where kode_kurikulum = #{kode_kurikulum}")
+	List<KurikulumModel> selectKurikulumbyKode(@Param(value = "kode_kurikulum") String kode_kurikulum);
 }

@@ -24,7 +24,7 @@ public interface MataKuliahService
 
 	void deletePrasyarat(String kode_matkul, String kode_matkul2);
 
-	MataKuliahModel selectMataKuliahByKode(int kode_matkul2);
+	MataKuliahModel selectMataKuliahByKode(String kode_matkul2);
 
 	void updateMataKuliah(String kode_matkul2, int jumlah_sks2, int prasyarat_sks2, String nama_matkul);
 
