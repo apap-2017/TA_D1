@@ -17,27 +17,21 @@ public class MataKuliahServiceDatabase implements MataKuliahService {
     private MatkulMapper mataKuliahMapper;
 
 	@Override
-	public MataKuliahModel selectMataKuliah(int id) {
+	public MataKuliahModel selectMataKuliah(int id_univ, int id_fakultas, int id_prodi, int id) {
 		log.info ("select mata kuliah with id {}", id);
-        return mataKuliahMapper.selectMataKuliah (id);
+        return mataKuliahMapper.selectMataKuliah (id_univ, id_fakultas, id_prodi,id);
+	}
+	
+	@Override
+	public MataKuliahModel selectMataKuliahAPI(int id) {
+		log.info ("select mata kuliah with id {}", id);
+        return mataKuliahMapper.selectMataKuliahAPI(id);
 	}
 
 	@Override
 	public List<MataKuliahModel> selectMataKuliahProdi(int id_univ,int id_fakultas, int id_prodi) {
 		log.info ("select mata kuliah with id prodi {}", id_prodi);
 		return mataKuliahMapper.selectMataKuliahProdi(id_univ,id_fakultas,id_prodi);
-	}
-
-	@Override
-//	public void addMataKuliah(MataKuliahModel mata_kuliah) {
-//        //return mataKuliahMapper.addMataKuliah(mata_kuliah);
-//        //return null;
-//	}
-//	
-	public List<MataKuliahModel> selectMataKuliahProdi(int id_fakultas,int id_prodi) {
-		log.info ("select mata kuliah with id prodi {}", id_prodi);
-		return mataKuliahMapper.selectMatakuliahProdi(id_fakultas,id_prodi);
-
 	}
 
 	@Override

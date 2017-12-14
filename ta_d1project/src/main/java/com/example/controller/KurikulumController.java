@@ -1,8 +1,6 @@
 package com.example.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.MataKuliahModel;
 import com.example.service.MataKuliahService;
 import com.example.model.AngkatanModel;
-import com.example.model.ApiModel;
 import com.example.model.FakultasModel;
 import com.example.model.KurikulumModel;
-import com.example.model.MataKuliahModel;
 import com.example.model.MataKuliahKurikulumModel;
 import com.example.model.ProdiModel;
-import com.example.model.ResultModel;
 
-import com.example.model.UniversitasModel;
 import com.example.model.UserModel;
 import com.example.service.KurikulumService;
-import com.example.service.MataKuliahService;
-import com.example.service.KurikulumServiceDatabase;
 import com.example.service.MataKuliahKurikulumService;
 import com.example.service.UniversitasService;
 import com.example.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @Controller
@@ -57,12 +44,6 @@ public class KurikulumController {
 	@Autowired
 	UserService userDAO;
 
-	// akses halaman cari kurikulum
-	@RequestMapping("/kurikulum")
-	public String kurikulum() {
-		return "kurikulum";
-	}
-
 	// akses halaman hasil cari kurikulum
 	@RequestMapping("/kurikulum/viewall")
 	public String resultKurikulum(Model model, Principal principal) {
@@ -74,8 +55,11 @@ public class KurikulumController {
 
 		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyParam(id_univ, id_fakultas, id_prodi);
 		FakultasModel fakultas = universitasDAO.selectFakultas(id_univ, id_fakultas);
-
-		if (kurikulum != null) {
+		
+		if(fakultas == null) {
+			return "univ-null";
+		}
+		else if (kurikulum.size() > 0) {
 			model.addAttribute("kurikulums", kurikulum);
 			model.addAttribute("fakultas", fakultas);
 			return "kurikulum-viewall";
@@ -84,15 +68,20 @@ public class KurikulumController {
 			model.addAttribute("id_prodi", id_prodi);
 			return "not-found";
 		}
-
 	}
 
 	// akses halaman hasil cari kurikulum dari halaman index by kode
 	@RequestMapping("/kurikulum/view")
-	public String findKurikulum(Model model, @RequestParam(value = "kode_kurikulum") String kode_kurikulum) {
-		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyKode(kode_kurikulum);
+	public String findKurikulum(Principal principal, Model model, @RequestParam(value = "kode_kurikulum") String kode_kurikulum) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		
+		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyKode(id_univ, id_fakultas, id_prodi, kode_kurikulum);
 
-		if (kurikulum != null) {
+		if (kurikulum.size() > 0) {
 			model.addAttribute("kurikulums", kurikulum);
 			return "kurikulum-viewall";
 		} else {
@@ -103,8 +92,13 @@ public class KurikulumController {
 	}
 
 	@RequestMapping("/kurikulum/view/{id}")
-	public String viewPathKurikulum(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
+	public String viewPathKurikulum(Principal principal, Model model, @PathVariable(value = "id") int id) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi, id);
 
 		List<MataKuliahModel> matkulTerm1 = kurikulumDAO.getMataKuliahByTerm(kurikulum, 1);
 		List<MataKuliahModel> matkulTerm2 = kurikulumDAO.getMataKuliahByTerm(kurikulum, 2);
@@ -147,7 +141,7 @@ public class KurikulumController {
 			return "kurikulum-view";
 		} else {
 			model.addAttribute("id", id);
-			return "not-found";
+			return "kurikulum-not-found";
 		}
 	}
 
@@ -174,15 +168,27 @@ public class KurikulumController {
 
 	// halaman tambah matkul kurikulum
 	@RequestMapping("/matkul-kurikulum/add/{id_kurikulum}")
-	public String addMatkulKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum) {
-		String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_kurikulum).getKode_kurikulum();
+	public String addMatkulKurikulum(Principal principal, Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id_kurikulum);
 		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
-
-		model.addAttribute("id_kurikulum", id_kurikulum);
-		model.addAttribute("kodeKurikulum", kodeKurikulum);
-		model.addAttribute("matkuls", matkuls);
-		model.addAttribute("matkulKurikulum", new MataKuliahKurikulumModel());
-		return "matkul-kurikulum-add";
+		
+		if(kurikulum != null) {
+			String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id_kurikulum).getKode_kurikulum();
+			model.addAttribute("id_kurikulum", id_kurikulum);
+			model.addAttribute("kodeKurikulum", kodeKurikulum);
+			model.addAttribute("matkuls", matkuls);
+			model.addAttribute("matkulKurikulum", new MataKuliahKurikulumModel());
+			return "matkul-kurikulum-add";
+		} else {
+			model.addAttribute("id", id_kurikulum);
+			return "not-found";
+		}
+		
 	}
 
 	// akses halaman submit add matkul kurikulum
@@ -197,8 +203,13 @@ public class KurikulumController {
 
 	// halaman ubah kurikulum
 	@RequestMapping("/kurikulum/update/{id}")
-	public String updateKurikulum(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
+	public String updateKurikulum(Principal principal, Model model, @PathVariable(value = "id") int id) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id);
 
 		if (kurikulum != null) {
 			model.addAttribute("kurikulum", kurikulum);
@@ -219,8 +230,13 @@ public class KurikulumController {
 
 	// halaman konfirmasi hapus kurikulum
 	@RequestMapping(value = "/kurikulum/delete-kurikulum/{id}")
-	public String deleteKurikulum(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
+	public String deleteKurikulum(Principal principal, Model model, @PathVariable(value = "id") int id) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id);
 
 		if (kurikulum != null) {
 			kurikulumDAO.deleteKurikulum(id);
@@ -233,23 +249,27 @@ public class KurikulumController {
 
 	// halaman hapus kurikulum
 	@RequestMapping("/kurikulum/delete/{id}")
-	public String deleteKurikulumConfirmation(Model model, @PathVariable(value = "id") int id) {
-		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id);
-		String nama_kurikulum = kurikulum.getNama_kurikulum();
+	public String deleteKurikulumConfirmation(Principal principal, Model model, @PathVariable(value = "id") int id) {
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi, id);
+		
+		if (kurikulum != null) {
+			String nama_kurikulum = kurikulum.getNama_kurikulum();
+			model.addAttribute("id", id);
+			model.addAttribute("nama_kurikulum", nama_kurikulum);
+			return "kurikulum-delete-confirmation";
+		} else {
+			model.addAttribute("id", id);
+			return "kurikulum-not-found";
+		}
 
-		model.addAttribute("id", id);
-		model.addAttribute("nama_kurikulum", nama_kurikulum);
-		return "kurikulum-delete-confirmation";
+		
 	}
-
-	// // halaman hapus mata kuliah kurikulum
-	// @RequestMapping("/mata-kuliah-kurikulum/delete/{id_kurikulum}/{id_mata_kuliah_kurikulum}")
-	// public String deleteMataKuliahKurikulum(Model model, @PathVariable(value =
-	// "id_kurikulum") int id_kurikulum, @PathVariable(value =
-	// "id_mata_kuliah_kurikulum") int id_mata_kuliah_kurikulum) {
-	// mataKuliahKurikulumDAO.deleteMataKuliahKurikulum(id_mata_kuliah_kurikulum);
-	// return "redirect:/kurikulum/view/" + id_kurikulum;
-	// }
 
 	// halaman hapus matkul kurikulum
 	@RequestMapping("/matkul-kurikulum/delete/{id_kurikulum}/{id_matkul_kurikulum}")
@@ -261,16 +281,29 @@ public class KurikulumController {
 
 	// halaman update matkul kurikulum
 	@RequestMapping("/matkul-kurikulum/update/{id_kurikulum}/{id_matkul_kurikulum}")
-	public String updateMatkulKurikulum(Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum,
+	public String updateMatkulKurikulum(Principal principal, Model model, @PathVariable(value = "id_kurikulum") int id_kurikulum,
 			@PathVariable(value = "id_matkul_kurikulum") int id_matkul_kurikulum) {
-		MataKuliahKurikulumModel matkulKurikulum = matkulKurikulumDAO.selectMataKuliahKurikulum(id_matkul_kurikulum);
-		String kodeKurikulum = kurikulumDAO.selectKurikulumR(id_kurikulum).getKode_kurikulum();
-		List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
+		String usernameUser = principal.getName();
+		UserModel user = userDAO.selectUser(usernameUser);
+		int id_univ = user.getId_univ();
+		int id_fakultas = user.getId_fakultas();
+		int id_prodi = user.getId_prodi();
+		KurikulumModel kurikulum = kurikulumDAO.selectKurikulumR(id_univ, id_fakultas, id_prodi,id_kurikulum);
 
-		model.addAttribute("matkulKurikulum", matkulKurikulum);
-		model.addAttribute("kodeKurikulum", kodeKurikulum);
-		model.addAttribute("matkuls", matkuls);
-		return "matkul-kurikulum-update";
+		if(kurikulum != null) {
+			String kodeKurikulum = kurikulum.getKode_kurikulum();
+			List<MataKuliahModel> matkuls = kurikulumDAO.selectMataKuliah(id_kurikulum);
+			MataKuliahKurikulumModel matkulKurikulum = matkulKurikulumDAO.selectMataKuliahKurikulum(id_matkul_kurikulum);
+
+			model.addAttribute("matkulKurikulum", matkulKurikulum);
+			model.addAttribute("kodeKurikulum", kodeKurikulum);
+			model.addAttribute("matkuls", matkuls);
+			return "matkul-kurikulum-update";
+		}
+		else {
+			model.addAttribute("id", id_kurikulum);
+			return "kurikulum-not-found";
+		}
 	}
 
 	// akses halaman submit ubah matkul kurikulum
@@ -289,11 +322,14 @@ public class KurikulumController {
 		ProdiModel prodi = universitasDAO.selectProdi(user.getId_univ(), user.getId_fakultas(), user.getId_prodi());
 		List<AngkatanModel> angkatans = universitasDAO.selectAngkatan(user.getId_univ(), user.getId_fakultas(),
 				user.getId_prodi());
-
-		model.addAttribute("fakultas", fakultas);
-		model.addAttribute("prodi", prodi);
-		model.addAttribute("angkatans", angkatans);
-
-		return "angkatan-view";
+		
+		if(fakultas == null || prodi == null) {
+			return "univ-null";
+		} else {
+			model.addAttribute("fakultas", fakultas);
+			model.addAttribute("prodi", prodi);
+			model.addAttribute("angkatans", angkatans);
+			return "angkatan-view";
+		}
 	}
 }

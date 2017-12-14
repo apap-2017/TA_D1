@@ -20,7 +20,7 @@ import com.example.model.MataKuliahModel;
 @Mapper
 public interface KurikulumMapper {
 	@Select("select id, id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan "
-			+ "from kurikulum where id = #{id}")
+			+ "from kurikulum where id = #{id} and id_univ=#{id_univ} and id_fakultas = #{id_fakultas} and id_prodi = #{id_prodi}")
 	@Results(value = { @Result(property = "id", column = "id"),
 			@Result(property = "kode_kurikulum", column = "kode_kurikulum"),
 			@Result(property = "nama_kurikulum", column = "nama_kurikulum"),
@@ -30,7 +30,7 @@ public interface KurikulumMapper {
 			@Result(property = "id_fakultas", column = "id_fakultas"),
 			@Result(property = "listMataKuliah", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliah")),
 			@Result(property = "listMataKuliahKurikulum", column = "id", javaType = List.class, many = @Many(select = "selectMataKuliahKurikulumR")) })
-	KurikulumModel selectKurikulumR(@Param(value = "id") int id);
+	KurikulumModel selectKurikulumR(@Param(value = "id_univ") int id_univ, @Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi, @Param(value = "id") int id);
 	
 	@Select("select id, id_univ, id_fakultas, id_prodi, kode_kurikulum, nama_kurikulum, jumlah_sks_wajib, jumlah_sks_pilihan "
 			+ "from kurikulum where id = #{id}")
@@ -111,6 +111,6 @@ public interface KurikulumMapper {
 	@Select("select nama_kurikulum, kode_kurikulum from kurikulum where id=#{id}")
 	KurikulumModel getNamaKurikulum(@Param(value= "id") int id);
 	
-	@Select("select id, kode_kurikulum, nama_kurikulum from kurikulum where kode_kurikulum = #{kode_kurikulum}")
-	List<KurikulumModel> selectKurikulumbyKode(@Param(value = "kode_kurikulum") String kode_kurikulum);
+	@Select("select id, kode_kurikulum, nama_kurikulum from kurikulum where id_univ=#{id_univ} and id_fakultas = #{id_fakultas} and id_prodi = #{id_prodi} and kode_kurikulum = #{kode_kurikulum}")
+	List<KurikulumModel> selectKurikulumbyKode(@Param(value = "id_univ") int id_univ, @Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi, @Param(value = "kode_kurikulum") String kode_kurikulum);
 }

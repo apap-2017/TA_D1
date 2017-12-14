@@ -17,7 +17,7 @@ import com.example.model.*;
 @Mapper
 public interface MatkulMapper {
 
-	@Select("select id, kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_prodi, id_univ, id_fakultas from mata_kuliah where id = #{id}")
+	@Select("select id, kode_matkul, nama_matkul, jumlah_sks, prasyarat_sks, id_prodi, id_univ, id_fakultas from mata_kuliah where id = #{id} and id_univ=#{id_univ} and id_fakultas = #{id_fakultas} and id_prodi = #{id_prodi}")
     @Results(value = {
     		@Result(property="id", column="id"),
     		@Result(property="kode_matkul", column="kode_matkul"),
@@ -31,8 +31,24 @@ public interface MatkulMapper {
     		javaType = List.class,
     		many=@Many(select="selectPrasyarat"))
     })
-	MataKuliahModel selectMataKuliah(@Param("id") int id);
+	MataKuliahModel selectMataKuliah(@Param(value = "id_univ") int id_univ, @Param(value = "id_fakultas") int id_fakultas, @Param(value = "id_prodi") int id_prodi, @Param("id") int id);
 
+	@Select("select * from mata_kuliah where id=#{id}")
+	@Results(value = {
+    		@Result(property="id", column="id"),
+    		@Result(property="kode_matkul", column="kode_matkul"),
+    		@Result(property="nama_matkul", column="nama_matkul"),
+    		@Result(property="jumlah_sks", column="jumlah_sks"),
+    		@Result(property="prasyarat_sks", column="prasyarat_sks"),
+    		@Result(property="id_prodi", column="id_prodi"),
+    		@Result(property="id_univ", column="id_univ"),
+    		@Result(property="id_fakultas", column="id_fakultas"),
+    		@Result(property="listPrasyarat", column="kode_matkul",
+    		javaType = List.class,
+    		many=@Many(select="selectPrasyarat"))
+    })
+	MataKuliahModel selectMataKuliahAPI(@Param("id") int id);
+	
 	@Select("select * from mata_kuliah where kode_matkul IN (select kode_prasyarat_matkul from prasyarat_mata_kuliah where kode_matkul = #{kode_matkul})")
 	List<MataKuliahModel> selectPrasyarat (@Param("kode_matkul") String kode_matkul);
 	

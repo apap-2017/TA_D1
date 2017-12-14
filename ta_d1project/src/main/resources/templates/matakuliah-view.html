@@ -73,14 +73,14 @@ div.tab button.active {
 	<div th:replace="fragments/fragment :: header"></div>
 	<nav aria-label="breadcrumb" role="navigation">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
-			<li class="breadcrumb-item"><a href="#">Mata Kuliah</a></li>
-			<li class="breadcrumb-item"><a href="#">FASILKOM</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Sistem
-				Informasi</li>
+			<li class="breadcrumb-item"><a href="/">Beranda</a></li>
+			<li class="breadcrumb-item"><a href="/matakuliah-result">Mata
+					Kuliah</a></li>
+			<li class="breadcrumb-item active"><a><b
+					th:text="'Mata Kuliah - ' + ${matkul1.nama_matkul}"></b></a></li>
 		</ol>
 	</nav>
-	<div class="container" style="margin-bottom:100px">
+	<div class="container" style="margin-bottom: 100px">
 		<div class="row">
 
 			<div class="col-md-12">
@@ -88,7 +88,8 @@ div.tab button.active {
 					Kuliah XXXX</h1>
 				<div class="pull-right">
 					<a th:href="'/matkul/edit/' + ${matkul1.id}"><i
-						class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:36px"></i></a>
+						class="fa fa-pencil-square-o" aria-hidden="true"
+						style="font-size: 36px"></i></a>
 					<!-- <form th:object="${matkul1}" action="/matkul/delete/"
 						method="post">
 						<div class="form-group">
@@ -100,7 +101,7 @@ div.tab button.active {
 						</div>
 					</form> -->
 					<a th:href="'/matkul/delete/' + ${matkul1.id}"><i
-						class="fa fa-trash-o" aria-hidden="true" style="font-size:36px"></i></a>
+						class="fa fa-trash-o" aria-hidden="true" style="font-size: 36px"></i></a>
 				</div>
 				<br />
 
@@ -144,13 +145,10 @@ div.tab button.active {
 						</tr>
 					</tbody>
 				</table>
-				<a
-					th:href="'/matakuliah-result?fakultas=' + ${matkul1.id_fakultas} + '&amp;prodi=' + ${matkul1.id_prodi}"
-					class="btn btn-danger1" style="float: right">Kembali</a>
+				<a href="/matakuliah-result" class="btn btn-primary"
+					style="float: right">Kembali</a>
 			</div>
-
 		</div>
-
 	</div>
 
 	<div th:replace="fragments/fragment :: footer"></div>

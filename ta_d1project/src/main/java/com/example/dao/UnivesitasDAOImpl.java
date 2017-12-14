@@ -20,24 +20,33 @@ public class UnivesitasDAOImpl implements UniversitasDAO {
 	private RestTemplate restTemplate;
 
 	@Override
-	public ApiModel<Map <String, FakultasModel>> selectFakultas(int id_univ, int id_fakultas) {
-		ApiModel<Map <String, FakultasModel>> fakultas = restTemplate.exchange("https://apap2017-univ-apps.herokuapp.com/getFakultas/1/" + id_fakultas, HttpMethod.GET, null,
+	public FakultasModel selectFakultas(int id_univ, int id_fakultas) {
+		ApiModel<Map <String, FakultasModel>> api = restTemplate.exchange("https://apap2017-univ-apps.herokuapp.com/getFakultas/" + id_univ + "/" + id_fakultas, HttpMethod.GET, null,
 						new ParameterizedTypeReference<ApiModel<Map<String, FakultasModel>>>() {}).getBody();
-		
-		return fakultas;
+		if(api.getStatus() == 404) {
+			return null;
+		} else {
+			FakultasModel fakultas = api.getResult().get("fakultas");
+			return fakultas;
+		}
 	}
 
 	@Override
-	public ApiModel<Map <String, ProdiModel>> selectProdi(int id_univ, int id_fakultas, int id_prodi) {
-		ApiModel<Map <String, ProdiModel>> prodi = restTemplate.exchange("https://apap2017-univ-apps.herokuapp.com/getProdi/1/" + id_fakultas + "/" + id_prodi, HttpMethod.GET, null,
+	public ProdiModel selectProdi(int id_univ, int id_fakultas, int id_prodi) {
+		ApiModel<Map <String, ProdiModel>> api = restTemplate.exchange("https://apap2017-univ-apps.herokuapp.com/getProdi/" + id_univ + "/" + id_fakultas + "/" + id_prodi, HttpMethod.GET, null,
 				new ParameterizedTypeReference<ApiModel<Map<String, ProdiModel>>>() {}).getBody();
-		return prodi;
+		if(api.getStatus() == 404) {
+			return null;
+		} else {
+			ProdiModel prodi = api.getResult().get("prodi");
+			return prodi;
+		}
 	}
 
 
 	@Override
 	public List<AngkatanModel> selectAngkatan(int id_univ, int id_fakultas, int id_prodi) {
-		List<AngkatanModel> list = restTemplate.exchange("http://localhost:9090/rest/getSeluruhAngkatanAktif/" + id_univ + "/" + id_fakultas + "/" + id_prodi, HttpMethod.GET, null,
+		List<AngkatanModel> list = restTemplate.exchange("http://localhost:7070/rest/getSeluruhAngkatanAktif/" + id_univ + "/" + id_fakultas + "/" + id_prodi, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<AngkatanModel>>() {}).getBody();
 		return list;
 	}
