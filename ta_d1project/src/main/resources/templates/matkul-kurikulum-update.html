@@ -32,7 +32,7 @@
 			<div class="col-md-8">
 				<center><h3 style="margin-bottom: 50px">Ubah Matkul Kurikulum</h3></center>
 				<form action="/matkul-kurikulum/update/submit" method="post"
-					th:object="${matkulKurikulum}">
+					th:object="${matkulKurikulum}" required="required">
 					<table class="table-condensed" style="margin-top: 30px; width: 100%">
 						<tbody>
 							<tr>
@@ -46,7 +46,8 @@
 										Mata Kuliah</label></td>
 								<td>
 									<select th:field="${matkulKurikulum.id_matkul}" class="form-control" id="matkul" name="matkul">
-										<option th:each="eachMatkul,iterationStatus: ${matkuls}" th:value="${eachMatkul.id}" th:text="${eachMatkul.nama_matkul}">Matkul</option>
+										<option th:each="eachMatkul,iterationStatus: ${matkuls}" th:value="${eachMatkul.id}"
+										 th:text="${eachMatkul.nama_matkul}">Matkul</option>
 									</select>
 								</td>
 							</tr>

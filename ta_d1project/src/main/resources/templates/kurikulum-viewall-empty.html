@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Daftar Kurikulum</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+	<div th:replace="fragments/fragment :: header"></div>
+	<nav aria-label="breadcrumb" role="navigation">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Beranda</a></li>
+			<li class="breadcrumb-item"><a href="/kurikulum">Kurikulum</a></li>
+			<li class="breadcrumb-item"><a href="#">FASILKOM</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Sistem
+				Informasi</li>
+		</ol>
+	</nav>
+	<div class="container" style="margin-bottom:100px">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<!--<h1 th:text="'Kurikulum ' + ${fakultas.nama_fakultas} + ' - ' + ${prodi.nama_prodi}">Kurikulum Fakultas Ilmu Komputer</h1>-->
+				<div class="pull-right" style="margin-bottom: 20px">
+					<a th:href="'/kurikulum/add/'" class="btn btn-primary">Tambah Kurikulum</a>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+			<center><h4>Tidak ada kurikulum yang dapat ditampilkan.</h4></center>
+		</div>
+	</div>
+	<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

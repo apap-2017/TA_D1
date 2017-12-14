@@ -90,6 +90,6 @@ public class IndexController {
 		model.addAttribute("fakultas", fakultas);
 		model.addAttribute("prodi", prodi);
 		model.addAttribute("user", user);
-		return "view-profile";
+		return "profile-view";
 	}
 }
