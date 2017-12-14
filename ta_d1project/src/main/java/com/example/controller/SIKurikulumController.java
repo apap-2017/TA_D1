@@ -508,11 +508,10 @@ public class SIKurikulumController {
 
 	// akses halaman lihat mata kuliah
 		@RequestMapping("/matakuliah-result")
-		public String viewMataKuliah(Model model, @RequestParam(value = "fakultas", required = false) String id_fakultas,
-				@RequestParam(value = "prodi", required = false) String id_prodi) {
-			int id_fakultas2 = Integer.parseInt(id_fakultas);
-			int id_prodi2 = Integer.parseInt(id_prodi);
-			List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(id_fakultas2, id_prodi2);
+		public String viewMataKuliah(Model model, Principal principal) {
+			String usernameUser = principal.getName();
+			UserModel user = userDAO.selectUser(usernameUser); 
+			List<MataKuliahModel> matkuls = matakuliahDAO.selectMataKuliahProdi(user.getId_fakultas(), user.getId_prodi());
 			model.addAttribute("matkuls", matkuls);
 			return "matakuliah-result";
 		}
