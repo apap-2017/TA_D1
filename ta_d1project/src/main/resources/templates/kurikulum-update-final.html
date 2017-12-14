@@ -33,7 +33,7 @@
 				<center>
 					<h3>Ubah Kurikulum</h3>
 				<form action="/kurikulum/update/submit" method="post"
-					th:object="${kurikulum}">
+					th:object="${kurikulum}" required="required">
 					<table class="table-condensed" style="margin-top: 60px; width: 90%">
 						<tbody>
 							<tr>
@@ -52,15 +52,15 @@
 								<td style="padding: 10px 20px; vertical-align: middle;"><label for="jumlah_sks_wajib">Jumlah
 										SKS Wajib</label></td>
 								<td><input class="form-control"
-									type="text" name="jumlah_sks_wajib"
-									th:field="*{jumlah_sks_wajib}" th:value="${kurikulum.jumlah_sks_wajib}" /></td>
+									type="number" name="jumlah_sks_wajib"
+									th:field="*{jumlah_sks_wajib}" th:value="${kurikulum.jumlah_sks_wajib}" min="1" /></td>
 							</tr>
 							<tr>
 								<td style="padding: 10px 20px; vertical-align: middle;"><label for="jumlah_sks_pilihan">Jumlah
 										SKS Pilihan</label></td>
 								<td><input class="form-control"
-									type="text" name="jumlah_sks_pilihan"
-									th:field="*{jumlah_sks_pilihan}" th:value="${kurikulum.jumlah_sks_pilihan}" /></td>
+									type="number" name="jumlah_sks_pilihan"
+									th:field="*{jumlah_sks_pilihan}" th:value="${kurikulum.jumlah_sks_pilihan}" min="1" /></td>
 							</tr>
 							<tr>
 								<td style="padding: 10px 20px; vertical-align: middle;"><label for="fakultas">Fakultas</label></td>

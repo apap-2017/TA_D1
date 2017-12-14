@@ -35,12 +35,12 @@
 				<br/> 
 				<br/>
 				<form action="/matkul/update/submit" th:object="${matkul}"
-					method="post">
+					method="post" required="required">
 					<div class="form-group row">
 						<label for="kode_matkul" class="col-sm-3 col-form-label">Kode Matkul</label> 
 						<div class="col-sm-9">
 							<input type="text"
-							name="kode_matkul" th:field="*{kode_matkul}" readonly="true" class="form-control"/>
+							name="kode_matkul" th:field="*{kode_matkul}" readonly="true" class="form-control" required="required"/>
 							<small id="passwordHelpBlock" class="form-text text-muted">
 								Kode Mata Kuliah tidak bisa diubah</small>
 						</div>
@@ -49,7 +49,7 @@
 						<label for="nama_matkul" class="col-sm-3 col-form-label">Nama Matkul</label> 
 						<div class="col-sm-9">
 							<input type="text"
-							name="nama_matkul" th:field="*{nama_matkul}" class="form-control"/>
+							name="nama_matkul" th:field="*{nama_matkul}" class="form-control" required="required"/>
 							<small id="passwordHelpBlock" class="form-text text-muted">
 								Masukkan perubahan untuk nama Mata Kuliah</small>
 						</div>
@@ -58,7 +58,7 @@
 						<label for="jumlah_sks" class="col-sm-3 col-form-label">Jumlah SKS</label> 
 						<div class="col-sm-9">
 							<input type="text"
-							name="jumlah_sks" th:field="*{jumlah_sks}" class="form-control" />
+							name="jumlah_sks" th:field="*{jumlah_sks}" class="form-control" required="required" />
 							<small id="passwordHelpBlock" class="form-text text-muted">
 								Masukkan perubahan untuk jumlah SKS Mata Kuliah</small>
 						</div>
@@ -67,7 +67,7 @@
 						<label for="prasyarat_sks" class="col-sm-3 col-form-label">Prasyarat SKS</label> 
 						<div class="col-sm-9">
 							<input type="text" 
-							name="prasyarat_sks" th:field="*{prasyarat_sks}" class="form-control" />
+							name="prasyarat_sks" th:field="*{prasyarat_sks}" class="form-control" required="required" />
 							<small id="passwordHelpBlock" class="form-text text-muted">
 								Masukkan perubahan untuk prasyarat SKS Mata Kuliah</small>
 						</div>
@@ -106,11 +106,11 @@
 <!-- 							Delete Prasyarat </a> -->
 <!-- 						<br /> -->
 <!-- 					</ul> -->
-					<div class="pull-right" style="margin-top: 20px; margin-right: 20px">
+					<div class="pull-right" style="margin-top: 50px; margin-right: 20px">
 						<a th:href="'/matkul/add-prasyarat/' + ${matkul.id}"
 							class="btn btn-info btn-sm"><i class="fa fa-plus-square-o"
-							aria-hidden="true"></i> Add Prasyarat </a>
-
+							aria-hidden="true"></i> Tambah Prasyarat </a>
+						<a th:href="'/matakuliah/view/' + ${matkul.id}" class="btn btn-danger">Batal</a>
 						<button type="submit" class="btn btn-success btn-sm">
 							<i class="fa fa-check-square-o" aria-hidden="true"></i> Simpan
 						</button>
