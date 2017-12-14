@@ -21,8 +21,22 @@ import com.example.service.MataKuliahKurikulumService;
 import com.example.service.UniversitasService;
 import com.example.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Slf4j
 @Controller
-public class MataKuliahController {
+public class MataKuliahController extends WebMvcConfigurerAdapter {
 	@Autowired
 	MataKuliahService matkulDAO;
 	@Autowired
@@ -147,8 +161,9 @@ public class MataKuliahController {
 			@RequestParam(value = "prasyarat_sks", required = false) String prasyarat_sks) {
 		int jumlah_sks2 = Integer.parseInt(jumlah_sks);
 		int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+		MataKuliahModel mtk = matkulDAO.selectMataKuliahByKode(kode_matkul);
 		matkulDAO.updateMataKuliah(kode_matkul, jumlah_sks2, prasyarat_sks2, nama_matkul);
-		return "redirect:/";
+		return "redirect:/matakuliah/view/" + mtk.getId();
 	}
 
 	@RequestMapping("/matkul/delete/{id}")
@@ -212,7 +227,7 @@ public class MataKuliahController {
 		model.addAttribute("prodi", prodi);
 		return "matakuliah-add";
 	}
-
+	
 	// akses submit tambah mata kuliah
 	@RequestMapping(value = "/matakuliah/add/submit", method = RequestMethod.POST)
 	public String addMataKuliah(Model model, Principal principal,

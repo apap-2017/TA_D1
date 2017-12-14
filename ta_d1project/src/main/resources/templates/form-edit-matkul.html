@@ -19,9 +19,9 @@
 	<div th:replace="fragments/fragment :: header"></div>
 	<nav aria-label="breadcrumb" role="navigation">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#">Beranda</a></li>
-			<li class="breadcrumb-item"><a href="#">Mata Kuliah</a></li>
-			<li class="breadcrumb-item"><a><b>Edit Mata Kuliah</b></a></li>
+			<li class="breadcrumb-item"><a href="/">Beranda</a></li>
+			<li class="breadcrumb-item"><a th:href="'/matakuliah/view/' + ${matkul.id}">Mata Kuliah</a></li>
+			<li class="breadcrumb-item"><b><a th:text="'Edit Mata Kuliah - ' + ${matkul.nama_matkul}">Edit Mata Kuliah</a></b></li>
 		</ol>
 	</nav>
 	<div class="container" style="margin-bottom:100px">
@@ -30,7 +30,7 @@
 			<div class="col-md-9">
 			<br/>
 				<center>
-					<h3>Form Update Mata Kuliah</h3>
+					<h3>Form Edit Mata Kuliah</h3>
 				</center>
 				<br/> 
 				<br/>
@@ -110,7 +110,7 @@
 						<a th:href="'/matkul/add-prasyarat/' + ${matkul.id}"
 							class="btn btn-info btn-sm"><i class="fa fa-plus-square-o"
 							aria-hidden="true"></i> Tambah Prasyarat </a>
-						<a th:href="'/matakuliah/view/' + ${matkul.id}" class="btn btn-danger">Batal</a>
+						<a th:href="'/matakuliah/view/' + ${matkul.id}" class="btn btn-danger btn-sm">Batal</a>
 						<button type="submit" class="btn btn-success btn-sm">
 							<i class="fa fa-check-square-o" aria-hidden="true"></i> Simpan
 						</button>

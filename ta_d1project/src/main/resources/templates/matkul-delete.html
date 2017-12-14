@@ -25,7 +25,7 @@
 					<h5 th:text="'Apakah anda yakin ingin menghapus Mata Kuliah ' + ${matkul.nama_matkul} + '?'">Apakah
 						anda yakin ingin menghapus Mata Kuliah {nama_matkul}?</h5>
 					<br/>
-					<a href="/" class="btn btn-info" role="button">Tidak</a> <a
+					<a th:href="'/matakuliah/view/'+ ${matkul.id}" class="btn btn-info" role="button">Tidak</a> <a
 						th:href="'/matkul/delete/submit/' + ${matkul.id}"
 						class="btn btn-info" role="button">Ya</a>
 				</div>
