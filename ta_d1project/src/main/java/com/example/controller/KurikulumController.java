@@ -75,14 +75,14 @@ public class KurikulumController {
 		List<KurikulumModel> kurikulum = kurikulumDAO.selectKurikulumbyParam(id_univ, id_fakultas, id_prodi);
 		FakultasModel fakultas = universitasDAO.selectFakultas(id_univ, id_fakultas);
 
-		if (kurikulum != null) {
+		if (kurikulum.size() > 0) {
 			model.addAttribute("kurikulums", kurikulum);
 			model.addAttribute("fakultas", fakultas);
 			return "kurikulum-viewall";
 		} else {
-			model.addAttribute("id_fakultas", id_fakultas);
-			model.addAttribute("id_prodi", id_prodi);
-			return "not-found";
+			model.addAttribute("kurikulums", kurikulum);
+			model.addAttribute("fakultas", fakultas);
+			return "kurikulum-viewall-empty";
 		}
 
 	}
@@ -154,7 +154,10 @@ public class KurikulumController {
 	// halaman tambah kurikulum
 	@RequestMapping("/kurikulum/add")
 	public String addKurikulum(Model model) {
-		model.addAttribute("kurikulum", new KurikulumModel());
+		KurikulumModel kurikulum = new KurikulumModel();
+		kurikulum.setKode_kurikulum(kurikulumDAO.generateNewCode());
+		
+		model.addAttribute("kurikulum", kurikulum);
 		return "kurikulum-add";
 	}
 

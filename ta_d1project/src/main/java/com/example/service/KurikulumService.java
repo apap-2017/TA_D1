@@ -26,7 +26,8 @@ public interface KurikulumService {
 
 	// lihat detail kurikulum
 	KurikulumModel selectKurikulum(int id);
-
+	
+	String generateNewCode();
 
 	// tambah kurikulum
 	int addKurikulum(KurikulumModel kurikulum, int id_univ, int id_fakultas, int id_prodi);

@@ -86,6 +86,15 @@ public class KurikulumServiceDatabase implements KurikulumService {
 	}
 	
 	@Override
+	public String generateNewCode() {
+		String lastKode = kurikulumMapper.getLastKurikulum().getKode_kurikulum();
+		
+		String noKodeBaru = "KR" + (Integer.parseInt(lastKode.substring(2, lastKode.length())) + 1);
+		
+		return noKodeBaru;
+	}
+	
+	@Override
 	public List<MataKuliahModel> getMataKuliahByTerm(KurikulumModel kurikulum, int term) {
 		List<MataKuliahModel> listMataKuliah = new ArrayList<>();
 		
