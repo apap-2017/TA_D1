@@ -161,8 +161,9 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 			@RequestParam(value = "prasyarat_sks", required = false) String prasyarat_sks) {
 		int jumlah_sks2 = Integer.parseInt(jumlah_sks);
 		int prasyarat_sks2 = Integer.parseInt(prasyarat_sks);
+		MataKuliahModel mtk = matkulDAO.selectMataKuliahByKode(kode_matkul);
 		matkulDAO.updateMataKuliah(kode_matkul, jumlah_sks2, prasyarat_sks2, nama_matkul);
-		return "redirect:/";
+		return "redirect:/matakuliah/view/" + mtk.getId();
 	}
 
 	@RequestMapping("/matkul/delete/{id}")
