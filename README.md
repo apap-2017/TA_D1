@@ -5,7 +5,7 @@ Base url: `https://localhost:5050/api/`
 API List:
 * [getKurikulum/[id_kurikulum]](#getkurikulumid_kurikulum) 
 * [getMataKuliahByTerm/[term]](#getmatakuliahbytermterm)
-* [getMataKuliahKurikulum/[id_kurikulum]](#getmatakuliahkurikulumid_kurikulum)
+* [getMataKuliahKurikulum/[id]](#getmatakuliahkurikulumid)
 * [getListMataKuliahKurikulum/[id_kurikulum]](#getlistmatakuliahkurikulumid_kurikulum)
 * [getMataKuliah/[id_matkul]](#getmatakuliahid_matkul)
 * [getKurikulumProdi/[id_univ]/[id_fkl]/[id_prd]](#getkurikulumprodiid_univid_fklid_prd)
@@ -132,6 +132,48 @@ Mengembalikan list mata kuliah pada term tertentu
 {
   "status": 404,
   "msg": "Mata Kuliah tidak ditemukan",
+  "result": null
+}
+```
+
+## getMataKuliahKurikulum/[id]
+
+Mengembalikan mata kuliah kurikulum berdasarkan id mata kuliah kurikulum
+
+**URL** : `getMataKuliahKurikulum/[id]`
+
+**Method** : `GET`
+
+### Success Response
+
+**Contoh Request**: [/getMataKuliahKurikulum/1](http://localhost:5050/api/getMataKuliahKurikulum/1)
+
+```json
+{
+  "status": 200,
+  "msg": "success",
+  "result": {
+    "matkul": {
+      "id": 1,
+      "id_kurikulum": 1,
+      "id_matkul": 1,
+      "status_matkul": "Wajib Univ",
+      "term": 1
+    }
+  }
+}
+```
+
+### Error Response
+
+**Condition** : Jika id mata kuliah kurikulum tidak valid
+
+**Contoh Request**: [/getMataKuliahKurikulum/123](http://localhost:5050/api/getMataKuliahKurikulum/123)
+
+```json
+{
+  "status": 404,
+  "msg": "Mata Kuliah Kurikulum tidak ditemukan",
   "result": null
 }
 ```
