@@ -195,7 +195,7 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 		if (matkul != null) {
 			model.addAttribute("matkul", matkul);
 			matkulDAO.deleteMatkul(id2);
-			return "redirect:/";
+			return "redirect:/matakuliah-result";
 		} else {
 			return "matkul-not-found";
 		}
@@ -254,7 +254,7 @@ public class MataKuliahController extends WebMvcConfigurerAdapter {
 
 		return "matakuliah-submit-success";
 	}
-
+  
 	// akses halaman lihat mata kuliah
 	@RequestMapping("/matakuliah/view/{id}")
 	public String viewPathMataKuliah(Principal principal, Model model, @PathVariable(value = "id") String id) {
